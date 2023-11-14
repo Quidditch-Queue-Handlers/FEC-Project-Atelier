@@ -9,7 +9,7 @@
     ]
   ],
   "plugins": [
-    "babel-plugin-styled-components"
-    // "react-refresh/babel"
+    "babel-plugin-styled-components",
+    "react-refresh/babel"
   ]
 }
