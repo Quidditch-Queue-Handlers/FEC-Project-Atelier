@@ -6,7 +6,7 @@
     "server-dev": "npx nodemon --watch server server/index.js",
     "client-dev": "npx webpack serve --hot --open",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint" : "./node_modules/.bin/eslint"
+    "lint": "./node_modules/.bin/eslint"
   },
   "author": "",
   "license": "ISC",
