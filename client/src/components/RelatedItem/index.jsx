@@ -1,10 +1,10 @@
 import React from 'react';
 
-const RelatedItem = () => {
+const RelatedItems = () => {
 
   return (
     <h2>Hello from RelatedItem details</h2>
   );
 };
 
-export default RelatedItem;
+export default RelatedItems;
