@@ -1,0 +1,53 @@
+/* global */
+:root {
+  /* color */
+  --primary-color: blue;
+
+  /* font-choice */
+  --primary-font: 'Times New Roman', Times, serif;
+
+  /* Base sizing */
+  --base-font-size: 14px;
+}
+/* Base Element Styles */
+body {
+
+}
+.pd- {
+  /* Product Details */
+}
+
+.ri-container {
+
+}
+.ri-card {
+
+}
+.ri-card:hover {
+
+}
+.ri-image {
+
+}
+.ri-category {
+
+}
+.ri-name {
+
+}
+.ri-price {
+
+}
+.ri-rating {
+
+}
+.ri-arrow {
+
+}
+.qa- {
+  /* Questions/Answers section */
+}
+
+.rr- {
+  /* Ratings & Reviews */
+}
