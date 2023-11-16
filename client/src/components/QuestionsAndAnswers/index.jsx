@@ -6,3 +6,5 @@ const QuestionsAndAnswers = () => {
     <h2>Questions and Answers</h2>
   );
 };
+
+export default QuestionsAndAnswers;
