@@ -90,3 +90,5 @@ No styling h1, h2, h3, h4, those will be done in global CSS file
 
 use an h1 for product description title
 use an h2 for all other section titles
+
+only use REM units, NO PIXEL UNITS
