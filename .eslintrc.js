@@ -3,7 +3,7 @@ module.exports = {
   'react/function-component-definition': 'arrow-function',
   settings: {
     react: {
-      version: '17',
+      version: '18',
     },
   },
   env: {

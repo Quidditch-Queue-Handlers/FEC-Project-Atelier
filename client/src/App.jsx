@@ -3,6 +3,7 @@ import ProductDetails from './components/ProductDetails';
 import RelatedItems from './components/RelatedItems';
 import QuestionsAndAnswers from './components/QuestionsAndAnswers';
 import RatingsAndReviews from './components/RatingsAndReviews';
+import './global.css';
 
 const App = () => {
   return (
