@@ -23,6 +23,9 @@ npm install
 
 ## Usage
 
+Look at .env.example and create a .env file with required variables.
+The API Endpoint should not have a trailing slash.
+
 Look in the package.json scripts to find the following commands:
 
 server-dev
