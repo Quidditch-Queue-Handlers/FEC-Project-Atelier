@@ -13,8 +13,22 @@
 body {
 
 }
-.pd- {
-  /* Product Details */
+
+.pd-flex {
+  display: flex;
+  flex-direction: row;
+}
+.pd-flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.pd-gallery-container {
+  width: 70%;
+  height: 32rem;
+  padding: 1rem;
+}
+.pd-aside-container {
+  padding: 1rem;
 }
 
 .ri-container {
