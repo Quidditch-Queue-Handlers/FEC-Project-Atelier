@@ -25,6 +25,7 @@ npm install
 
 Look at .env.example and create a .env file with required variables.
 The API_HOST_URI should not have a trailing slash.
+PORT is optional, server defaults to port 3000. 
 
 Look in the package.json scripts to find the following commands:
 
