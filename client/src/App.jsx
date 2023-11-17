@@ -7,11 +7,12 @@ import './global.css';
 
 const App = () => {
   return (
-    <div>hello from app</div>;
+    <div>hello from app
     <ProductDetails />
     <RelatedItems />
     <QuestionsAndAnswers />
     <RatingsAndReviews />
+    </div>
   )
 }
 
