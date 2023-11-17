@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Thumbnails = () => {
-  return <div>thumbnails</div>
+  return <div>Thumbnails</div>
 }
 
 export default Thumbnails;
