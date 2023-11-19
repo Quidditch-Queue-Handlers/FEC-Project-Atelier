@@ -22,13 +22,33 @@ body {
   display: flex;
   flex-direction: column;
 }
-.pd-gallery-container {
-  width: 70%;
-  height: 32rem;
+.pd-items-center {
+  align-items: center;
+}
+.pd-wide-container {
+  flex: 0 0 60%;
   padding: 1rem;
+  box-sizing: border-box;
 }
 .pd-aside-container {
   padding: 1rem;
+}
+.pd-info-container {
+  margin: 2rem;
+}
+.pd-features-list {
+  padding: 0;
+  margin: 0 0 0 1rem;
+  list-style: none;
+}
+.pd-features-list li:before {
+    content: '✓';
+    margin-right: 0.5rem;
+}
+.pd-border-l {
+  border-left: solid;
+  border-width: thin;
+
 }
 
 .ri-container {
