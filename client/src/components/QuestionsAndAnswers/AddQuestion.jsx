@@ -4,7 +4,10 @@ import AddModal from './AddModal';
 const AddQuestion = () => {
 
   return (
-    <h2>AddQuestion</h2>
+    <div>
+      <div>AddQuestion</div>
+    <AddModal />
+    </div>
   );
 };
 

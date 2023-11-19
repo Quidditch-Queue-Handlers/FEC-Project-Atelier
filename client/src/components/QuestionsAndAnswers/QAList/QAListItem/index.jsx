@@ -6,7 +6,15 @@ import Helpful from './Helpful';
 const QAListItem = () => {
 
   return (
-    <h2>QAListItem</h2>
+    <div>
+      <div>QAListItem</div>
+      <div>
+        Q:
+        <Helpful />
+        <AddAnswer />
+      </div>
+      <AnswerList />
+    </div>
   );
 };
 

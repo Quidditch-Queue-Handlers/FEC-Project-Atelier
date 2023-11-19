@@ -4,7 +4,11 @@ import Helpful from '../Helpful';
 const AnswerListItem = () => {
 
   return (
-    <h2>AnswerListItem</h2>
+    <div>
+      <div>AnswerListItem</div>
+      <Helpful />
+      <button>report</button>
+    </div>
   );
 };
 

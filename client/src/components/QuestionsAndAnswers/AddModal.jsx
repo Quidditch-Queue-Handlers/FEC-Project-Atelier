@@ -3,7 +3,10 @@ import React from 'react';
 const AddModal = () => {
 
   return (
-    <h2>AddModal</h2>
+    <div>
+      <div>AddModal</div>
+      <button>Add a ___ +</button>
+    </div>
   );
 };
 

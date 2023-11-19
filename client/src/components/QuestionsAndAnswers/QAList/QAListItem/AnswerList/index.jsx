@@ -4,7 +4,12 @@ import AnswerListItem from './AnswerListItem';
 const AnswerList = () => {
 
   return (
-    <h2>AnswerList</h2>
+    <div>
+      <div>AnswerList</div>
+      A:
+      <AnswerListItem />
+      <button>Load More Answers</button>
+    </div>
   );
 };
 
