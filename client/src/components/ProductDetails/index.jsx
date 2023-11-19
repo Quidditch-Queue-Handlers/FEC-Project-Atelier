@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ProductGallery from './ProductGallery';
 import ProductStyleSelector from './ProductStyleSelector';
 import ProductCartActions from './ProductCartActions';
 import ProductInfo from './ProductInfo';
 
-const ProductDetails = () => {
+const ProductDetails = ({ productId }) => {
 
   const [productInfo, setProductInfo] = useState();
+  const [productStyles, setProductStyles] = useState();
+
+  useEffect(() => {
+    if (productId) {
+      axios.get(`/products/${productId}`)
+        .then((res) => setProductInfo(res.data))
+        .catch((err) => console.error('product info err?', err));
+      axios.get(`/products/${productId}/styles`)
+        .then((res) => setProductStyles(res.data))
+        .catch((err) => console.error('product styles err?', err));
+    }
+  }, [productId]);
 
   return (
     <div>

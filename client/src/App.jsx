@@ -8,7 +8,9 @@ import './global.css';
 const App = () => {
   return (
     <div>hello from app
-    <ProductDetails />
+    <ProductDetails
+      productId={40344} //TODO: create state to control productId
+    />
     <RelatedItems />
     <QuestionsAndAnswers />
     <RatingsAndReviews />
