@@ -1,17 +1,57 @@
 /* global */
 :root {
-  /* color */
-  --primary-color: blue;
-
-  /* font-choice */
-  --primary-font: 'Times New Roman', Times, serif;
+  /* colors */
+  --font-color: #525252;
+  --border-color: #525252;
 
   /* Base sizing */
-  --base-font-size: 14px;
+  font-size: 13px;
+  font-family: 'Arial', sans-serif;
+  color: var(--font-color);
 }
 /* Base Element Styles */
 body {
+  max-width: 100rem;
+  margin: 0 auto;
+}
 
+h1 {
+  font-size: 2.6rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.2rem;
+  font-weight: 100;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 90%;
+  letter-spacing: 0.02rem;
+}
+
+h3 {
+  font-size: 1.3rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+p {
+  font-weight: 100;
+  opacity: 80%;
+}
+
+button {
+  border: solid;
+  border-color: var(--border-color);
+  border-width: thin;
+  color: var(--font-color);
+  background-color: transparent;
+  text-transform: uppercase;
+  font-weight: bolder;
+  cursor: pointer;
+  padding: 1.2rem;
 }
 
 .pd-flex {
@@ -34,7 +74,7 @@ body {
   padding: 1rem;
 }
 .pd-info-container {
-  margin: 2rem;
+  margin: 0rem;
 }
 .pd-features-list {
   padding: 0;
@@ -42,13 +82,13 @@ body {
   list-style: none;
 }
 .pd-features-list li:before {
-    content: '✓';
-    margin-right: 0.5rem;
+  content: '✓';
+  margin-right: 0.5rem;
 }
 .pd-border-l {
   border-left: solid;
   border-width: thin;
-
+  border-color: var(--border-color);
 }
 
 .ri-container {
