@@ -9,7 +9,7 @@ const ProductDetails = ({ productId }) => {
 
   const [productInfo, setProductInfo] = useState();
   const [productStyles, setProductStyles] = useState();
-
+  const [selectedStyle, setSelectedStyle] = useState();
   useEffect(() => {
     if (productId) {
       axios.get(`/products/${productId}`)
@@ -20,6 +20,12 @@ const ProductDetails = ({ productId }) => {
         .catch((err) => console.error('product styles err?', err));
     }
   }, [productId]);
+
+  useEffect(() => {
+    if (!selectedStyle && productStyles) {
+      setSelectedStyle(productStyles?.results?.find(style => style?.['default?'] === true));
+    }
+  }, [productStyles])
 
   return (
     <div>
@@ -33,8 +39,8 @@ const ProductDetails = ({ productId }) => {
           </div>
           <h2>{productInfo?.category}</h2>
           <h1>{productInfo?.name}</h1>
-          <div>price</div>
-          <ProductStyleSelector />
+          <h2>${selectedStyle?.original_price}</h2>
+          <ProductStyleSelector selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} productStyles={productStyles} />
           <ProductCartActions />
         </div>
       </div>
