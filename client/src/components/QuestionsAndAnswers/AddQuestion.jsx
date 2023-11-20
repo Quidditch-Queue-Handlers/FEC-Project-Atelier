@@ -1,12 +1,13 @@
 import React from 'react';
 import AddModal from './AddModal';
 
-const AddQuestion = () => {
+const AddQuestion = ({addQuestionClickHandler}) => {
+  const isQuestion = true; //not a state because this never needs to change
 
   return (
     <div>
       <div>AddQuestion</div>
-    <AddModal />
+    <AddModal submitClickHandler={addQuestionClickHandler} isQuestion={isQuestion}/>
     </div>
   );
 };
