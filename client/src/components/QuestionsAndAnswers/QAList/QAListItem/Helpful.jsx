@@ -1,10 +1,18 @@
 import React from 'react';
 
-const Helpful = () => {
+const Helpful = ({helpfulCount, helpfulClickHandler}) => {
+  const [alreadyClicked, setAlreadyClicked] = React.useState(false);
 
   return (
     <div>
-      <button>Helpful?</button>
+      <button onClick={() => {
+        if(!alreadyClicked) {
+          helpfulClickHandler();
+          setAlreadyClicked(true);
+        } else {
+          console.log('Already Clicked!!');
+        }
+      }}>{`Helpful? Yes(${helpfulCount})`}</button>
     </div>
   );
 };
