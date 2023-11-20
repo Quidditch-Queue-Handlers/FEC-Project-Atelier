@@ -2,9 +2,7 @@ import React from 'react';
 
 const Sorting = () => {
   return (
-    <div>
-      Hello from Sorting
-    </div>
+    <button>Sort Dropdown (*fix*) { /* need to fix this button */ } </button>
   );
 }
 
