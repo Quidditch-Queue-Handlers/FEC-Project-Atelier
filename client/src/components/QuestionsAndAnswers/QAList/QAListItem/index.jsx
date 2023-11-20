@@ -12,7 +12,7 @@ const QAListItem = ({question}) => {
   React.useEffect(() => {
     console.log('First A Render')
     //set the answerList and displayedAnswerList on page load after an API call
-  });
+  }, []);
 
   const loadMoreAnswersClickHandler = () => {
     console.log('clicked Load More Answers Button');
