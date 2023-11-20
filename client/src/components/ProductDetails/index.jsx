@@ -9,7 +9,7 @@ const ProductDetails = ({ productId }) => {
 
   const [productInfo, setProductInfo] = useState();
   const [productStyles, setProductStyles] = useState();
-
+  const [selectedStyleId, setSelectedStyleId] = useState();
   useEffect(() => {
     if (productId) {
       axios.get(`/products/${productId}`)
@@ -21,11 +21,13 @@ const ProductDetails = ({ productId }) => {
     }
   }, [productId]);
 
+  const selectedStyle = productStyles?.results?.filter(style => selectedStyleId ? style?.style_id === selectedStyleId : style?.['default?'] === true)
+
   return (
     <div>
-      <div className='pd-flex'>
+      <div className='pd-flex pd-main-container'>
         <div className='pd-wide-container'>
-          <ProductGallery />
+          <ProductGallery styleInfo={selectedStyle} />
         </div>
         <div className='pd-flex-col pd-aside-container'>
           <div>
