@@ -13,7 +13,7 @@ const ProductStyleSelector = ({ selectedStyle, setSelectedStyle, productStyles }
         {selectedStyle?.name}
       </h2>
       <fieldset
-
+        className="pd-sku-grid"
       >
         {productStyles?.results?.map(style => (
           <div
@@ -33,9 +33,12 @@ const ProductStyleSelector = ({ selectedStyle, setSelectedStyle, productStyles }
                 handleStyleChange(+event.target.value);
               }}
             />
-            <span>
-              <img src={style?.photos?.[0]?.thumbnail_url} />
-            </span>
+            <div className="pd-grid-img-container">
+              <span>
+                <img src={style?.photos?.[0]?.thumbnail_url} />
+              </span>
+            </div>
+
           </div>
         ))}
       </fieldset>
