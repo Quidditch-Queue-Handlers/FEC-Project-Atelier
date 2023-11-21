@@ -27,8 +27,9 @@ const ProductStyleSelector = ({
             }}
             className="pd-grid-img-container"
           >
-            <label>{style?.name}</label>
+            <label htmlFor={`radio_${style?.style_id}`} className="pd-visual-hidden">{style?.name}</label>
             <input
+              id={`radio_${style?.style_id}`}
               type="radio"
               name="style"
               value={style?.style_id}
@@ -38,7 +39,10 @@ const ProductStyleSelector = ({
               }}
             />
             <span>
-              <img src={style?.photos?.[0]?.thumbnail_url} />
+              <img 
+                src={style?.photos?.[0]?.thumbnail_url} 
+                alt={`style ${style?.name} select preview`}
+              />
             </span>
           </div>
         ))}
