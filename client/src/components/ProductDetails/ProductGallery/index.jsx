@@ -5,15 +5,15 @@ import Carousel from './Carousel';
 const ProductGallery = ({ styleInfo }) => {
   const [expanded, setExpanded] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
-
+  console.log('s?', styleInfo)
   return (
     <div
       className="pd-gallery-container"
       style={{ position: `${expanded ? 'absolute' : 'relative'}` }}
       onClick={() => setExpanded(e => !e)}
     >
-      <Thumbnails photoIndex={photoIndex} photos={styleInfo?.[0]?.photos} />
-      <Carousel photoIndex={photoIndex} photos={styleInfo?.[0]?.photos} setPhotoIndex={setPhotoIndex} />
+      <Thumbnails photoIndex={photoIndex} photos={styleInfo?.photos} />
+      <Carousel photoIndex={photoIndex} photos={styleInfo?.photos} setPhotoIndex={setPhotoIndex} />
     </div>
   )
 }
