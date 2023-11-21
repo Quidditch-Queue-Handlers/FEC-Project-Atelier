@@ -10,6 +10,8 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
   const [offset, setOffset] = useState(0);
 
   const handleThumbSelectChange = (i) => {
+    const selectedRadio = document.getElementById(`${styleName}_preview_${i}`);
+    selectedRadio?.focus();
     setPhotoIndex(i);
   }
 
@@ -30,11 +32,11 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
 
   }, [photos, photoIndex, offset])
 
-  const height = (LIMIT_DISPLAY * THUMB_SIZE) + ((LIMIT_DISPLAY - 1) * MARGIN_SIZE);
+  const height = (LIMIT_DISPLAY * THUMB_SIZE) + (LIMIT_DISPLAY * MARGIN_SIZE);
 
   return (
     <div
-      style={{ height: `${height}rem`, overflow: 'hidden', margin: '2rem' }}
+      style={{ height: `${height}rem`, overflow: 'hidden', margin: `${MARGIN_SIZE}rem` }}
     >
       <div
         className="pd-carousel-thumbnails"
@@ -45,7 +47,7 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
             key={photo.thumbnail_url}
             onClick={(e) => {
               e.stopPropagation();
-              handleThumbSelectChange(i)
+              handleThumbSelectChange(i);
             }}
           >
             <ImageThumbnail
@@ -60,7 +62,7 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
                 {`${styleName} preview ${i + 1} / ${photos?.length}`}
               </label>
               <input
-                style={{ appearance: 'none' }}
+                style={{ appearance: 'none', position: 'absolute', left: 0, right: 0, bottom: 0, height: '1rem', transform: 'translateY(0.5rem)', backgroundColor: 'blue' }}
                 id={`${styleName}_preview_${i}`}
                 type="radio"
                 value={i}

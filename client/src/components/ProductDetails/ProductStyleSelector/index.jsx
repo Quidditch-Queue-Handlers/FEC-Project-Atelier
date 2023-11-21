@@ -8,9 +8,10 @@ const ProductStyleSelector = ({
 }) => {
 
   const handleStyleChange = (id) => {
-    setSelectedStyle(
-      productStyles?.results?.find((style) => style.style_id === +id)
-    );
+    const newSelectedStyle = productStyles?.results?.find((style) => style.style_id === +id);
+    const selectedRadio = document.getElementById(`radio_${newSelectedStyle?.style_id}`);
+    selectedRadio?.focus();
+    setSelectedStyle(newSelectedStyle);
   };
 
   return (
