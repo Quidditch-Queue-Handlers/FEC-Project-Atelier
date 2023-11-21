@@ -3,7 +3,7 @@ import ReviewsList from "./ReviewsList"
 
 const Sorting = () => {
 
-  const [sort, setSort] = useState("relevant");
+  const [sort, setSort] = useState("relevance");
 
   useEffect(() => {
     // do stuff
@@ -12,7 +12,7 @@ const Sorting = () => {
   return (
     <>
     <select value={sort} onChange={(event) => setSort(event.target.value)}>
-      <option value="relevant">relevant</option>
+      <option value="relevance">relevance</option>
       <option value="helpful">helpful</option>
       <option value="newest">newest</option>
     </select>
