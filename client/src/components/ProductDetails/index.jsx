@@ -9,19 +9,22 @@ const ProductDetails = ({ productId }) => {
 
   const [productInfo, setProductInfo] = useState();
   const [productStyles, setProductStyles] = useState();
-  const [selectedStyleId, setSelectedStyleId] = useState();
+  const [selectedStyle, setSelectedStyle] = useState();
+
   useEffect(() => {
     if (productId) {
       axios.get(`/products/${productId}`)
         .then((res) => setProductInfo(res.data))
         .catch((err) => console.error('product info err?', err));
       axios.get(`/products/${productId}/styles`)
-        .then((res) => setProductStyles(res.data))
+        .then((res) =>  {
+          setProductStyles(res.data)
+          setSelectedStyle(res.data?.results?.find(style => style?.['default?'] === true));
+        }
+        )
         .catch((err) => console.error('product styles err?', err));
     }
   }, [productId]);
-
-  const selectedStyle = productStyles?.results?.filter(style => selectedStyleId ? style?.style_id === selectedStyleId : style?.['default?'] === true)
 
   return (
     <div>
@@ -35,8 +38,8 @@ const ProductDetails = ({ productId }) => {
           </div>
           <h2>{productInfo?.category}</h2>
           <h1>{productInfo?.name}</h1>
-          <div>price</div>
-          <ProductStyleSelector />
+          <h2>${selectedStyle?.original_price}</h2>
+          <ProductStyleSelector selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} productStyles={productStyles} />
           <ProductCartActions />
         </div>
       </div>
