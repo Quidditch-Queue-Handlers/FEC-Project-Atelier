@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Carousel = ({ photoIndex, photos, setPhotoIndex }) => {
+const Carousel = ({ photoIndex, photos, setPhotoIndex, styleName }) => {
   return (
     <div className='pd-carousel-main'>
       {photoIndex > 0 &&
@@ -16,7 +16,9 @@ const Carousel = ({ photoIndex, photos, setPhotoIndex }) => {
       }
       <span>
         <img
-          src={photos?.[photoIndex]?.url} />
+          src={photos?.[photoIndex]?.url}
+          alt={`${styleName} photo ${photoIndex + 1} / ${photos?.length}`}  
+        />
       </span>
       {photoIndex < photos?.length - 1 &&
         <button

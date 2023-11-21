@@ -55,6 +55,16 @@ button {
   padding: 1.2rem;
 }
 
+.pd-visual-hidden {
+    border: 0; 
+    clip: rect(0 0 0 0); 
+    height: 1px;  
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
 .pd-flex {
   display: flex;
   flex-direction: row;
@@ -199,10 +209,6 @@ button {
   gap: 1rem;
   padding: 1rem 0rem;
   max-width: 26rem;
-}
-
-.pd-sku-grid label {
-  display: none;
 }
 
 .pd-sku-grid  div {
