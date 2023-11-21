@@ -13,7 +13,8 @@ const App = () => {
     />
     <RelatedItems />
     <QuestionsAndAnswers />
-    <RatingsAndReviews />
+    <RatingsAndReviews
+      productId={40344}/>
     </div>
   )
 }

@@ -3,6 +3,6 @@ const router = require('express').Router();
 
 router.get('/products*', controller.products.get);
 //TODO: Add /qa* controller
-//TODO: Add /reviews* controller
+router.get('/reviews*', controller.reviews.get);
 
 module.exports = router;
