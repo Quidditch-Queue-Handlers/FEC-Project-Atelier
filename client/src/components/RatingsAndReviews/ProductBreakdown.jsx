@@ -2,7 +2,7 @@ import React from 'react';
 
 const ProductBreakdown = () => {
   return (
-    <div>
+    <div className="rr-product-breakdown">
       Hello from Product Breakdown
     </div>
   );
