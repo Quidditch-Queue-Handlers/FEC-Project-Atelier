@@ -12,8 +12,8 @@ const ProductGallery = ({ styleInfo }) => {
       style={{ position: `${expanded ? 'absolute' : 'relative'}` }}
       onClick={() => setExpanded(e => !e)}
     >
-      <Thumbnails photoIndex={photoIndex} photos={styleInfo?.[0]?.photos} />
-      <Carousel photoIndex={photoIndex} photos={styleInfo?.[0]?.photos} setPhotoIndex={setPhotoIndex} />
+      <Thumbnails photoIndex={photoIndex} photos={styleInfo?.photos} />
+      <Carousel photoIndex={photoIndex} photos={styleInfo?.photos} setPhotoIndex={setPhotoIndex} />
     </div>
   )
 }

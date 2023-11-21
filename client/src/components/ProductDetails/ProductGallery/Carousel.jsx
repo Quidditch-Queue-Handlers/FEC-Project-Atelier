@@ -14,7 +14,7 @@ const Carousel = ({ photoIndex, photos, setPhotoIndex }) => {
             &#x279C;
         </button>
       }
-      <span >
+      <span>
         <img
           src={photos?.[photoIndex]?.url} />
       </span>
