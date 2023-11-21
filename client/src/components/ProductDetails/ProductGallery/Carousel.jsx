@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Carousel = ({ photoIndex, photos, setPhotoIndex }) => {
-  console.log('s?', photoIndex, photos)
   return (
     <div className='pd-carousel-main'>
       {photoIndex > 0 &&

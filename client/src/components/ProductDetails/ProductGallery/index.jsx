@@ -5,7 +5,7 @@ import Carousel from './Carousel';
 const ProductGallery = ({ styleInfo }) => {
   const [expanded, setExpanded] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
-  console.log('s?', styleInfo)
+
   return (
     <div
       className="pd-gallery-container"
