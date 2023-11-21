@@ -1,10 +1,12 @@
-import React from "react";
+import React from 'react';
+import ImageThumbnail from '../shared/ImageThumbnail';
 
 const ProductStyleSelector = ({
   selectedStyle,
   setSelectedStyle,
   productStyles,
 }) => {
+
   const handleStyleChange = (id) => {
     setSelectedStyle(
       productStyles?.results?.find((style) => style.style_id === +id)
@@ -25,25 +27,28 @@ const ProductStyleSelector = ({
               e.stopPropagation();
               handleStyleChange(style?.style_id);
             }}
-            className="pd-grid-img-container"
           >
-            <label htmlFor={`radio_${style?.style_id}`} className="pd-visual-hidden">{style?.name}</label>
-            <input
-              id={`radio_${style?.style_id}`}
-              type="radio"
-              name="style"
-              value={style?.style_id}
-              checked={selectedStyle?.style_id === style?.style_id}
-              onChange={(event) => {
-                handleStyleChange(+event.target.value);
-              }}
-            />
-            <span>
-              <img 
-                src={style?.photos?.[0]?.thumbnail_url} 
-                alt={`style ${style?.name} select preview`}
+            <ImageThumbnail
+              src={style?.photos?.[0]?.thumbnail_url}
+              alt={`style ${style?.name} select preview`}
+            >
+              <label 
+                htmlFor={`radio_${style?.style_id}`} 
+                className="pd-visual-hidden"
+              >
+                {style?.name}
+              </label>
+              <input
+                id={`radio_${style?.style_id}`}
+                type="radio"
+                name="style"
+                value={style?.style_id}
+                checked={selectedStyle?.style_id === style?.style_id}
+                onChange={(event) => {
+                  handleStyleChange(+event.target.value);
+                }}
               />
-            </span>
+            </ImageThumbnail>
           </div>
         ))}
       </fieldset>
