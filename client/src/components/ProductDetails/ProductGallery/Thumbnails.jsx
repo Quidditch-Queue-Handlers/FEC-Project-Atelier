@@ -39,7 +39,7 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
       style={{ height: `${height}rem`, overflow: 'hidden', margin: `${MARGIN_SIZE}rem` }}
     >
       <div
-        className="pd-carousel-thumbnails"
+        className='pd-carousel-thumbnails'
         style={{ transform: `translateY(${-offset * (THUMB_SIZE + MARGIN_SIZE)}rem`, gap: `${MARGIN_SIZE}rem` }}
       >
         {photos?.map((photo, i) =>
@@ -56,13 +56,12 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
               size={THUMB_SIZE}
             >
               <label
-                style={{ display: 'none' }}
+                className='pd-visual-hidden'
                 htmlFor={`${styleName}_preview_${i}`}
               >
                 {`${styleName} preview ${i + 1} / ${photos?.length}`}
               </label>
               <input
-                style={{ appearance: 'none', position: 'absolute', left: 0, right: 0, bottom: 0, height: '1rem', transform: 'translateY(0.5rem)', backgroundColor: 'blue' }}
                 id={`${styleName}_preview_${i}`}
                 type="radio"
                 value={i}

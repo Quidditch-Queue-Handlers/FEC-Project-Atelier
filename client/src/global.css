@@ -222,6 +222,26 @@ button {
   -webkit-user-drag: none;
 }
 
+.pd-carousel-thumbnails .pd-thumbnails input {
+  appearance: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0.25rem;
+  margin: 0;
+  transform: translateY(200%);
+  background-color: transparent;
+  border-radius: 0.5rem;
+}
+
+.pd-carousel-thumbnails .pd-thumbnails input:checked {
+  background-color: var(--border-color);
+}
+.pd-carousel-thumbnails .pd-thumbnails input:focus {
+  outline: none;
+}
+
 .pd-sku-grid {
   border: none;
   display: grid;
