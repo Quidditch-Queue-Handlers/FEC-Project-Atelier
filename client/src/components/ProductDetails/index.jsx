@@ -10,22 +10,21 @@ const ProductDetails = ({ productId }) => {
   const [productInfo, setProductInfo] = useState();
   const [productStyles, setProductStyles] = useState();
   const [selectedStyle, setSelectedStyle] = useState();
+
   useEffect(() => {
     if (productId) {
       axios.get(`/products/${productId}`)
         .then((res) => setProductInfo(res.data))
         .catch((err) => console.error('product info err?', err));
       axios.get(`/products/${productId}/styles`)
-        .then((res) => setProductStyles(res.data))
+        .then((res) =>  {
+          setProductStyles(res.data)
+          setSelectedStyle(res.data?.results?.find(style => style?.['default?'] === true));
+        }
+        )
         .catch((err) => console.error('product styles err?', err));
     }
   }, [productId]);
-
-  useEffect(() => {
-    if (!selectedStyle && productStyles) {
-      setSelectedStyle(productStyles?.results?.find(style => style?.['default?'] === true));
-    }
-  }, [productStyles])
 
   return (
     <div>
