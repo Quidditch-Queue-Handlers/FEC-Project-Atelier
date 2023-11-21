@@ -28,9 +28,9 @@ const ProductDetails = ({ productId }) => {
 
   return (
     <div>
-      <div className='pd-flex'>
+      <div className='pd-flex pd-main-container'>
         <div className='pd-wide-container'>
-          <ProductGallery />
+          <ProductGallery styleInfo={selectedStyle} />
         </div>
         <div className='pd-flex-col pd-aside-container'>
           <div>
