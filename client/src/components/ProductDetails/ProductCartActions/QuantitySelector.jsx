@@ -33,7 +33,7 @@ const QuantitySelector = ({
       id="quantity-select"
       label={`select quantity for ${selectedStyle?.name} sku ${selectedSku}`}
       value={selectedQuantity}
-      disabled={!selectedSku}
+      disabled={!selectedSku || !(quantityArray.length > 0)}
       onChange={(q) => setSelectedQuantity(q)}
     >
       <option value="">{"-"}</option>
