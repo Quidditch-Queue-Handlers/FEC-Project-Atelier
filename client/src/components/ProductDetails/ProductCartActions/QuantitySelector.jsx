@@ -32,6 +32,7 @@ const QuantitySelector = ({
       name="quantity"
       id="quantity-select"
       value={selectedQuantity}
+      disabled={!selectedSku}
       onChange={(q) => setSelectedQuantity(q)}
     >
       <option value="">{"-"}</option>
