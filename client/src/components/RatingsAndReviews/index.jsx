@@ -13,10 +13,16 @@ const RatingsAndReviews = ({productId}) => {
 
   return (
     <div>
-      <h2>Ratings & Reviews</h2>
-      <ProductBreakdown />
-      <RatingBreakdown />
-      <ReviewsList />
+      <h2 className="rr-title">Ratings & Reviews</h2>
+    <div className="rr-container">
+      <div className="rr-breakdowns-container">
+        <ProductBreakdown />
+        <RatingBreakdown />
+      </div>
+      <div className="rr-reviewsList-container">
+        <ReviewsList />
+      </div>
+    </div>
     </div>
   );
 }

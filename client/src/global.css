@@ -300,6 +300,81 @@ TODO: override default styles
   /* Questions/Answers section */
 }
 
-.rr- {
-  /* Ratings & Reviews */
+.rr-title {
+  padding: 20px 0 0 0;
+
+}
+
+.rr-container {
+  display: flex;
+  flex-direction: row;
+  height: 50vh;
+}
+
+.rr-breakdowns-container {
+  width: 25%;
+  box-sizing: border-box;
+}
+.rr-product-breakdown {
+  padding:  10px;
+  box-sizing: border-box;
+}
+.rr-rating-breakdown {
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.rr-reviewsList-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.rr-sort  {
+  position: sticky;
+  background-color: white;
+  top: 0;
+  z-index: 1;
+}
+
+.rr-sort h3 {
+  background-color: white;
+  padding: 10px;
+  margin: 0;
+  overflow-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rr-review-container {
+  padding: 20px;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.rr-response {
+  background-color: rgb(229, 229, 229);
+}
+
+.rr-buttons-container {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.rr-more-reviews {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+}
+
+.rr-write-review {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
 }

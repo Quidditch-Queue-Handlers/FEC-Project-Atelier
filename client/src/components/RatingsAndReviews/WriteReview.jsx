@@ -2,8 +2,7 @@ import React from 'react';
 
 const WriteReview = () => {
   return (
-    <div>
-      <button>More Reviews</button>
+    <div className="rr-write-review">
       <button>Add A Review +</button>
     </div>
   );
