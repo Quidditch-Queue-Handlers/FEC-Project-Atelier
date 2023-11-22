@@ -7,7 +7,7 @@ const SizeSelector = ({ selectedStyle, selectedSku, setSelectedSku }) => {
       name="sizes"
       id="size-select"
       value={selectedSku}
-      onChange={(i) => setSelectedSku(i)}
+      onChange={(sku) => setSelectedSku(sku)}
     >
       <option value="">Select Size</option>
       {Object.entries(selectedStyle?.skus ?? {})?.map(([id, sku]) => (
