@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import QuantitySelector from './QuantitySelector';
 import SizeSelector from './SizeSelector';
 
-const ProductCartActions = () => {
+const ProductCartActions = ( { selectedStyle } ) => {
+
+  const [selectedSku, setSelectedSku] = useState(); 
+
   return (
     <div>
+      <SizeSelector selectedStyle={selectedStyle} selectedSku={selectedSku} setSelectedSku={setSelectedSku} />
       <QuantitySelector />
-      <SizeSelector/>
       <button>add to bag</button>
       <button>favorite</button>
     </div>

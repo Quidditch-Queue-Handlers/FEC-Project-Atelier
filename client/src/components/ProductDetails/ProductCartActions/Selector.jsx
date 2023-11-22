@@ -1,10 +1,23 @@
 import React from 'react';
 
-const Selector = (props) => {
+const Selector = ( { name, id, label, onChange, value, children } ) => {
   return (
-    <div>
-      {props.children}
-    </div>
+    <>
+      <label htmlFor={id}>{label}</label>
+      <select
+        name={name}
+        id={id}
+        value={value}
+        onChange={(e) => {
+          if(onChange){
+            onChange(e.target.value)
+          }
+        }}
+      >
+        {children}
+      </select>
+    </>
+    
   );
 }
 

@@ -40,7 +40,7 @@ const ProductDetails = ({ productId }) => {
           <h1>{productInfo?.name}</h1>
           <h2>${selectedStyle?.original_price}</h2>
           <ProductStyleSelector selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} productStyles={productStyles} />
-          <ProductCartActions />
+          <ProductCartActions selectedStyle={selectedStyle} />
         </div>
       </div>
       <ProductInfo info={productInfo} />
