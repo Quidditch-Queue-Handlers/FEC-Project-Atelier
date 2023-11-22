@@ -313,6 +313,17 @@ TODO: override default styles
   -webkit-user-drag: none;
 }
 
+.pd-select {
+  border: solid thin var(--border-color); 
+  color: var(--font-color);
+  background-color: transparent;
+  text-transform: uppercase;
+  font-weight: bolder;
+  cursor: pointer;
+  padding: 1.2rem;
+  flex-grow: 1
+}
+
 .ri-container {
 
 }

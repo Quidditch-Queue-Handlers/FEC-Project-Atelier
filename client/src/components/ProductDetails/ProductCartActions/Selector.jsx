@@ -14,6 +14,7 @@ const Selector = ( { name, id, label, onChange, value, disabled, children } ) =>
             onChange(e.target.value)
           }
         }}
+        className='pd-select'
       >
         {children}
       </select>
