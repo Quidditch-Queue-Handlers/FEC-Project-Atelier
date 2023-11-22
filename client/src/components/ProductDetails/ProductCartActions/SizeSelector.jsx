@@ -12,6 +12,7 @@ const SizeSelector = ({ selectedStyle, selectedSku, setSelectedSku }) => {
       <Selector
         name="sizes"
         id="size-select"
+        label={`select size for ${selectedStyle?.name}`}
         value={selectedSku}
         disabled={disabled}
         onChange={(sku) => setSelectedSku(sku)}

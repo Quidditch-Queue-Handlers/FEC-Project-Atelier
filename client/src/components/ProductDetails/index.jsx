@@ -32,13 +32,16 @@ const ProductDetails = ({ productId }) => {
         <div className='pd-wide-container'>
           <ProductGallery styleInfo={selectedStyle} />
         </div>
-        <div className='pd-flex-col pd-aside-container'>
+        <div className='pd-flex-col pd-aside-container' style={{ justifyContent: 'space-around' }}>
           <div>
-            reviews
+            <div>
+              reviews
+            </div>
+            <h2>{productInfo?.category}</h2>
+            <h1>{productInfo?.name}</h1>
+            <h2>${selectedStyle?.original_price}</h2>
           </div>
-          <h2>{productInfo?.category}</h2>
-          <h1>{productInfo?.name}</h1>
-          <h2>${selectedStyle?.original_price}</h2>
+         
           <ProductStyleSelector selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} productStyles={productStyles} />
           <ProductCartActions selectedStyle={selectedStyle} />
         </div>

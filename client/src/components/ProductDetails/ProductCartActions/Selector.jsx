@@ -3,14 +3,19 @@ import React from 'react';
 const Selector = ( { name, id, label, onChange, value, disabled, children } ) => {
   return (
     <>
-      <label htmlFor={id}>{label}</label>
+      <label 
+        htmlFor={id}
+        className='pd-visual-hidden'
+      >
+        {label}
+      </label>
       <select
         name={name}
         id={id}
         value={value}
         disabled={disabled}
         onChange={(e) => {
-          if(onChange){
+          if (onChange) {
             onChange(e.target.value)
           }
         }}

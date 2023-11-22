@@ -31,6 +31,7 @@ const QuantitySelector = ({
     <Selector
       name="quantity"
       id="quantity-select"
+      label={`select quantity for ${selectedStyle?.name} sku ${selectedSku}`}
       value={selectedQuantity}
       disabled={!selectedSku}
       onChange={(q) => setSelectedQuantity(q)}
