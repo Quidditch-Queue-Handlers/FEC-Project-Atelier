@@ -16,8 +16,17 @@ const QuestionsAndAnswers = ({product_id}) => {
 const loadMoreQuestionsClickHandler = () => {
   console.log('clicked Load more Questions!');
 };
-const searchButtonClickHandler = () => {
-  console.log('clicked Search!');
+const searchTextChangeHandler = (query) => {
+  console.log(`Searching with query: ${query}!`);
+  //need to set the
+  var copyList = JSON.parse(JSON.stringify(questionsList));
+  var newDisplayList = [];
+  for (var i = 0; i < copyList.length; i++) {
+    copyList[i]?.question_body?.includes(query) ? newDisplayList.push(copyList[i]) : copyList;
+  }
+  setDisplayedQuestionsList(newDisplayList);
+  console.log(copyList);
+  console.log(displayedQuestionsList);
 };
 const addQuestionClickHandler = () => {
   console.log('clicked Add a Question');
@@ -27,7 +36,7 @@ const addQuestionClickHandler = () => {
     <div>
       <h2>Questions and Answers</h2>
       <div>
-        {displayedQuestionsList.length !== 0 ? <Search searchButtonClickHandler={searchButtonClickHandler} /> : ""}
+        {questionsList.length !== 0 ? <Search searchTextChangeHandler={searchTextChangeHandler} /> : ""}
         {displayedQuestionsList.length !== 0 ? <QAList questionsList={questionsList} displayedQuestionsList={displayedQuestionsList} loadMoreQuestionsClickHandler={loadMoreQuestionsClickHandler} /> : ""}
         <AddQuestion addQuestionClickHandler={addQuestionClickHandler} />
       </div>
