@@ -112,7 +112,7 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
           </span>
         </button>
       )}
-      {photoIndex !== photos.length - 1 && (
+      {photoIndex !== photos?.length - 1 && (
         <button
           style={{
             transform: `translateX(-50%) translateY(calc(${

@@ -55,6 +55,11 @@ button {
   padding: 1.2rem;
 }
 
+button:disabled {
+  opacity: 70%;
+  cursor: not-allowed;
+}
+
 .pd-visual-hidden {
     border: 0; 
     clip: rect(0 0 0 0); 
@@ -89,7 +94,7 @@ button {
 }
 
 .pd-aside-container {
-  padding: 3rem;
+  margin: 3rem;
   flex-grow: 1;
 }
 
@@ -311,6 +316,30 @@ TODO: override default styles
   object-fit: cover;
   user-select: none;
   -webkit-user-drag: none;
+}
+
+.pd-select {
+  border: solid thin var(--border-color); 
+  color: var(--font-color);
+  background-color: transparent;
+  text-transform: uppercase;
+  font-weight: bolder;
+  padding: 1.2rem;
+  flex-grow: 1;
+  cursor: pointer;
+  appearance: none
+}
+
+.pd-select:disabled {
+  cursor: not-allowed;
+}
+
+.pd-select-arrow {
+  position: absolute;
+  font-size: 1.5rem;
+  right: 1.2rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
 }
 
 .ri-container {
