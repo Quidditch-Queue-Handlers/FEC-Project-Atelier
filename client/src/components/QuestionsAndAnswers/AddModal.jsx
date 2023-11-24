@@ -8,9 +8,11 @@ const AddModal = ({submitClickHandler, isQuestion}) => {
   return (
     <div>
       <div>AddModal</div>
-      <button onClick={() => submitClickHandler()}>Add a ___ +</button>
+      {isQuestion ? <button onClick={() => submitClickHandler()}>Add a Question +</button> : <button onClick={() => submitClickHandler()} style={{padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}>Add Answer</button>}
     </div>
   );
 };
 
 export default AddModal;
+
+//style={{padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}

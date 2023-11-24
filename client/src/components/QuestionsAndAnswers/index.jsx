@@ -18,7 +18,6 @@ const loadMoreQuestionsClickHandler = () => {
 };
 const searchTextChangeHandler = (query) => {
   console.log(`Searching with query: ${query}!`);
-  //need to set the
   var copyList = JSON.parse(JSON.stringify(questionsList));
   var newDisplayList = [];
   for (var i = 0; i < copyList.length; i++) {

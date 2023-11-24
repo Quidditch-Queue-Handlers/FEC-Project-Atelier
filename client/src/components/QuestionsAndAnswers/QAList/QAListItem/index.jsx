@@ -7,7 +7,7 @@ const QAListItem = ({question}) => {
   const [answerList, setAnswerList] = React.useState([]);
   const [displayedAnswerList, setDisplayedAnswerList] = React.useState([]);
   const [displayCount, setDisplayCount] = React.useState(0);
-  const [helpfulCount, setHelpfulCount] = React.useState(question?.helpfulCount);
+  const [helpfulCount, setHelpfulCount] = React.useState(question?.question_helpfulness);
 
   React.useEffect(() => {
     console.log('First A Render')
@@ -43,7 +43,7 @@ const QAListItem = ({question}) => {
     <div>
       <div>QAListItem</div>
       <div>
-        Q:
+        <b>{`Q: ${question.question_body}`}</b>
         <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulQuestionClickHandler} />
         <AddAnswer addAnswerClickHandler={addAnswerClickHandler}/>
       </div>
