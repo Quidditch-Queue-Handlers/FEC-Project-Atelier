@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 
 const ZOOM_SCALE = 2.5; 
 
@@ -58,42 +58,40 @@ const Carousel = ({
   }, [zoomed, photoIndex, photos]);
 
   useEffect(() => {
-   
     const onMouseMove = calculateTransformPosition();
-
     if (zoomed) {
-      window.addEventListener("mousemove", onMouseMove);
+      window.addEventListener('mousemove', onMouseMove);
     }
     return () => {
-      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener('mousemove', onMouseMove);
     };
   }, [zoomed, photoIndex, photos]);
 
   return (
     <div
-      className="pd-carousel-main"
+      className='pd-carousel-main'
       style={
         expanded && !zoomed
-          ? { cursor: "crosshair" }
+          ? { cursor: 'crosshair' }
           : expanded
-          ? { cursor: "zoom-out" }
-          : { cursor: "zoom-in" }
+          ? { cursor: 'zoom-out' }
+          : { cursor: 'zoom-in' }
       }
       onClick={(e) => {
-        if(!expanded){
+        if (!expanded) {
           setExpanded(true); 
         }
-        else if(expanded && !zoomed) {
+        else if (expanded && !zoomed) {
           setZoomed(true); 
-          calculateTransformPosition(e)
-        }else if (expanded) {
+          calculateTransformPosition(e);
+        } else if (expanded) {
           setZoomed(false); 
         }
       }}
     >
       {photoIndex > 0 && !zoomed && (
         <button
-          style={{ left: "1rem", transform: "scaleX(-1) translateY(-50%)" }}
+          style={{ left: '1rem', transform: 'scaleX(-1) translateY(-50%)' }}
           onClick={(e) => {
             e.stopPropagation();
             setPhotoIndex((i) => i - 1);
@@ -113,13 +111,13 @@ const Carousel = ({
                   scale: `${ZOOM_SCALE * 100}%`,
                   transform: `translate(${translateX}px,${translateY}px)`,
                 }
-              : { scale: "100%", transform: "translate(0px,0px)" }
+              : { scale: '100%', transform: 'translate(0px,0px)' }
           }
         />
       </span>
       {photoIndex < photos?.length - 1 && !zoomed && (
         <button
-          style={{ right: "1rem" }}
+          style={{ right: '1rem' }}
           onClick={(e) => {
             e.stopPropagation();
             setPhotoIndex((i) => i + 1);
@@ -131,10 +129,10 @@ const Carousel = ({
       {expanded && !zoomed && (
         <button
           style={{
-            top: "1rem",
-            right: "1rem",
-            transform: "translateY(0)",
-            backgroundColor: "transparent",
+            top: '1rem',
+            right: '1rem',
+            transform: 'translateY(0)',
+            backgroundColor: 'transparent',
           }}
           onClick={(e) => {
             e.stopPropagation();
