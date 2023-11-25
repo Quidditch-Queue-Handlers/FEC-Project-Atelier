@@ -20,8 +20,21 @@ const QAListItem = ({ question }) => {
       //but before i set the data i need to filter the answer list to raise the seller answers to the top AND to be sorted by helpfulness!
       //since it is an already sorted list can just iterate and when a Seller user is found it removes it from the data and pushes it to a new list. afterwards the two lists are joined back together.
     //also need to properly set the display count to be 0,1,or 2 correctly
-    setAnswerList(example329065.results);
-    setDisplayedAnswerList(example329065.results);
+
+    //this sorts the list so that the seller answers appear at the top of the list in order of helpfulness, able to be done this way because the list comes sorted by helpfulness from the API call.
+    var data = JSON.parse(JSON.stringify(example329065.results));
+    var sellerAnswers = [];
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].answerer_name === 'Seller') {
+        sellerAnswers.push(data[i]);
+        data.splice(i, 1);
+        i--;
+      }
+    }
+    const sellerSortedList = [...sellerAnswers, ...data];
+    //this is the end of the seller sorter area, i will move this out into its own helper function later.
+    setAnswerList(sellerSortedList);
+    setDisplayedAnswerList(sellerSortedList);
   }, []);
 
   const loadMoreAnswersClickHandler = (collapseList) => {
