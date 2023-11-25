@@ -38,7 +38,6 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <div style={{ position: 'absolute'}}>{offset},{maxOffset}</div>
       <div
         style={{
           height: `${height - (offset > 0 ? THUMB_SIZE + MARGIN_SIZE : 0)}rem`,
