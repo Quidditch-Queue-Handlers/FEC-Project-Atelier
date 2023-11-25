@@ -3,12 +3,13 @@ import AnswerListItem from './AnswerListItem';
 
 const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, helpfulAnswerClickHandler, reportButtonClickHandler, displayCount }) => {
   const [isScrollable, setIsScrollable] = React.useState(false); //will change this when i am actually passing in valid data
+  const [displayCollapse, setDisplayCollapse] = React.useState(false);
 
   //need to check answer.answer_id to ensure the prop name is correct.
   return (
     <div>
       <div>AnswerList</div>
-      <b>A:</b>
+      {displayedAnswerList?.length === 0 ? null : (<b>A:</b>)}
       <ul>
         {displayedAnswerList?.filter((answer, index) => index < displayCount)?.map((answer) => (
           <AnswerListItem
@@ -19,10 +20,13 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, helpfulA
           />
         ))}
       </ul>
-      <button
-        onClick={loadMoreAnswersClickHandler}
+      {displayedAnswerList?.length === 0 ? null : (<button
+        onClick={() => {
+          loadMoreAnswersClickHandler(displayCollapse);
+          setDisplayCollapse(!displayCollapse);
+        }}
         style={{ padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}
-      >Load More Answers</button>
+      >{displayCollapse ? 'Collapse Answers' : 'Load More Answers' }</button>)}
     </div>
   );
 };

@@ -24,9 +24,13 @@ const QAListItem = ({ question }) => {
     setDisplayedAnswerList(example329065.results);
   }, []);
 
-  const loadMoreAnswersClickHandler = () => {
+  const loadMoreAnswersClickHandler = (collapseList) => {
     console.log('clicked Load More Answers Button');
-    //need to add logic for doing something different depending on the text displayed by the button.
+    if (!collapseList) {
+      setDisplayCount(displayedAnswerList?.length);
+    } else {
+      setDisplayCount(2);
+    }
   };
 
   const helpfulQuestionClickHandler = () => {
