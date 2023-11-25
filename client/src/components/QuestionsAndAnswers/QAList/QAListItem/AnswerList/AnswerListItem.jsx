@@ -6,7 +6,7 @@ const AnswerListItem = ({answer, helpfulAnswerClickHandler, reportButtonClickHan
   const [helpfulCount, setHelpfulCount] = React.useState(answer?.helpfulCount);
 
   return (
-    <div>
+    <li>
       <div>AnswerListItem</div>
       <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulAnswerClickHandler}/>
       <button onClick={() => {
@@ -17,7 +17,7 @@ const AnswerListItem = ({answer, helpfulAnswerClickHandler, reportButtonClickHan
           console.log('Already Reported!!');
         }
       }}>report</button>
-    </div>
+    </li>
   );
 };
 
