@@ -2,21 +2,48 @@ import React from 'react';
 import AnswerList from './AnswerList';
 import AddAnswer from './AddAnswer';
 import Helpful from './Helpful';
+import example329062 from '../../../../../examples/QA-examples/exampleAnswer329062.json';
+import example329065 from '../../../../../examples/QA-examples/exampleAnswer329065.json';
+import example329066 from '../../../../../examples/QA-examples/exampleAnswer329066.json';
+import example329068 from '../../../../../examples/QA-examples/exampleAnswer329068.json';
+import example329069 from '../../../../../examples/QA-examples/exampleAnswer329069.json';
 
-const QAListItem = ({question}) => {
+const QAListItem = ({ question }) => {
   const [answerList, setAnswerList] = React.useState([]);
   const [displayedAnswerList, setDisplayedAnswerList] = React.useState([]);
-  const [displayCount, setDisplayCount] = React.useState(0);
+  const [displayCount, setDisplayCount] = React.useState(2);
   const [helpfulCount, setHelpfulCount] = React.useState(question?.question_helpfulness);
 
   React.useEffect(() => {
     console.log('First A Render')
     //set the answerList and displayedAnswerList on page load after an API call
+      //but before i set the data i need to filter the answer list to raise the seller answers to the top AND to be sorted by helpfulness!
+      //since it is an already sorted list can just iterate and when a Seller user is found it removes it from the data and pushes it to a new list. afterwards the two lists are joined back together.
+    //also need to properly set the display count to be 0,1,or 2 correctly
+
+    //this sorts the list so that the seller answers appear at the top of the list in order of helpfulness, able to be done this way because the list comes sorted by helpfulness from the API call.
+    var data = JSON.parse(JSON.stringify(example329065.results));
+    var sellerAnswers = [];
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].answerer_name === 'Seller') {
+        sellerAnswers.push(data[i]);
+        data.splice(i, 1);
+        i--;
+      }
+    }
+    const sellerSortedList = [...sellerAnswers, ...data];
+    //this is the end of the seller sorter area, i will move this out into its own helper function later.
+    setAnswerList(sellerSortedList);
+    setDisplayedAnswerList(sellerSortedList);
   }, []);
 
-  const loadMoreAnswersClickHandler = () => {
+  const loadMoreAnswersClickHandler = (collapseList) => {
     console.log('clicked Load More Answers Button');
-    //need to add logic for doing something different depending on the text displayed by the button.
+    if (!collapseList) {
+      setDisplayCount(displayedAnswerList?.length);
+    } else {
+      setDisplayCount(2);
+    }
   };
 
   const helpfulQuestionClickHandler = () => {
@@ -40,15 +67,22 @@ const QAListItem = ({question}) => {
 
 
   return (
-    <div>
+    <li>
       <div>QAListItem</div>
       <div>
         <b>{`Q: ${question.question_body}`}</b>
         <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulQuestionClickHandler} />
-        <AddAnswer addAnswerClickHandler={addAnswerClickHandler}/>
+        <AddAnswer addAnswerClickHandler={addAnswerClickHandler} />
       </div>
-      <AnswerList displayedAnswerList={displayedAnswerList} loadMoreAnswersClickHandler={loadMoreAnswersClickHandler} helpfulClickHandler={helpfulAnswerClickHandler} reportButtonClickHandler={reportButtonClickHandler}/>
-    </div>
+      <AnswerList
+        question={question}
+        displayedAnswerList={displayedAnswerList}
+        displayCount={displayCount}
+        loadMoreAnswersClickHandler={loadMoreAnswersClickHandler}
+        helpfulAnswerClickHandler={helpfulAnswerClickHandler}
+        reportButtonClickHandler={reportButtonClickHandler}
+      />
+    </li>
   );
 };
 
