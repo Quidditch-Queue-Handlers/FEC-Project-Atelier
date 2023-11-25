@@ -54,12 +54,16 @@ const QuestionsAndAnswers = ({ product_id }) => {
           null
         )}
         <div>
-          <button
-            onClick={() => {
-              loadMoreQuestionsClickHandler(displayCollapse);
-              setDisplayCollapse(!displayCollapse);
-            }}
-          >{displayCollapse ? 'Collapse Questions' : 'Load More Questions'}</button>
+          {questionsList?.length === 0 ? (
+            null
+          ) : (
+            <button
+              onClick={() => {
+                loadMoreQuestionsClickHandler(displayCollapse);
+                setDisplayCollapse(!displayCollapse);
+              }}
+            >{displayCollapse ? 'Collapse Questions' : 'Load More Questions'}</button>
+          )}
           <AddQuestion addQuestionClickHandler={addQuestionClickHandler} />
         </div>
       </div>
