@@ -10,7 +10,7 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, helpfulA
     <div>
       <div>AnswerList</div>
       {displayedAnswerList?.length === 0 ? null : (<b>A:</b>)}
-      <ul>
+      <ul style={{overflowY: "auto", maxHeight: "50vh"}}>
         {displayedAnswerList?.filter((answer, index) => index < displayCount)?.map((answer) => (
           <AnswerListItem
             answer={answer}
