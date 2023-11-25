@@ -17,6 +17,7 @@ const QAListItem = ({ question }) => {
   React.useEffect(() => {
     console.log('First A Render')
     //set the answerList and displayedAnswerList on page load after an API call
+    //also need to properly set the display count to be 0,1,or 2 correctly
     setAnswerList(example329065.results);
     setDisplayedAnswerList(example329065.results);
   }, []);
