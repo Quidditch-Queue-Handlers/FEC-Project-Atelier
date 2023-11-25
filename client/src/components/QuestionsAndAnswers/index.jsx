@@ -7,17 +7,22 @@ import exampleData from '../../../examples/QA-examples/exampleQuestionCall.json'
 const QuestionsAndAnswers = ({ product_id }) => {
   const [questionsList, setQuestionsList] = React.useState([]);
   const [displayedQuestionsList, setDisplayedQuestionsList] = React.useState([]);
-  const [displayCount, setDisplayCount] = React.useState(4);
+  const [displayCount, setDisplayCount] = React.useState(2);
+  const [displayCollapse, setDisplayCollapse] = React.useState(false);
   React.useEffect(() => {
     console.log('First QA Render');
     console.log(exampleData);
-    //update the initial display count to be 0,1,2,3,4 accordingly
+    //update the initial display count to be 0,1,2 accordingly
     setQuestionsList(exampleData.results);
     setDisplayedQuestionsList(exampleData.results);
   }, []);
-  const loadMoreQuestionsClickHandler = () => {
-    //increment the display count by up to two conditionally
+  const loadMoreQuestionsClickHandler = (collapseList) => {
     console.log('clicked Load more Questions!');
+    if (collapseList) {
+      setDisplayCount(2);
+    } else {
+      setDisplayCount(displayedQuestionsList.length);
+    }
   };
   const searchTextChangeHandler = (query) => {
     console.log(`Searching with query: ${query}!`);
@@ -37,22 +42,31 @@ const QuestionsAndAnswers = ({ product_id }) => {
   return (
     <div>
       <h2>Questions and Answers</h2>
-      <div>
+      <div >
         {questionsList.length !== 0 ? <Search searchTextChangeHandler={searchTextChangeHandler} /> : null}
         {displayedQuestionsList.length !== 0 ? (
           <QAList
             questionsList={questionsList}
             displayedQuestionsList={displayedQuestionsList}
-            loadMoreQuestionsClickHandler={loadMoreQuestionsClickHandler}
-            displayCount = {displayCount}
+            displayCount={displayCount}
           />
         ) : (
           null
         )}
-        <AddQuestion addQuestionClickHandler={addQuestionClickHandler} />
+        <div>
+          <button
+            onClick={() => {
+              loadMoreQuestionsClickHandler(displayCollapse);
+              setDisplayCollapse(!displayCollapse);
+            }}
+          >{displayCollapse ? 'Collapse Questions' : 'Load More Questions'}</button>
+          <AddQuestion addQuestionClickHandler={addQuestionClickHandler} />
+        </div>
       </div>
     </div>
   );
 };
 
 export default QuestionsAndAnswers;
+
+//style={{overflowY:"auto", maxHeight: "100vh"}}
