@@ -6,9 +6,6 @@ import WriteReview from './WriteReview';
 
 const ReviewsList = ({productId, pageNum, count, sort}) => {
 
-<<<<<<< HEAD
-  const [productInfo, setProductInfo] = useState();
-=======
   const tempData = {
     "product": "2",
     "page": 0,
@@ -113,20 +110,15 @@ const ReviewsList = ({productId, pageNum, count, sort}) => {
   const [numShowReviews, setNumShowReviews] = useState(2);
 
   const showTwoMoreReviews = () => setNumShowReviews(currCount => currCount + 2);
->>>>>>> b45469a (made date appear correctly, made body toggle for show more or less, created photo modal popup)
 
   // fix these
   pageNum = productInfo.page;
   count = productInfo.count;
   sort = "relevance";
 
-  useEffect(() => {
-    if (productId) {
-      axios.get(`/reviews/${productId}`)
-        .then((res) => setProductInfo(res.data))
-        .catch((err) => console.error('product info err?', err));
-    }
-  }, [productId]);
+  // useEffect(() => {
+  //   axios.get(`/products/${productId}`)
+  // }, []);
 
   return (
     <div>

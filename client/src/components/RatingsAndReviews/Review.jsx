@@ -61,9 +61,9 @@ const Review = ({review}) => {
       )}
 
       <div className="rr-feedback">
-        <div /* onClick={() => review.helpfulness + 1} */>Helpful? Yes ({review.helpfulness}) | Report</div>
+        <div /* onClick={() => review.helpfulness + 1} */>Helpful? Yes ({review.helpfulness}) | No (#) | Report</div>
         { /* fix yes vote and report link
-        yes click will PUT and update  */ }
+        yes click will POST */ }
       </div>
 
       <div id="rr-photoModal" className="rr-modal">

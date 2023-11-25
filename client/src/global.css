@@ -372,11 +372,6 @@ TODO: override default styles
   /* Questions/Answers section */
 }
 
-<<<<<<< HEAD
-.rr- {
-  /* Ratings & Reviews */
-}
-=======
 .rr-title {
   padding: 20px 0 0 0;
 }
@@ -496,4 +491,3 @@ TODO: override default styles
   color: white;
   cursor: pointer;
 }
->>>>>>> b45469a (made date appear correctly, made body toggle for show more or less, created photo modal popup)
