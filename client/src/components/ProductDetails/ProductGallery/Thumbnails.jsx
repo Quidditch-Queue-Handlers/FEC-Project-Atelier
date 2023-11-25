@@ -40,10 +40,10 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
       <div
         style={{
           height: `${height - (offset > 0 ? THUMB_SIZE + MARGIN_SIZE : 0)}rem`,
-          marginTop: `${
+          //no separate marginTop because React render warning
+          margin: `${
             MARGIN_SIZE + (offset > 0 ? THUMB_SIZE + MARGIN_SIZE : 0)
-          }rem`,
-          margin: `${MARGIN_SIZE}rem`,
+          }rem ${MARGIN_SIZE}rem ${MARGIN_SIZE}rem ${MARGIN_SIZE}rem`,
           overflow: 'clip',
         }}
       >
