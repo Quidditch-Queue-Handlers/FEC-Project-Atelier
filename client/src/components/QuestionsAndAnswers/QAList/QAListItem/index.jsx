@@ -3,7 +3,7 @@ import AnswerList from './AnswerList';
 import AddAnswer from './AddAnswer';
 import Helpful from './Helpful';
 
-const QAListItem = ({question}) => {
+const QAListItem = ({ question }) => {
   const [answerList, setAnswerList] = React.useState([]);
   const [displayedAnswerList, setDisplayedAnswerList] = React.useState([]);
   const [displayCount, setDisplayCount] = React.useState(0);
@@ -45,9 +45,14 @@ const QAListItem = ({question}) => {
       <div>
         <b>{`Q: ${question.question_body}`}</b>
         <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulQuestionClickHandler} />
-        <AddAnswer addAnswerClickHandler={addAnswerClickHandler}/>
+        <AddAnswer addAnswerClickHandler={addAnswerClickHandler} />
       </div>
-      <AnswerList displayedAnswerList={displayedAnswerList} loadMoreAnswersClickHandler={loadMoreAnswersClickHandler} helpfulClickHandler={helpfulAnswerClickHandler} reportButtonClickHandler={reportButtonClickHandler}/>
+      <AnswerList
+        displayedAnswerList={displayedAnswerList}
+        loadMoreAnswersClickHandler={loadMoreAnswersClickHandler}
+        helpfulClickHandler={helpfulAnswerClickHandler}
+        reportButtonClickHandler={reportButtonClickHandler}
+      />
     </div>
   );
 };

@@ -35,8 +35,8 @@ const addQuestionClickHandler = () => {
     <div>
       <h2>Questions and Answers</h2>
       <div>
-        {questionsList.length !== 0 ? <Search searchTextChangeHandler={searchTextChangeHandler} /> : ""}
-        {displayedQuestionsList.length !== 0 ? <QAList questionsList={questionsList} displayedQuestionsList={displayedQuestionsList} loadMoreQuestionsClickHandler={loadMoreQuestionsClickHandler} /> : ""}
+        {questionsList.length !== 0 ? <Search searchTextChangeHandler={searchTextChangeHandler} /> : null}
+        {displayedQuestionsList.length !== 0 ? <QAList questionsList={questionsList} displayedQuestionsList={displayedQuestionsList} loadMoreQuestionsClickHandler={loadMoreQuestionsClickHandler} /> : null}
         <AddQuestion addQuestionClickHandler={addQuestionClickHandler} />
       </div>
     </div>
