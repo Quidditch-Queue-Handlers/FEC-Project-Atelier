@@ -61,9 +61,9 @@ button:disabled {
 }
 
 .pd-visual-hidden {
-    border: 0; 
-    clip: rect(0 0 0 0); 
-    height: 1px;  
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
     margin: -1px;
     overflow: hidden;
     padding: 0;
@@ -318,7 +318,7 @@ TODO: override default styles
 }
 
 .pd-select {
-  border: solid thin var(--border-color); 
+  border: solid thin var(--border-color);
   color: var(--font-color);
   background-color: transparent;
   text-transform: uppercase;
@@ -372,9 +372,13 @@ TODO: override default styles
   /* Questions/Answers section */
 }
 
+<<<<<<< HEAD
+.rr- {
+  /* Ratings & Reviews */
+}
+=======
 .rr-title {
   padding: 20px 0 0 0;
-
 }
 
 .rr-container {
@@ -450,3 +454,46 @@ TODO: override default styles
   bottom: 0;
   background-color: white;
 }
+
+.rr-review-body {
+  box-sizing: border-box;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.rr-thumbnail {
+  width: 15px;
+  cursor: pointer;
+}
+
+.rr-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  align-items: center;
+  justify-content: center;
+}
+
+.rr-modal-content {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.rr-modal-visible {
+  display: flex;
+}
+
+.rr-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+>>>>>>> b45469a (made date appear correctly, made body toggle for show more or less, created photo modal popup)

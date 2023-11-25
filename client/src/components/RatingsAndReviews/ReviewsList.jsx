@@ -6,6 +6,9 @@ import WriteReview from './WriteReview';
 
 const ReviewsList = ({productId, pageNum, count, sort}) => {
 
+<<<<<<< HEAD
+  const [productInfo, setProductInfo] = useState();
+=======
   const tempData = {
     "product": "2",
     "page": 0,
@@ -14,10 +17,10 @@ const ReviewsList = ({productId, pageNum, count, sort}) => {
       {
         "review_id": 5,
         "rating": 1,
-        "summary": "I'm enjoying wearing these shades mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+        "summary": "I'm enjoying wearing these shades yepppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
         "recommend": false,
         "response": null,
-        "body": "It do be like that sometimes yellow blue green red purple pink orange green turquoise white black gray brown tan",
+        "body": "It do be like that sometimes yellow blue green red purple pink orange green turquoise white black gray brown tan yellow blue green red purple pink orange green turquoise white black gray brown tan yellow blue green red purple pink orange green turquoise white black gray brown tan",
         "date": "2019-04-14T00:00:00.000Z",
         "reviewer_name": "shortandsweeet",
         "helpfulness": 15,
@@ -110,6 +113,7 @@ const ReviewsList = ({productId, pageNum, count, sort}) => {
   const [numShowReviews, setNumShowReviews] = useState(2);
 
   const showTwoMoreReviews = () => setNumShowReviews(currCount => currCount + 2);
+>>>>>>> b45469a (made date appear correctly, made body toggle for show more or less, created photo modal popup)
 
   // fix these
   pageNum = productInfo.page;
