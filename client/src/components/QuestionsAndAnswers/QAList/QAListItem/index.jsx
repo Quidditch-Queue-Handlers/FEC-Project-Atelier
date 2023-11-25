@@ -17,6 +17,8 @@ const QAListItem = ({ question }) => {
   React.useEffect(() => {
     console.log('First A Render')
     //set the answerList and displayedAnswerList on page load after an API call
+      //but before i set the data i need to filter the answer list to raise the seller answers to the top AND to be sorted by helpfulness!
+      //since it is an already sorted list can just iterate and when a Seller user is found it removes it from the data and pushes it to a new list. afterwards the two lists are joined back together.
     //also need to properly set the display count to be 0,1,or 2 correctly
     setAnswerList(example329065.results);
     setDisplayedAnswerList(example329065.results);
@@ -60,7 +62,7 @@ const QAListItem = ({ question }) => {
         displayedAnswerList={displayedAnswerList}
         displayCount={displayCount}
         loadMoreAnswersClickHandler={loadMoreAnswersClickHandler}
-        helpfulClickHandler={helpfulAnswerClickHandler}
+        helpfulAnswerClickHandler={helpfulAnswerClickHandler}
         reportButtonClickHandler={reportButtonClickHandler}
       />
     </li>

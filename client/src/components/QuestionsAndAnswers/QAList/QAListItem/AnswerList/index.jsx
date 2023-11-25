@@ -10,16 +10,19 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, helpfulA
       <div>AnswerList</div>
       <b>A:</b>
       <ul>
-      {displayedAnswerList?.filter((answer, index) => index < displayCount)?.map((answer) => (
-        <AnswerListItem
-          answer={answer}
-          key={answer?.answer_id}
-          helpfulAnswerClickHandler={helpfulAnswerClickHandler}
-          reportButtonClickHandler={reportButtonClickHandler}
-        />
-      ))}
+        {displayedAnswerList?.filter((answer, index) => index < displayCount)?.map((answer) => (
+          <AnswerListItem
+            answer={answer}
+            key={answer?.answer_id}
+            helpfulAnswerClickHandler={helpfulAnswerClickHandler}
+            reportButtonClickHandler={reportButtonClickHandler}
+          />
+        ))}
       </ul>
-      <button onClick={() => loadMoreAnswersClickHandler()}>Load More Answers</button>
+      <button
+        onClick={loadMoreAnswersClickHandler}
+        style={{ padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}
+      >Load More Answers</button>
     </div>
   );
 };
