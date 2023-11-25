@@ -12,7 +12,7 @@ const [isScrollable, setIsScrollable] = React.useState(false); //will change thi
       {displayedAnswerList?.map((answer) => (
         <AnswerListItem answer={answer} key={answer?.answer_id} helpfulAnswerClickHandler={helpfulAnswerClickHandler} reportButtonClickHandler={reportButtonClickHandler} />
       ))}
-      <button>Load More Answers</button>
+      <button onClick={() => loadMoreAnswersClickHandler()}>Load More Answers</button>
     </div>
   );
 };

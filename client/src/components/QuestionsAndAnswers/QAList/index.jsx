@@ -9,7 +9,7 @@ const QAList = ({questionsList, displayedQuestionsList, loadMoreQuestionsClickHa
   return (
     <div>
       <div>QAList</div>
-      {questionsList?.map((question) => (
+      {displayedQuestionsList?.map((question) => (
         <QAListItem question={question} key={question?.question_id}/>
       ))}
       <button onClick={() => loadMoreQuestionsClickHandler()}>Load More Questions</button>
