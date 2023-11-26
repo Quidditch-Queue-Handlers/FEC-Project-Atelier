@@ -116,13 +116,13 @@ const ReviewsList = ({productId, pageNum, count, sort}) => {
   count = productInfo.count;
   sort = "relevance";
 
-  useEffect(() => {
-    if (productId) {
-      axios.get(`/reviews/${productId}`)
-        .then((res) => setProductInfo(res.data))
-        .catch((err) => console.error('product info err?', err));
-    }
-  }, [productId]);
+  // useEffect(() => {
+  //   if (productId) {
+  //     axios.get(`/reviews/${productId}`)
+  //       .then((res) => setProductInfo(res.data))
+  //       .catch((err) => console.error('product info err?', err));
+  //   }
+  // }, [productId]);
 
   return (
     <div>

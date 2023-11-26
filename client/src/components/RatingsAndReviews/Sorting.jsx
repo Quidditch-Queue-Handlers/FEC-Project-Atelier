@@ -6,14 +6,14 @@ const Sorting = () => {
   const [sort, setSort] = useState("relevance");
 
   useEffect(() => {
-    // do stuff
+    console.log("sort:", sort)
   }, [sort])
 
   return (
     <>
     <select value={sort} onChange={(event) => setSort(event.target.value)}>
       <option value="relevance">relevance</option>
-      <option value="helpful">helpful</option>
+      <option value="helpfulness">helpfulness</option>
       <option value="newest">newest</option>
     </select>
     </>

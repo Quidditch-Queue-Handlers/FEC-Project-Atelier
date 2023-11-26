@@ -1,11 +1,13 @@
 import React from 'react';
+import ReviewStars from '../common/ReviewStars'
 
 const Review = ({review}) => {
   return (
     <div className="rr-review-container">
       <div className="rr-header">
-        <h2>---Hello from Individual Review---</h2>
-        <div>***** Rating: {review.rating}</div>
+        <div>
+          <ReviewStars rating={review.rating} readOnly/>
+        </div>
         <div>VERIFIED {review.reviewer_name}, {review.date}</div>
       </div>
 
