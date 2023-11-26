@@ -4,6 +4,7 @@ import ProductGallery from './ProductGallery';
 import ProductStyleSelector from './ProductStyleSelector';
 import ProductCartActions from './ProductCartActions';
 import ProductInfo from './ProductInfo';
+import ProductPrice from './ProductPrice';
 
 const ProductDetails = ({ productId }) => {
 
@@ -39,7 +40,7 @@ const ProductDetails = ({ productId }) => {
             </div>
             <h2>{productInfo?.category}</h2>
             <h1>{productInfo?.name}</h1>
-            <h2>${selectedStyle?.original_price}</h2>
+            <ProductPrice selectedStyle={selectedStyle} />
           </div>
          
           <ProductStyleSelector selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} productStyles={productStyles} />
