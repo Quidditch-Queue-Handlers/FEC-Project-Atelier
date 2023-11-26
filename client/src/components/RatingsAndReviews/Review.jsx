@@ -6,7 +6,7 @@ const Review = ({review}) => {
     <div className="rr-review-container">
       <div className="rr-header">
         <div>
-          <ReviewStars rating={review.rating} readOnly/>
+          <ReviewStars rating={review.rating}/>
         </div>
         <div>VERIFIED {review.reviewer_name}, {review.date}</div>
       </div>

@@ -14,7 +14,7 @@ const App = () => {
     <RelatedItems />
     <QuestionsAndAnswers />
     <RatingsAndReviews
-      productId={40344}/>
+      productId={40346}/>
     </div>
   )
 }

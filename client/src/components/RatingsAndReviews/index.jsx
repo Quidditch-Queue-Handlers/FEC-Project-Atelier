@@ -3,13 +3,32 @@ import axios from 'axios';
 import ProductBreakdown from './ProductBreakdown';
 import RatingBreakdown from './RatingBreakdown';
 import ReviewsList from './ReviewsList';
-// import productInfo from '../ProductDetails';
 
 const RatingsAndReviews = ({productId}) => {
 
-  // get info from ../ProductDetails/index.jsx ?
+  const [reviews, setReviews] = useState([]);
+  const [reviewsMeta, setReviewsMeta] = useState([]);
+  const [currentSort, setCurrentSort] = useState("relevance");
 
-  // useEffect
+  useEffect(() => {
+    if (productId) {
+      axios.get(`/reviews/?product_id=${productId}`)
+        .then((res) => {
+          setReviews(res.data.results)
+          console.log(res.data.results)
+        })
+        .catch((err) => console.error('reviews list err?', err));
+      axios.get(`/reviews/meta?product_id=${productId}`)
+        .then((res) => setReviewsMeta(res.data))
+        .catch((err) => console.error('reviews meta err?', err));
+    }
+  }, [productId]);
+
+  // POST /reviews
+
+  // PUT
+    // HLEPFUL /reviews/:review_id/helpful
+    // REPORT /reviews/:review_id/report
 
   return (
     <div>
@@ -20,7 +39,7 @@ const RatingsAndReviews = ({productId}) => {
         <RatingBreakdown />
       </div>
       <div className="rr-reviewsList-container">
-        <ReviewsList />
+        <ReviewsList reviews={reviews}/>
       </div>
     </div>
     </div>
