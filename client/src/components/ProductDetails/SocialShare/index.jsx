@@ -28,6 +28,7 @@ const SocialShare = () => {
             window.open(shareLink);
           }}
           className='pd-share-button'
+          aria-label={`Share to ${network.network}`}
         >
           <SocialIcons size={34} icon={network.network}/>
         </button>
