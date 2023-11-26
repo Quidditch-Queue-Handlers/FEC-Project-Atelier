@@ -34,6 +34,7 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
   }, [photos, photoIndex]);
 
   const height = LIMIT_DISPLAY * THUMB_SIZE + LIMIT_DISPLAY * MARGIN_SIZE;
+  const maxOffset = photos?.length > LIMIT_DISPLAY ? Math.ceil(photos?.length - LIMIT_DISPLAY) : 0;
 
   return (
     <div style={{ position: 'relative' }}>
@@ -112,7 +113,7 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
           </span>
         </button>
       )}
-      {photoIndex !== photos?.length - 1 && (
+      {offset < maxOffset && (
         <button
           style={{
             transform: `translateX(-50%) translateY(calc(${

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Thumbnails from './Thumbnails';
 import Carousel from './Carousel';
 
@@ -8,6 +8,13 @@ const ProductGallery = ({ styleInfo }) => {
   const [zoomed, setZoomed] = useState(false);
 
   const [photoIndex, setPhotoIndex] = useState(0);
+
+
+  useEffect(() => {
+    setPhotoIndex(0);
+    setExpanded(false); 
+    setZoomed(false);
+  }, [styleInfo])
 
   return (
     <div
