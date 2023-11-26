@@ -28,7 +28,7 @@ const Sorting = () => {
   };
 
   useEffect(() => {
-    console.log("sort:", sort)
+    //
   }, [sort])
 
   return (

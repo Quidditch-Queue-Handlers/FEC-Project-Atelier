@@ -8,6 +8,7 @@ const RatingsAndReviews = ({productId}) => {
 
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState([]);
+  const [count, setCount] = useState(0);
   const [currentSort, setCurrentSort] = useState("relevance");
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const RatingsAndReviews = ({productId}) => {
       axios.get(`/reviews/?product_id=${productId}`)
         .then((res) => {
           setReviews(res.data.results)
-          console.log(res.data.results)
+          setCount(res.data.count)
         })
         .catch((err) => console.error('reviews list err?', err));
       axios.get(`/reviews/meta?product_id=${productId}`)
@@ -39,7 +40,7 @@ const RatingsAndReviews = ({productId}) => {
         <RatingBreakdown />
       </div>
       <div className="rr-reviewsList-container">
-        <ReviewsList reviews={reviews}/>
+        <ReviewsList reviews={reviews} count={count} sort={currentSort}/>
       </div>
     </div>
     </div>
