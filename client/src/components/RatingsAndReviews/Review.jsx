@@ -19,12 +19,12 @@ const Review = ({review}) => {
   // }
 
   const toggleShowFullBody = () => {
-    setShowFullBody(!showFullBody);
+    setShowFullBody(showFullBody => !showFullBody);
   };
 
   const toggleShowModal = (clickedPhoto) => {
     setBigPhotoSrc(clickedPhoto.url);
-    setShowModal(!showModal);
+    setShowModal(showModal => !showModal);
   };
 
   const body = showFullBody ? review.body + " Show Less" : `${review.body.slice(0, 250)}... Show More`;
