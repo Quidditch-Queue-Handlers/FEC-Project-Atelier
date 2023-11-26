@@ -43,6 +43,17 @@ p {
   opacity: 80%;
 }
 
+a {
+  font-weight: 100; 
+  text-decoration: underline;
+  color: var(--font-color);
+  opacity: 80%;
+}
+
+a:hover {
+  opacity: 100%;
+}
+
 button {
   border: solid;
   border-color: var(--border-color);
