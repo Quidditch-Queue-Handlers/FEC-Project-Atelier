@@ -4,6 +4,7 @@ import ProductGallery from './ProductGallery';
 import ProductStyleSelector from './ProductStyleSelector';
 import ProductCartActions from './ProductCartActions';
 import ProductInfo from './ProductInfo';
+import SocialShare from './SocialShare';
 
 const ProductDetails = ({ productId }) => {
 
@@ -41,12 +42,16 @@ const ProductDetails = ({ productId }) => {
             <h1>{productInfo?.name}</h1>
             <h2>${selectedStyle?.original_price}</h2>
           </div>
-         
           <ProductStyleSelector selectedStyle={selectedStyle} setSelectedStyle={setSelectedStyle} productStyles={productStyles} />
           <ProductCartActions selectedStyle={selectedStyle} />
         </div>
       </div>
       <ProductInfo info={productInfo} />
+      <div
+        className='pd-share-container'
+      >
+        <SocialShare />
+      </div>
     </div>
   );
 }

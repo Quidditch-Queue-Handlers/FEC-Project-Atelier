@@ -358,6 +358,18 @@ TODO: override default styles
   transform: translateY(-50%) rotate(90deg);
 }
 
+.pd-share-button {
+  border: none;
+  padding: 0;
+}
+
+.pd-share-container {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  margin-bottom: 3rem;
+}
+
 .ri-container {
 
 }
