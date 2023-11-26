@@ -471,6 +471,7 @@ TODO: override default styles
   background: rgba(0, 0, 0, 0.7);
   align-items: center;
   justify-content: center;
+  transition: opacity 0.3s ease;
 }
 
 .rr-modal-content {
@@ -478,9 +479,20 @@ TODO: override default styles
   max-height: 80%;
   object-fit: contain;
 }
+.rr-modal-content img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 
 .rr-modal-visible {
   display: flex;
+  opacity: 1;
+}
+.rr-modal-hidden {
+  opacity: 0;
+  display: none;
+  pointer-events: none;
 }
 
 .rr-close {
@@ -490,4 +502,8 @@ TODO: override default styles
   font-size: 20px;
   color: white;
   cursor: pointer;
+}
+.rr-close:hover {
+  color: rgb(249, 249, 249);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }

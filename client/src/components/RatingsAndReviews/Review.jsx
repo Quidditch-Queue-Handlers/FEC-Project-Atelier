@@ -3,30 +3,31 @@ import React, {useState} from 'react';
 const Review = ({review}) => {
 
   const [showFullBody, setShowFullBody] = useState(false);
+  const [bigPhotoSrc, setBigPhotoSrc] = useState("");
+  const [showModal, setShowModal] = useState(false);
 
-  // Open modal function
-  const openPhoto = (clickedPhoto) => {
-    const photo = document.getElementById('rr-photoModal');
-    const bigPhoto = document.getElementById('fullResolution');
-    // Set the source of the full-resolution image
-    bigPhoto.src = clickedPhoto;
-    // Display the modal
-    photo.classList.add('rr-modal-visible');
-  }
+  // const openPhoto = (clickedPhoto) => {
+  //   const photo = document.getElementById('rr-photoModal');
+  //   const bigPhoto = document.getElementById('fullResolution');
+  //   bigPhoto.src = clickedPhoto;
+  //   photo.classList.add('rr-modal-visible');
+  // }
 
-  // Close modal function
-  const closePhoto = () => {
-    const photo = document.getElementById('rr-photoModal');
-    // Hide the modal
-    photo.classList.remove('rr-modal-visible');
-  }
+  // const closePhoto = () => {
+  //   const photo = document.getElementById('rr-photoModal');
+  //   photo.classList.remove('rr-modal-visible');
+  // }
 
   const toggleShowFullBody = () => {
     setShowFullBody(!showFullBody);
   };
 
-  const body = showFullBody ? review.body + " Show Less" : `${review.body.slice(0, 250)}... Show More`;
+  const toggleShowModal = (clickedPhoto) => {
+    setBigPhotoSrc(clickedPhoto.url);
+    setShowModal(!showModal);
+  };
 
+  const body = showFullBody ? review.body + " Show Less" : `${review.body.slice(0, 250)}... Show More`;
 
   return (
     <div className="rr-review-container">
@@ -43,7 +44,7 @@ const Review = ({review}) => {
 
       <div className="rr-images">
         {review.photos.map((url, id) => (
-          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => openPhoto(url)}/>
+          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal(url)}/>
         ))}
       </div>
 
@@ -66,10 +67,13 @@ const Review = ({review}) => {
         yes click will POST */ }
       </div>
 
-      <div id="rr-photoModal" className="rr-modal">
-        <span className="rr-close" onClick={closePhoto}>&times;</span>
-        <img src="" alt="Full Resolution" id="fullResolution" className="rr-modal-content" />
-      </div>
+      {showModal &&
+        <div className={`rr-modal ${showModal ? 'rr-modal-visible' : 'rr-modal-hidden'}`}>
+          <span className="rr-close" onClick={toggleShowModal}>&times;</span>
+          <img src={bigPhotoSrc} alt="Full Resolution" className="rr-modal-content" />
+        </div>
+      }
+
 
     </div>
   );
