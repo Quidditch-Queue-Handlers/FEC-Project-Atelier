@@ -7,13 +7,13 @@ import ReviewsList from './ReviewsList';
 const RatingsAndReviews = ({productId}) => {
 
   const [reviews, setReviews] = useState([]);
-  const [reviewsMeta, setReviewsMeta] = useState([]);
+  const [reviewsMeta, setReviewsMeta] = useState({});
   const [count, setCount] = useState(0);
-  const [currentSort, setCurrentSort] = useState("relevance");
+  const [sort, setSort] = useState("relevant");
 
   useEffect(() => {
     if (productId) {
-      axios.get(`/reviews/?product_id=${productId}`)
+      axios.get(`/reviews/?product_id=${productId}&sort=${sort}`)
         .then((res) => {
           setReviews(res.data.results)
           setCount(res.data.count)
@@ -22,14 +22,11 @@ const RatingsAndReviews = ({productId}) => {
       axios.get(`/reviews/meta?product_id=${productId}`)
         .then((res) => setReviewsMeta(res.data))
         .catch((err) => console.error('reviews meta err?', err));
-    }
-  }, [productId]);
 
   // POST /reviews
 
-  // PUT
-    // HLEPFUL /reviews/:review_id/helpful
-    // REPORT /reviews/:review_id/report
+    }
+  }, [productId, sort]);
 
   return (
     <div>
@@ -40,7 +37,7 @@ const RatingsAndReviews = ({productId}) => {
         <RatingBreakdown />
       </div>
       <div className="rr-reviewsList-container">
-        <ReviewsList reviews={reviews} count={count} sort={currentSort}/>
+        <ReviewsList reviews={reviews} count={count} recommend={reviewsMeta.recommended} sort={sort} setSort={setSort}/>
       </div>
     </div>
     </div>

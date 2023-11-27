@@ -1,44 +1,66 @@
 import React from 'react';
+import axios from 'axios';
 import ReviewStars from '../common/ReviewStars'
 
-const Review = ({review}) => {
+const Review = ({review, recommended}) => {
+  // console.log(recommended)
+
+  const {review_id, rating, reviewer_name, date, summary, body, photos, recommend, response, helpfulness} = review;
+
+  const handleHelpful = () => {
+    axios.put(`/reviews/${review_id}/helpful`)
+      .then(() => console.log('Helpfulness vote success'))
+      .catch((err) => console.error('Helpfulness vote err:', err));
+  }
+
+  const handleReport = () => {
+    axios.put(`/reviews/${review_id}/report`)
+      .then(() => console.log('Report successful'))
+      .catch((err) => console.error('Report err:', err));
+  }
+
   return (
     <div className="rr-review-container">
       <div className="rr-header">
         <div>
-          <ReviewStars rating={review.rating}/>
+          <ReviewStars rating={rating} ratingId={review_id}/>
         </div>
-        <div>VERIFIED {review.reviewer_name}, {review.date}</div>
+        <div>VERIFIED {reviewer_name}, {date}</div>
       </div>
 
       <div className="rr-summary">
-        <h3>{review.summary}</h3>
-        <p>{review.body}</p>
+        <h3>{summary}</h3>
+        <p>{body}</p>
       </div>
 
       <div className="rr-images">
-        {review.photos.map((url, id) => (
+        {photos.map((url, id) => (
           <img key={id} src={url} alt={`Image ${id}`} />
         ))}
       </div>
 
-      {review.recommend && (
+      {recommend && (
         <div className="rr-recommendation">
           <div>Check! I recommend this product</div>
         </div>
       )}
 
-      {review.response && (
+      {response && (
         <div className="rr-response">
           <h4>Response:</h4>
-          <p>{review.response}</p>
+          <p>{response}</p>
         </div>
       )}
 
-      <div className="rr-feedback">
-        <div /* onClick={() => review.helpfulness + 1} */>Helpful? Yes ({review.helpfulness}) | Report</div>
-        { /* fix yes vote and report link */ }
-      </div>
+      {recommended &&
+        <div className="rr-feedback">
+          <div>Helpful? <span> </span>
+            <a className="rr-a" onClick={() => handleHelpful()}>Yes</a> ({helpfulness}) |
+            <span> </span>
+            <a className="rr-a" onClick={() => handleReport()}>Report</a>
+          </div>
+        </div>
+      }
     </div>
   );
 }

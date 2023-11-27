@@ -65,9 +65,9 @@ button:disabled {
 }
 
 .fill-star span {
-  position: absolute; 
+  position: absolute;
   display: block;
-  top: 0; 
+  top: 0;
   left: 0;
   background-color: var(--font-color);
 }
@@ -78,9 +78,9 @@ button:disabled {
 }
 
 .pd-visual-hidden {
-    border: 0; 
-    clip: rect(0 0 0 0); 
-    height: 1px;  
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
     margin: -1px;
     overflow: hidden;
     padding: 0;
@@ -335,7 +335,7 @@ TODO: override default styles
 }
 
 .pd-select {
-  border: solid thin var(--border-color); 
+  border: solid thin var(--border-color);
   color: var(--font-color);
   background-color: transparent;
   text-transform: uppercase;
@@ -466,4 +466,9 @@ TODO: override default styles
   position: sticky;
   bottom: 0;
   background-color: white;
+}
+
+.rr-a {
+  color: blue;
+  text-decoration: underline;
 }
