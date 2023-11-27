@@ -25,17 +25,17 @@ const Review = ({review, recommended}) => {
         <div>
           <ReviewStars rating={rating} ratingId={review_id}/>
         </div>
-        <div>VERIFIED {reviewer_name}, {date}</div>
+        <div>VERIFIED {reviewer_name}, {new Date(Date.parse(date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
       </div>
 
       <div className="rr-summary">
-        <h3>{summary}</h3>
-        <p>{body}</p>
+        <h3>{review.summary.replace(/(.{60}).*/, '$1...')}</h3>
+        <p className="rr-review-body" onClick={toggleShowFullBody}>{body}</p>
       </div>
 
       <div className="rr-images">
-        {photos.map((url, id) => (
-          <img key={id} src={url} alt={`Image ${id}`} />
+        {review.photos.map((url, id) => (
+          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal(url)}/>
         ))}
       </div>
 
@@ -47,7 +47,7 @@ const Review = ({review, recommended}) => {
 
       {response && (
         <div className="rr-response">
-          <h4>Response:</h4>
+          <h4>Response from seller:</h4>
           <p>{response}</p>
         </div>
       )}
