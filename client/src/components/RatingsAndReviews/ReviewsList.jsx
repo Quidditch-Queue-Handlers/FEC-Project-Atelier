@@ -14,10 +14,10 @@ const ReviewsList = ({productId, pageNum, count, sort}) => {
       {
         "review_id": 5,
         "rating": 1,
-        "summary": "I'm enjoying wearing these shades mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+        "summary": "I'm enjoying wearing these shades yepppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
         "recommend": false,
         "response": null,
-        "body": "It do be like that sometimes yellow blue green red purple pink orange green turquoise white black gray brown tan",
+        "body": "It do be like that sometimes yellow blue green red purple pink orange green turquoise white black gray brown tan yellow blue green red purple pink orange green turquoise white black gray brown tan yellow blue green red purple pink orange green turquoise white black gray brown tan",
         "date": "2019-04-14T00:00:00.000Z",
         "reviewer_name": "shortandsweeet",
         "helpfulness": 15,
@@ -116,13 +116,9 @@ const ReviewsList = ({productId, pageNum, count, sort}) => {
   count = productInfo.count;
   sort = "relevance";
 
-  useEffect(() => {
-    if (productId) {
-      axios.get(`/reviews/${productId}`)
-        .then((res) => setProductInfo(res.data))
-        .catch((err) => console.error('product info err?', err));
-    }
-  }, [productId]);
+  // useEffect(() => {
+  //   axios.get(`/products/${productId}`)
+  // }, []);
 
   return (
     <div>
