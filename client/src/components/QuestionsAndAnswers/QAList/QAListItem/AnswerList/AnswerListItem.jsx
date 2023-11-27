@@ -1,8 +1,9 @@
 import React from 'react';
 import Helpful from '../Helpful';
 import { parseISO } from 'date-fns';
+import axios from 'axios';
 
-const AnswerListItem = ({ answer, helpfulAnswerClickHandler, reportButtonClickHandler }) => {
+const AnswerListItem = ({ answer, reportButtonClickHandler }) => {
   const [alreadyReported, setAlreadyReported] = React.useState(false);
   const [helpfulCount, setHelpfulCount] = React.useState(answer?.helpfulness);
 
@@ -11,6 +12,11 @@ const AnswerListItem = ({ answer, helpfulAnswerClickHandler, reportButtonClickHa
     day: "numeric",
     month: "short",
     year: "numeric"
+  }
+  const helpfulAnswerClickHandler = (answer_id) => {
+    console.log('clicked helpful on answer: ', answer_id);
+    //should only be able to click once!
+    //kicks off an API put call
   }
 
   return (

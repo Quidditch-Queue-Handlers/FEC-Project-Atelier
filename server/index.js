@@ -50,6 +50,22 @@ app.post('/*', (req, res) => {
         .send(err?.response?.statusText ?? 'error');
     });
 });
+app.put('/*', (req, res) => {
+  axios
+    .put(`${API_HOST_URI}${req.url}`, req?.body ?? {}, {
+      headers: {
+        Authorization: GITHUB_TOKEN,
+      },
+    })
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((err) => {
+      res
+        .status(err?.response?.status ?? 500)
+        .send(err?.response?.statusText ?? 'error');
+    });
+});
 
 const PORT = process.env.PORT || 3000;
 

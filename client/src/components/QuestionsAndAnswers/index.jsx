@@ -3,6 +3,7 @@ import AddQuestion from './AddQuestion';
 import Search from './Search';
 import QAList from './QAList';
 import exampleData from '../../../examples/QA-examples/exampleQuestionCall.json';
+import axios from 'axios';
 
 const QuestionsAndAnswers = ({ product_id }) => {
   const [questionsList, setQuestionsList] = React.useState([]);
@@ -12,9 +13,13 @@ const QuestionsAndAnswers = ({ product_id }) => {
   React.useEffect(() => {
     console.log('First QA Render');
     console.log(exampleData);
-    //update the initial display count to be 0,1,2 accordingly
-    setQuestionsList(exampleData.results);
-    setDisplayedQuestionsList(exampleData.results);
+    //will change 40359 to product_id later
+    axios.get(`/qa/questions?product_id=${'40359'}&count=1000000`)
+      .then(({data}) => {
+        setQuestionsList(data?.results);
+        setDisplayedQuestionsList(data?.results);
+      })
+      .catch((err) => console.error(`questions get error for product: ${product_id}`));
   }, []);
   const loadMoreQuestionsClickHandler = (collapseList) => {
     console.log('clicked Load more Questions!');
