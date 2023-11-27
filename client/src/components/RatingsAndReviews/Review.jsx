@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 import ReviewStars from '../common/ReviewStars'
 
 const Review = ({review, recommended}) => {
 
-  const {review_id, rating, reviewer_name, date, summary, body, photos, recommend, response, helpfulness} = review;
+  const [showFullBody, setShowFullBody] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const {review_id, rating, reviewer_name, date, summary, photos, recommend, response, helpfulness} = review;
 
   const handleHelpful = () => {
     axios.put(`/reviews/${review_id}/helpful`)
@@ -27,7 +29,7 @@ const Review = ({review, recommended}) => {
     setShowModal(showModal => !showModal);
   };
 
-  // const body = showFullBody ? review.body + " Show Less" : `${review.body.slice(0, 250)}... Show More`;
+  const body = showFullBody ? review.body + " Show Less" : `${review.body.slice(0, 250)}... Show More`;
 
   return (
     <div className="rr-review-container">
