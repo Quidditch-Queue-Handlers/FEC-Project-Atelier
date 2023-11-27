@@ -8,17 +8,17 @@ const FillStar = ({ size = 24, star = 0, fillPerc = 0, ratingId, checked, handle
     21.02, 7, 14.14, 2, 9.27, 8.91, 8.26, 12, 2,
   ];
 
-  const starRadio = useRef(null); 
-  
+  const starRadio = useRef(null);
+
   return (
-    <div 
+    <div
       className="fill-star"
       style={handleChange ? {
         cursor: 'pointer'
       } : {}}
       onClick={() => {
-        handleChange && starRadio?.current?.click(); 
-      }}  
+        handleChange && starRadio?.current?.click();
+      }}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ const FillStar = ({ size = 24, star = 0, fillPerc = 0, ratingId, checked, handle
 
 const ReviewStars = ({ rating, size = 13, ratingId, onRatingChange}) => {
   const [internalRating, setInternalRating] = useState(rating);
-  
+
   useEffect(() => {
     onRatingChange && onRatingChange(internalRating)
   }, [internalRating])

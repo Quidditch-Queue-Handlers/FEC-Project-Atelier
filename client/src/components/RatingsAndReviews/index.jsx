@@ -3,13 +3,30 @@ import axios from 'axios';
 import ProductBreakdown from './ProductBreakdown';
 import RatingBreakdown from './RatingBreakdown';
 import ReviewsList from './ReviewsList';
-// import productInfo from '../ProductDetails';
 
 const RatingsAndReviews = ({productId}) => {
 
-  // get info from ../ProductDetails/index.jsx ?
+  const [reviews, setReviews] = useState([]);
+  const [reviewsMeta, setReviewsMeta] = useState({});
+  const [count, setCount] = useState(0);
+  const [sort, setSort] = useState("relevant");
 
-  // useEffect
+  useEffect(() => {
+    if (productId) {
+      axios.get(`/reviews/?product_id=${productId}&sort=${sort}`)
+        .then((res) => {
+          setReviews(res.data.results)
+          setCount(res.data.count)
+        })
+        .catch((err) => console.error('reviews list err?', err));
+      axios.get(`/reviews/meta?product_id=${productId}`)
+        .then((res) => setReviewsMeta(res.data))
+        .catch((err) => console.error('reviews meta err?', err));
+
+  // POST /reviews
+
+    }
+  }, [productId, sort]);
 
   return (
     <div>
@@ -20,7 +37,7 @@ const RatingsAndReviews = ({productId}) => {
         <RatingBreakdown />
       </div>
       <div className="rr-reviewsList-container">
-        <ReviewsList />
+        <ReviewsList reviews={reviews} count={count} recommend={reviewsMeta.recommended} sort={sort} setSort={setSort}/>
       </div>
     </div>
     </div>
