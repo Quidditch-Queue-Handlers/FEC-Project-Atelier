@@ -5,6 +5,8 @@ import ProductStyleSelector from './ProductStyleSelector';
 import ProductCartActions from './ProductCartActions';
 import ProductInfo from './ProductInfo';
 import ReviewStars from '../common/ReviewStars';
+import SocialShare from './SocialShare';
+import ProductPrice from './ProductPrice';
 
 const ProductDetails = ({ productId }) => {
   const [productInfo, setProductInfo] = useState();
@@ -82,9 +84,8 @@ const ProductDetails = ({ productId }) => {
             )}
             <h2>{productInfo?.category}</h2>
             <h1>{productInfo?.name}</h1>
-            <h2>${selectedStyle?.original_price}</h2>
+            <ProductPrice selectedStyle={selectedStyle} />
           </div>
-
           <ProductStyleSelector
             selectedStyle={selectedStyle}
             setSelectedStyle={setSelectedStyle}
@@ -98,6 +99,11 @@ const ProductDetails = ({ productId }) => {
       ) : (
         <div style={{margin: '3rem'}}></div>
       )}
+      <div
+        className='pd-share-container'
+      >
+        <SocialShare />
+      </div>
     </div>
   );
 };
