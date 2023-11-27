@@ -3,11 +3,6 @@ import AnswerList from './AnswerList';
 import AddAnswer from './AddAnswer';
 import Helpful from './Helpful';
 import axios from 'axios';
-import example329062 from '../../../../../examples/QA-examples/exampleAnswer329062.json';
-import example329065 from '../../../../../examples/QA-examples/exampleAnswer329065.json';
-import example329066 from '../../../../../examples/QA-examples/exampleAnswer329066.json';
-import example329068 from '../../../../../examples/QA-examples/exampleAnswer329068.json';
-import example329069 from '../../../../../examples/QA-examples/exampleAnswer329069.json';
 
 const QAListItem = ({ question }) => {
   const [answerList, setAnswerList] = React.useState([]);
@@ -19,8 +14,7 @@ const QAListItem = ({ question }) => {
     console.log('First A Render'); //yes i realize getting the first million if there were a million would not be best practice... but for this it seems okay to do for now.
     axios.get(`/qa/questions/${question?.question_id}/answers?count=1000000`)
       .then(({data}) => {
-        //this sorts the list so that the seller answers appear at the top of the list in order of helpfulness, able to be done this way because the list comes sorted by helpfulness from the API call.
-        var list = JSON.parse(JSON.stringify(data.results));
+        var list = data.results;
         var sellerAnswers = [];
         for (var i = 0; i < list.length; i++) {
           if (list[i].answerer_name === 'Seller') {
@@ -29,12 +23,12 @@ const QAListItem = ({ question }) => {
             i--;
           }
         }
-        const sellerSortedList = [...sellerAnswers, ...data];
+        const sellerSortedList = [...sellerAnswers, ...list];
         //this is the end of the seller sorter area, i will move this out into its own helper function later.
         setAnswerList(sellerSortedList);
         setDisplayedAnswerList(sellerSortedList);
       })
-      .catch((err) => console.error(`error getting answer list for question: ${question.question_id}`))
+      .catch((err) => console.error(`error getting answer list for question: ${question.question_id}, `, err));
   }, []);
 
   const loadMoreAnswersClickHandler = (collapseList) => {
@@ -48,20 +42,28 @@ const QAListItem = ({ question }) => {
 
   const helpfulQuestionClickHandler = () => {
     console.log('clicked helpful on question: ', question.question_id);
-    //should only be able to click once!
-            // /qa/questions/329069/helpful
     axios.put(`/qa/questions/${question.question_id}/helpful`)
       .then( () => {setHelpfulCount(helpfulCount + 1)})
       .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}`))
   }
 
-  const addAnswerClickHandler = () => {
+  const addAnswerClickHandler = (text, nickname, email, question_id) => {
     console.log('clicked add answer button');
+    console.log(`/qa/questions/${question_id}/answers`, {
+      body: text,
+      name: nickname,
+      email: email
+    });
+    //using a console log for now but verified with postman that this request will work. will change to an axios post when the modal is fully implemented
   }
 
-  const reportButtonClickHandler = () => {
+  const reportButtonClickHandler = (answerId) => {
     console.log('clicked report');
     //should only be able to report once!
+    axios.put(`qa/answers/${answerId}/report`)
+    // might need to kick off an axios call to rerender the list, but not in the BRD's
+      .then(() => console.log('successfully reported'))
+      .catch((err) => console.error(`error reporting andswer: ${answerId}`));
   }
 
 
@@ -71,7 +73,7 @@ const QAListItem = ({ question }) => {
       <div>
         <b>{`Q: ${question.question_body}`}</b>
         <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulQuestionClickHandler} />
-        <AddAnswer addAnswerClickHandler={addAnswerClickHandler} />
+        <AddAnswer addAnswerClickHandler={addAnswerClickHandler} question_id={question?.question_id}/>
       </div>
       <AnswerList
         question={question}

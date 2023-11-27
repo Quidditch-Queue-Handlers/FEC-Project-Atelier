@@ -13,10 +13,12 @@ const AnswerListItem = ({ answer, reportButtonClickHandler }) => {
     month: "short",
     year: "numeric"
   }
-  const helpfulAnswerClickHandler = (answer_id) => {
-    console.log('clicked helpful on answer: ', answer_id);
+  const helpfulAnswerClickHandler = () => {
+    console.log('clicked helpful on answer: ', answer?.answer_id);
     //should only be able to click once!
-    //kicks off an API put call
+    axios.put(`/qa/answers/${answer.answer_id}/helpful`)
+      .then( () => {setHelpfulCount(helpfulCount + 1)})
+      .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}`))
   }
 
   return (
@@ -30,7 +32,7 @@ const AnswerListItem = ({ answer, reportButtonClickHandler }) => {
       <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulAnswerClickHandler} />
       <button onClick={() => {
         if (!alreadyReported) {
-          reportButtonClickHandler();
+          reportButtonClickHandler(answer.answer_id);
           setAlreadyReported(true);
         } else {
           console.log('Already Reported!!');

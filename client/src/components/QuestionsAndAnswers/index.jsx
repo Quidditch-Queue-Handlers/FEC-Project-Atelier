@@ -2,7 +2,8 @@ import React from 'react';
 import AddQuestion from './AddQuestion';
 import Search from './Search';
 import QAList from './QAList';
-import exampleData from '../../../examples/QA-examples/exampleQuestionCall.json';
+//going to leave this here until final cleanup
+// import exampleData from '../../../examples/QA-examples/exampleQuestionCall.json';
 import axios from 'axios';
 
 const QuestionsAndAnswers = ({ product_id }) => {
@@ -10,9 +11,10 @@ const QuestionsAndAnswers = ({ product_id }) => {
   const [displayedQuestionsList, setDisplayedQuestionsList] = React.useState([]);
   const [displayCount, setDisplayCount] = React.useState(2);
   const [displayCollapse, setDisplayCollapse] = React.useState(false);
+  const [productId, setproductId] = React.useState(product_id);
+
   React.useEffect(() => {
     console.log('First QA Render');
-    console.log(exampleData);
     //will change 40359 to product_id later
     axios.get(`/qa/questions?product_id=${'40359'}&count=1000000`)
       .then(({data}) => {
@@ -21,6 +23,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
       })
       .catch((err) => console.error(`questions get error for product: ${product_id}`));
   }, []);
+
   const loadMoreQuestionsClickHandler = (collapseList) => {
     console.log('clicked Load more Questions!');
     if (collapseList) {
@@ -29,6 +32,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
       setDisplayCount(displayedQuestionsList.length);
     }
   };
+
   const searchTextChangeHandler = (query) => {
     console.log(`Searching with query: ${query}!`);
     var copyList = JSON.parse(JSON.stringify(questionsList));
@@ -37,11 +41,17 @@ const QuestionsAndAnswers = ({ product_id }) => {
       copyList[i]?.question_body?.includes(query) ? newDisplayList.push(copyList[i]) : copyList;
     }
     setDisplayedQuestionsList(newDisplayList);
-    console.log(copyList);
-    console.log(displayedQuestionsList);
   };
-  const addQuestionClickHandler = () => {
+
+  const addQuestionClickHandler = (text, nickname, email) => {
     console.log('clicked Add a Question');
+    console.log(`/qa/questions`, {
+      body: text,
+      name: nickname,
+      email: email,
+      product_id: productId
+    });
+    //using a console log for now but verified with postman that this request will work. will change to an axios post when the modal is fully implemented
   };
 
   return (
@@ -69,7 +79,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
               }}
             >{displayCollapse ? 'Collapse Questions' : 'Load More Questions'}</button>
           )}
-          <AddQuestion addQuestionClickHandler={addQuestionClickHandler} />
+          <AddQuestion addQuestionClickHandler={addQuestionClickHandler}/>
         </div>
       </div>
     </div>
