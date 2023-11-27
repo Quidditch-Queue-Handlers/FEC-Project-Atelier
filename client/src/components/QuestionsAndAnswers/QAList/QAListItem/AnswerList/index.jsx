@@ -1,7 +1,7 @@
 import React from 'react';
 import AnswerListItem from './AnswerListItem';
 
-const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, helpfulAnswerClickHandler, reportButtonClickHandler, displayCount }) => {
+const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, reportButtonClickHandler, displayCount }) => {
   const [isScrollable, setIsScrollable] = React.useState(false); //will change this when i am actually passing in valid data
   const [displayCollapse, setDisplayCollapse] = React.useState(false);
 
@@ -15,7 +15,6 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, helpfulA
           <AnswerListItem
             answer={answer}
             key={answer?.answer_id}
-            helpfulAnswerClickHandler={helpfulAnswerClickHandler}
             reportButtonClickHandler={reportButtonClickHandler}
           />
         ))}

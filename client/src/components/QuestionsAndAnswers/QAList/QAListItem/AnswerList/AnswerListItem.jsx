@@ -1,8 +1,9 @@
 import React from 'react';
 import Helpful from '../Helpful';
 import { parseISO } from 'date-fns';
+import axios from 'axios';
 
-const AnswerListItem = ({ answer, helpfulAnswerClickHandler, reportButtonClickHandler }) => {
+const AnswerListItem = ({ answer, reportButtonClickHandler }) => {
   const [alreadyReported, setAlreadyReported] = React.useState(false);
   const [helpfulCount, setHelpfulCount] = React.useState(answer?.helpfulness);
 
@@ -11,6 +12,13 @@ const AnswerListItem = ({ answer, helpfulAnswerClickHandler, reportButtonClickHa
     day: "numeric",
     month: "short",
     year: "numeric"
+  }
+  const helpfulAnswerClickHandler = () => {
+    console.log('clicked helpful on answer: ', answer?.answer_id);
+    //should only be able to click once!
+    axios.put(`/qa/answers/${answer.answer_id}/helpful`)
+      .then( () => {setHelpfulCount(helpfulCount + 1)})
+      .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}, `, err));
   }
 
   return (
@@ -24,7 +32,7 @@ const AnswerListItem = ({ answer, helpfulAnswerClickHandler, reportButtonClickHa
       <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulAnswerClickHandler} />
       <button onClick={() => {
         if (!alreadyReported) {
-          reportButtonClickHandler();
+          reportButtonClickHandler(answer.answer_id);
           setAlreadyReported(true);
         } else {
           console.log('Already Reported!!');

@@ -5,7 +5,7 @@ const AddQuestion = ({addQuestionClickHandler}) => {
   const isQuestion = true; //not a state because this never needs to change
 
   return (
-    <AddModal submitClickHandler={addQuestionClickHandler} isQuestion={isQuestion}/>
+    <AddModal submitClickHandler={addQuestionClickHandler} isQuestion={isQuestion} />
   );
 };
 

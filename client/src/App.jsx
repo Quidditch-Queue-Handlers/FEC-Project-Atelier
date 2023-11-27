@@ -12,7 +12,8 @@ const App = () => {
       productId={40344} //TODO: create state to control productId
     />
     <RelatedItems />
-    <QuestionsAndAnswers />
+    <QuestionsAndAnswers
+      product_id={40359}/>
     <RatingsAndReviews
       productId={40346}/>
     </div>
