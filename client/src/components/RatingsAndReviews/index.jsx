@@ -13,7 +13,7 @@ const RatingsAndReviews = ({productId}) => {
 
   return (
     <div>
-      <h2 className="rr-title">Ratings & Reviews</h2>
+      <h2 className="rr-title" id="reviews-header">Ratings & Reviews</h2>
     <div className="rr-container">
       <div className="rr-breakdowns-container">
         <ProductBreakdown />
