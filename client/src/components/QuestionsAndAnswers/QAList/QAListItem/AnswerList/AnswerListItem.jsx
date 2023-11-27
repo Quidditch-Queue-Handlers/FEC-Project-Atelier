@@ -18,7 +18,7 @@ const AnswerListItem = ({ answer, reportButtonClickHandler }) => {
     //should only be able to click once!
     axios.put(`/qa/answers/${answer.answer_id}/helpful`)
       .then( () => {setHelpfulCount(helpfulCount + 1)})
-      .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}`))
+      .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}, `, err));
   }
 
   return (

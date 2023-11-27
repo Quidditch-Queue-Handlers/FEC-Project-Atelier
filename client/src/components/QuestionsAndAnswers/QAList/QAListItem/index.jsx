@@ -44,7 +44,7 @@ const QAListItem = ({ question }) => {
     console.log('clicked helpful on question: ', question.question_id);
     axios.put(`/qa/questions/${question.question_id}/helpful`)
       .then( () => {setHelpfulCount(helpfulCount + 1)})
-      .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}`))
+      .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}, `, err));
   }
 
   const addAnswerClickHandler = (text, nickname, email, question_id) => {
@@ -63,7 +63,7 @@ const QAListItem = ({ question }) => {
     axios.put(`qa/answers/${answerId}/report`)
     // might need to kick off an axios call to rerender the list, but not in the BRD's
       .then(() => console.log('successfully reported'))
-      .catch((err) => console.error(`error reporting andswer: ${answerId}`));
+      .catch((err) => console.error(`error reporting andswer: ${answerId}, `, err));
   }
 
 

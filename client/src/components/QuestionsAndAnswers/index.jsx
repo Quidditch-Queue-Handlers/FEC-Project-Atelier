@@ -21,7 +21,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
         setQuestionsList(data?.results);
         setDisplayedQuestionsList(data?.results);
       })
-      .catch((err) => console.error(`questions get error for product: ${product_id}`));
+      .catch((err) => console.error(`questions get error for product: ${product_id}, `, err));
   }, []);
 
   const loadMoreQuestionsClickHandler = (collapseList) => {
