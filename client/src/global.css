@@ -4,7 +4,7 @@
   --font-color: #525252;
   --border-color: #525252;
   --placeholder-color: #EBEBEB;
-
+  --sale-color: #FF0000;
   /* Base sizing */
   font-size: 13px;
   font-family: 'Arial', sans-serif;
@@ -368,6 +368,11 @@ TODO: override default styles
   justify-content: center;
   justify-items: center;
   margin-bottom: 3rem;
+}
+
+.pd-sale-price {
+  color: var(--sale-color);
+  font-weight: bold;
 }
 
 .ri-container {
