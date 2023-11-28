@@ -90,7 +90,7 @@ describe('render product details', () => {
       expect(screen.getByRole('img', {name: `style ${style.name} select preview`})).toBeTruthy();
     });
     const radioGroup = screen.getAllByRole('radio'); 
-    expect(radioGroup.length).toBeTruthy(); 
+    expect(radioGroup.length).toBe(ExampleProductStyles.results.length); 
     fireEvent.click(radioGroup[2]);
     expect(setSelectedSyle).toHaveBeenCalledTimes(2); 
   });
