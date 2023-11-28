@@ -56,26 +56,35 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
           }}>
             <h3>{isQuestion ? ('Ask your Question') : ('Submit your Answer')}</h3>
             <h3>{isQuestion ? (`About the ${productName}`) : (`${productName}: ${questionBody}`)}</h3>
-            <h4>{`Your ${isQuestion ? 'Question' : 'Answer'}*`}</h4>
-            <textarea
-              maxlength="1000"
-              cols="48"
-              rows="6"
-              onChange={(e) => setBody(e.target.value)}
-            ></textarea>
-            <h4>What is your nickname*</h4>
-            <input
-              maxlength="60"
-              placeholder={'Example: jackson11!'}
-              onChange={(e) => setNickname(e.target.value)}
-            ></input>
+            <label style={{display:"block"}}>
+              {`Your ${isQuestion ? 'Question' : 'Answer'}*`}
+              <textarea
+                style={{display:"block"}}
+                maxlength="1000"
+                cols="48"
+                rows="6"
+                onChange={(e) => setBody(e.target.value)}
+              ></textarea>
+            </label>
+            <label style={{display:"block"}}>
+              What is your nickname*
+              <input
+                style={{display:"block"}}
+                maxlength="60"
+                placeholder={'Example: jackson11!'}
+                onChange={(e) => setNickname(e.target.value)}
+              ></input>
+            </label>
             <p>For privacy reasons, do not use your full name or email address</p>
-            <h4>Your email*</h4>
-            <input
-              maxlength="60"
-              placeholder={'Example: jack@email.com'}
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
+            <label style={{display:"block"}}>
+              Your email*
+              <input
+                style={{display:"block"}}
+                maxlength="60"
+                placeholder={'Example: jack@email.com'}
+                onChange={(e) => setEmail(e.target.value)}
+              ></input>
+            </label>
             <p>For authentication reasons, you will not be emailed</p>
             <h4>{`Submit ${isQuestion ? 'Question' : 'Answer'}`}</h4>
             <button onClick={() => submitData()}>Submit</button>
