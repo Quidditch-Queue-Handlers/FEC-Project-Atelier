@@ -2,7 +2,6 @@ import React from 'react';
 import QAListItem from './QAListItem';
 
 const QAList = ({ questionsList, displayedQuestionsList, displayCount, productName }) => {
-  const [isScrollable, setIsScrollable] = React.useState(false); //will beter determine this when i implement the scrollbar
 
   return (
     <div>

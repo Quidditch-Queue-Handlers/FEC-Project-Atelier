@@ -108,11 +108,3 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
 };
 
 export default AddModal;
-
-//style={{padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}
-
-//for add question
-//submitClickHandler(responseTextInput, nickname, email)
-
-//for add answer
-//submitClickHandler(responseTextInput, nickname, email, question_id)

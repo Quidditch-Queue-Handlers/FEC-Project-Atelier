@@ -2,7 +2,7 @@ import React from 'react';
 import AddModal from '../../AddModal';
 
 const AddAnswer = ({ addAnswerClickHandler, question_id, questionBody, productName }) => {
-  const isQuestion = false; //this will never be changed
+  const isQuestion = false;
 
   return (
       <AddModal

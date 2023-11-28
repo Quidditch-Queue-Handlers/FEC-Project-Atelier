@@ -12,7 +12,6 @@ const Search = ({ searchTextChangeHandler }) => {
   }, [searchInputText]);
 
   const searchInputChangeHandler = (e) => {
-    console.log(e.target.value);
     setSearchInputText(e.target.value);
   }
   return (

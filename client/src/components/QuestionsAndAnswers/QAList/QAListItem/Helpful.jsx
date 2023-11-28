@@ -12,8 +12,6 @@ const Helpful = ({ helpfulCount, helpfulClickHandler }) => {
           if (!alreadyClicked) {
             helpfulClickHandler();
             setAlreadyClicked(true);
-          } else {
-            console.log('Already Clicked!!');
           }
         }}
       >Yes</button>{`(${helpfulCount})   | `}

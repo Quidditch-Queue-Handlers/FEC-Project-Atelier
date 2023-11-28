@@ -15,8 +15,6 @@ const QuestionsAndAnswers = ({ product_id }) => {
   const [productName, setProductName] = React.useState('');
 
   React.useEffect(() => {
-    console.log('First QA Render');
-    //will change 40359 to product_id later
     axios.get(`/qa/questions?product_id=${product_id}&count=1000000`)
       .then(({ data }) => {
         setQuestionsList(data?.results);
@@ -31,7 +29,6 @@ const QuestionsAndAnswers = ({ product_id }) => {
   }, []);
 
   const loadMoreQuestionsClickHandler = (collapseList) => {
-    console.log('clicked Load more Questions!');
     if (collapseList) {
       setDisplayCount(2);
     } else {
@@ -40,6 +37,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
   };
 
   const searchTextChangeHandler = (query) => {
+    //keeping this console log until search filter permanence is implemented
     console.log(`Searching with query: ${query}!`);
     var copyList = JSON.parse(JSON.stringify(questionsList));
     var newDisplayList = [];
@@ -50,14 +48,12 @@ const QuestionsAndAnswers = ({ product_id }) => {
   };
 
   const addQuestionClickHandler = (text, nickname, email) => {
-    console.log('clicked Add a Question');
     axios.post(`/qa/questions`, {
       body: text,
       name: nickname,
       email: email,
       product_id: productId
     })
-      .then(() => console.log('successfully posted question!'))
       .catch((err) => console.error(`error posting question: ${err}`));
   };
 
@@ -104,5 +100,3 @@ const QuestionsAndAnswers = ({ product_id }) => {
 };
 
 export default QuestionsAndAnswers;
-
-//style={{overflowY:"auto", maxHeight: "100vh"}}
