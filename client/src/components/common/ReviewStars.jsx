@@ -34,6 +34,7 @@ const FillStar = ({ size = 24, star = 0, fillPerc = 0, ratingId, checked, handle
         <polygon points={pathPoints.map(p => p * scale).join(" ")} />
       </svg>
       <span
+        data-testid="star-fill-span"
         style={{
           height: size,
           width: `${fillPerc}%`,
