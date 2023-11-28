@@ -6,6 +6,8 @@ const Review = ({review, recommended}) => {
 
   const [showFullBody, setShowFullBody] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [bigPhotoSrc, setBigPhotoSrc] = useState("");
+
   const {review_id, rating, reviewer_name, date, summary, photos, recommend, response, helpfulness} = review;
 
   const handleHelpful = () => {
@@ -47,7 +49,7 @@ const Review = ({review, recommended}) => {
 
       <div className="rr-images">
         {review.photos.map((url, id) => (
-          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal(url)}/>
+          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal({url})}/>
         ))}
       </div>
 
@@ -71,6 +73,13 @@ const Review = ({review, recommended}) => {
             <span> </span>
             <a className="rr-a" onClick={() => handleReport()}>Report</a>
           </div>
+        </div>
+      }
+
+      {showModal &&
+        <div className={`rr-modal ${showModal ? 'rr-modal-visible' : 'rr-modal-hidden'}`}>
+          <span className="rr-close" onClick={toggleShowModal}>&times;</span>
+          <img src={bigPhotoSrc} alt="Full Resolution" className="rr-modal-content" />
         </div>
       }
     </div>
