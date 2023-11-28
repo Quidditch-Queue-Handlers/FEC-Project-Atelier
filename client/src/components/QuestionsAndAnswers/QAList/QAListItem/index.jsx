@@ -75,19 +75,20 @@ const QAListItem = ({ question, productName }) => {
 
   return (
     <li>
-      <div>QAListItem</div>
-      <div>
+      <div style={{display:"flexbox", padding: "1% 0"}}>
         <b>{`Q: ${question.question_body}`}</b>
-        <Helpful
-          helpfulCount={helpfulCount}
-          helpfulClickHandler={helpfulQuestionClickHandler}
-        />
-        <AddAnswer
-          addAnswerClickHandler={addAnswerClickHandler}
-          question_id={question?.question_id}
-          productName={productName}
-          questionBody={questionBody}
-        />
+        <span style={{justifySelf:"right"}}>
+          <Helpful
+            helpfulCount={helpfulCount}
+            helpfulClickHandler={helpfulQuestionClickHandler}
+          />
+          <AddAnswer
+            addAnswerClickHandler={addAnswerClickHandler}
+            question_id={question?.question_id}
+            productName={productName}
+            questionBody={questionBody}
+          />
+        </span>
       </div>
       <AnswerList
         question={question}

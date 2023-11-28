@@ -5,8 +5,6 @@ const AddAnswer = ({ addAnswerClickHandler, question_id, questionBody, productNa
   const isQuestion = false; //this will never be changed
 
   return (
-    <div>
-      <div>AddAnswer</div>
       <AddModal
         submitClickHandler={addAnswerClickHandler}
         isQuestion={isQuestion}
@@ -14,8 +12,6 @@ const AddAnswer = ({ addAnswerClickHandler, question_id, questionBody, productNa
         productName={productName}
         questionBody={questionBody}
       />
-    </div>
-
   );
 };
 

@@ -25,9 +25,9 @@ const AnswerListItem = ({ answer, reportButtonClickHandler }) => {
     <li>
       <div>{`${answer.body}`}</div>
       {answer.answerer_name === 'Seller' ? (
-        <p>by <b>{answer.answerer_name}</b>, {parseISO(answer.date).toLocaleDateString("en-US", options)} |</p>
-      ): (
-        <p>{`by ${answer.answerer_name}, ${parseISO(answer.date).toLocaleDateString("en-US", options)}`} |</p>
+        <span>by <b>{answer.answerer_name}</b>, {parseISO(answer.date).toLocaleDateString("en-US", options)} |</span>
+      ) : (
+        <span>{`by ${answer.answerer_name}, ${parseISO(answer.date).toLocaleDateString("en-US", options)}`} |</span>
         )}
       <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulAnswerClickHandler} />
       <button onClick={() => {

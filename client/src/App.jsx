@@ -13,7 +13,7 @@ const App = () => {
     />
     <RelatedItems />
     <QuestionsAndAnswers
-      product_id={40359}/>
+      product_id={40344}/>
     <RatingsAndReviews
       productId={40345}/>
     </div>

@@ -8,7 +8,6 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, reportBu
   //need to check answer.answer_id to ensure the prop name is correct.
   return (
     <div>
-      <div>AnswerList</div>
       {displayedAnswerList?.length === 0 ? null : (<b>A:</b>)}
       <ul style={{overflowY: "auto", maxHeight: "50vh"}}>
         {displayedAnswerList?.filter((answer, index) => index < displayCount)?.map((answer) => (

@@ -62,9 +62,9 @@ const QuestionsAndAnswers = ({ product_id }) => {
   };
 
   return (
-    <div>
+    <div style={{paddingLeft:"5%"}}>
       <h2>Questions and Answers</h2>
-      <div >
+      <div>
         {questionsList.length !== 0 ? (
           <Search
             searchTextChangeHandler={searchTextChangeHandler}
@@ -83,7 +83,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
           null
         )}
         <div>
-          {questionsList?.length === 0 ? (
+          {questionsList?.length < 3 ? (
             null
           ) : (
             <button
