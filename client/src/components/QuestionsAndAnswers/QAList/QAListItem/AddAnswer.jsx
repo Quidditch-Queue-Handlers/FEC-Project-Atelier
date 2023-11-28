@@ -2,11 +2,9 @@ import React from 'react';
 import AddModal from '../../AddModal';
 
 const AddAnswer = ({ addAnswerClickHandler, question_id, questionBody, productName }) => {
-  const isQuestion = false; //this will never be changed
+  const isQuestion = false;
 
   return (
-    <div>
-      <div>AddAnswer</div>
       <AddModal
         submitClickHandler={addAnswerClickHandler}
         isQuestion={isQuestion}
@@ -14,8 +12,6 @@ const AddAnswer = ({ addAnswerClickHandler, question_id, questionBody, productNa
         productName={productName}
         questionBody={questionBody}
       />
-    </div>
-
   );
 };
 

@@ -28,7 +28,7 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
   }
   //document.body.style.overflow = "hidden" to stop scrolling
   return (
-    <div position="relative">
+    <span position="relative" >
       {modalIsOpen ? (
         <>
           <div style={{
@@ -103,16 +103,8 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
         >
           Add Answer
         </button>)}
-    </div>
+    </span>
   );
 };
 
 export default AddModal;
-
-//style={{padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}
-
-//for add question
-//submitClickHandler(responseTextInput, nickname, email)
-
-//for add answer
-//submitClickHandler(responseTextInput, nickname, email, question_id)
