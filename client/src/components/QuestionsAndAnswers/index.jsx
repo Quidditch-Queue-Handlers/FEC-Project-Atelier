@@ -12,14 +12,20 @@ const QuestionsAndAnswers = ({ product_id }) => {
   const [displayCount, setDisplayCount] = React.useState(2);
   const [displayCollapse, setDisplayCollapse] = React.useState(false);
   const [productId, setproductId] = React.useState(product_id);
+  const [productName, setProductName] = React.useState('');
 
   React.useEffect(() => {
     console.log('First QA Render');
     //will change 40359 to product_id later
     axios.get(`/qa/questions?product_id=${product_id}&count=1000000`)
-      .then(({data}) => {
+      .then(({ data }) => {
         setQuestionsList(data?.results);
         setDisplayedQuestionsList(data?.results);
+      })
+      .then(() => {
+        axios.get(`/products/${productId}`)
+          .then(({ data }) => setProductName(data?.name))
+          .catch((err) => console.error(`products get error for product ${product_id}, `, err));
       })
       .catch((err) => console.error(`questions get error for product: ${product_id}, `, err));
   }, []);
@@ -59,12 +65,19 @@ const QuestionsAndAnswers = ({ product_id }) => {
     <div>
       <h2>Questions and Answers</h2>
       <div >
-        {questionsList.length !== 0 ? <Search searchTextChangeHandler={searchTextChangeHandler} /> : null}
+        {questionsList.length !== 0 ? (
+          <Search
+            searchTextChangeHandler={searchTextChangeHandler}
+          />
+        ) : (
+          null
+        )}
         {displayedQuestionsList.length !== 0 ? (
           <QAList
             questionsList={questionsList}
             displayedQuestionsList={displayedQuestionsList}
             displayCount={displayCount}
+            productName={productName}
           />
         ) : (
           null
@@ -80,7 +93,10 @@ const QuestionsAndAnswers = ({ product_id }) => {
               }}
             >{displayCollapse ? 'Collapse Questions' : 'Load More Questions'}</button>
           )}
-          <AddQuestion addQuestionClickHandler={addQuestionClickHandler}/>
+          <AddQuestion
+            addQuestionClickHandler={addQuestionClickHandler}
+            productName={productName}
+          />
         </div>
       </div>
     </div>

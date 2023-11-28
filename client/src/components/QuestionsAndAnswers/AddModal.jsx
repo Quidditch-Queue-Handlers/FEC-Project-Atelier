@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AddModal = ({ submitClickHandler, isQuestion, question_id }) => {
+const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, questionBody }) => {
   const [body, setBody] = React.useState('');
   const [nickname, setNickname] = React.useState('');
   const [email, setEmail] = React.useState('');
@@ -55,7 +55,7 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id }) => {
             translate: "-50%, -50%"
           }}>
             <h3>{isQuestion ? ('Ask your Question') : ('Submit your Answer')}</h3>
-            <h3>{isQuestion ? (`About the ${'productName'}`) : (`${'productName'}: ${'questionBody'}`)}</h3>
+            <h3>{isQuestion ? (`About the ${productName}`) : (`${productName}: ${questionBody}`)}</h3>
             <h4>{`Your ${isQuestion ? 'Question' : 'Answer'}*`}</h4>
             <textarea
               maxlength="1000"
