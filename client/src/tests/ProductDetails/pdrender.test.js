@@ -1,6 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom'
-import { render, fireEvent, screen, findByRole } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 
 import ExampleProducts from '../../../examples/Product-examples/exampleProducts.json';
 import ExampleProductInfo from '../../../examples/Product-examples/exampleProductInfo.json';
@@ -62,13 +63,14 @@ describe('render product details', () => {
 
   })
 
-  it('should render cart actions', () => {
+  it('should render cart actions', async() => {
     const selectedStyle = ExampleProductStyles.results[0]; 
     const inStockSkus = Object.entries(selectedStyle?.skus ?? {})?.filter(sku => (sku?.[1]?.quantity ?? 0) > 0);
-
+    jest.spyOn(window, 'alert').mockImplementation(() => {}); 
     render(<ProductCartActions selectedStyle={selectedStyle} />);
-    const selectSizeLabel = screen.getByLabelText('Please select size');
+    const selectSizeLabel = screen.getByText('Please select size');
     expect(selectSizeLabel).toBeTruthy(); 
+    expect(selectSizeLabel).toHaveClass('pd-visual-hidden');
     const comboBoxes = screen.getAllByRole('combobox')
     expect(screen.getAllByRole('button').length).toBe(2);
     expect(comboBoxes.length).toBe(2);
@@ -76,15 +78,20 @@ describe('render product details', () => {
     expect(addToCartButton).toBeTruthy(); 
     //click without sku selected
     fireEvent.click(addToCartButton); 
-    expect(selectSizeLabel).toBeVisible(); 
+    expect(selectSizeLabel).not.toHaveClass('pd-visual-hidden'); 
     expect(comboBoxes[0]).toHaveFocus(); 
     //select a sku
     const skuSelect = screen.getByText('Select Size');
     expect(skuSelect).toBeTruthy(); 
-    fireEvent.change(skuSelect, {target: {value: inStockSkus[0][0] }});
-
-    fireEvent.click(addToCartButton); 
-
+    const skuToSelect = inStockSkus[2]; 
+    act(() => {
+      fireEvent.change(skuSelect, {target: {value: skuToSelect[0] }});
+    });
+    expect(skuSelect).toHaveValue(skuToSelect[0]);
+    // const quantSelect = await screen.findByLabelText(`select quantity for ${selectedStyle?.name} sku ${skuToSelect[0]}`)
+    // expect(quantSelect).toBeTruthy();
+    // fireEvent.click(addToCartButton); 
+    //TODO, debug this test
   });
 
   it('should render x product style selects & images', () => {
@@ -107,8 +114,12 @@ describe('render product details', () => {
 
   it('should render product sale price', () => {
     render(<ProductPrice selectedStyle={ExampleProductStyles.results[2]} />);
-    expect(screen.getByText(`$${ExampleProductStyles.results[2].sale_price}`)).toBeTruthy();
-    expect(screen.getByText(`$${ExampleProductStyles.results[2].original_price}`)).toBeTruthy();
+    const salePrice = screen.getByText(`$${ExampleProductStyles.results[2].sale_price}`);
+    const originalPrice = screen.getByText(`$${ExampleProductStyles.results[2].original_price}`)
+    expect(salePrice).toBeTruthy();
+    expect(salePrice).toHaveClass('pd-sale-price'); 
+    expect(originalPrice).toBeTruthy();
+    expect(originalPrice).toHaveStyle('text-decoration: line-through');
   })
 
   it('should render product info', () => {
@@ -121,16 +132,20 @@ describe('render product details', () => {
   });
 
   it('should render share buttons', () => {
+    jest.spyOn(window, 'open').mockImplementation(() => {}); 
     render(<SocialShare />);
     const shareButtons = screen.getAllByRole('button')
     expect(shareButtons.length).toBe(3);
     fireEvent.click(shareButtons[0]);
+    expect(window.open).toBeCalledWith("https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%2F"); 
   });
 
-  it('should render select style thumbnails', () => {
+  it('should render select style thumbnails', async() => {
     const setPhotoIndex = jest.fn(); 
     const photos = ExampleProductStyles.results[0].photos;
     const styleName = ExampleProductStyles.results[0].name;
+    const mockSetState = jest.fn();
+    jest.spyOn(React, 'useState').mockImplementation((initialState) => [initialState, mockSetState]);
     render(<Thumbnails photos={photos} photoIndex={0} styleName={styleName} setPhotoIndex={setPhotoIndex}  />)
     photos.forEach((photo, i) => {
       expect(screen.getByLabelText(`${styleName} preview select ${i + 1} / ${photos?.length}`)).toBeTruthy(); 
@@ -141,8 +156,15 @@ describe('render product details', () => {
     expect(setPhotoIndex).toHaveBeenCalledTimes(2); 
     const nextButton = screen.getAllByRole('button'); 
     expect(nextButton.length).toBe(1); 
-    fireEvent.click(nextButton[0]); 
+    act(() => {
+      fireEvent.click(nextButton[0]); 
+    })
+    // await waitFor(() => {
+    //   expect(mockSetState).toHaveBeenCalledWith(1);
+    // });
+    //TODO: debug this click test
     
+    React.useState.mockRestore();
   });
 
   it('should render image carousel with only next button', () => {
@@ -159,8 +181,6 @@ describe('render product details', () => {
     expect(buttons.length).toBe(1); 
     fireEvent.click(buttons[0]);
     expect(setPhotoIndex).toHaveBeenCalledTimes(1); 
-
-
   });
 
   it('should render image carousel with both nav buttons', () => {
@@ -185,6 +205,7 @@ describe('render product details', () => {
     const closeBtn = screen.getByText('⛶');
     expect(closeBtn).toBeTruthy(); 
     fireEvent.click(closeBtn);
+    expect(setExpanded).toHaveBeenCalledTimes(1);
   });
 
   it('should render expanded zoomed image carousel', () => {
