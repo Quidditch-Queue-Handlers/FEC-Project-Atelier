@@ -9,6 +9,7 @@ import {
   getRelatedIds,
   getDetailById,
   getProductInfoById,
+  getReviewsMeta,
 } from '../api/product-api';
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -27,26 +28,35 @@ const RelatedProducts = ( {productId} ) => {
 
   const getRelatedIdsApi = async () => {
     try {
-      const res = await getRelatedIds(productId); 
+      const res = await getRelatedIds(productId);
       const finalRes = [];
-
+  
       for (const item of res.data) {
-        const [detailRes, reviewRes] = await Promise.all([
+        const [detailRes, reviewRes, productInfoRes] = await Promise.all([
           getDetailById(item),
-          getReviewById(item),
+          getReviewsMeta(item),
+          getProductInfoById(item), 
         ]);
-
+        // console.log('djfkdjfdkfj', reviewRes.data)
         const goodsDetail = detailRes.data.results[0];
+        const productInfo = productInfoRes.data;
+  
         let sum = 0;
-        reviewRes.data.results.forEach((review) => {
-          sum += review.rating;
+        const ratings = reviewRes?.data?.ratings ?? {};
+        // console.log('stat!!!!!!!!!here!!!!!!!', ratings)
+        let count = 0;
+        let total = 0;
+        Object.entries(ratings).forEach((entry) => {
+          count += +(entry?.[1] ?? 0);
+          total += +(entry?.[0] ?? 0) * +(entry?.[1] ?? 0);
         });
-
-        let averageRate = reviewRes.data.results.length > 0 ? sum / reviewRes.data.results.length : 0;
+        let averageRate = total / count;
+  
         finalRes.push({
           id: item,
           ...goodsDetail,
           averageRate,
+          category: productInfo.category,
         });
       }
       setSlides(finalRes);
@@ -54,20 +64,16 @@ const RelatedProducts = ( {productId} ) => {
       console.log(err);
     }
   };
-
-  const handleCompare = async (id) => {
+  const handleCompare = async (compareProductId) => {
     try {
-      const mainProductId = productId; 
       const [mainProductInfo, compareProductInfo] = await Promise.all([
-        getProductInfoById({ productId: mainProductId }),
-        getProductInfoById({ productId: id }),
+        getProductInfoById(productId), 
+        getProductInfoById(compareProductId), 
       ]);
-
+  
       setFixedCompareInfo([mainProductInfo.data, compareProductInfo.data]);
-
       const mainFeatures = mainProductInfo.data.features;
       const compareFeatures = compareProductInfo.data.features;
-
       const featureSet = new Set([...mainFeatures.map(f => f.feature), ...compareFeatures.map(f => f.feature)]);
       const featureComparison = {};
 
@@ -100,78 +106,77 @@ const RelatedProducts = ( {productId} ) => {
     <>
       <h4>RELATED PRODUCTS</h4>
       <Swiper
-        modules={[Virtual, Navigation, Pagination]}
-        onSwiper={setSwiperRef}
-        slidesPerView={3}
-        spaceBetween={50}
-        pagination={{
-          type: 'fraction',
+  modules={[Virtual, Navigation, Pagination]}
+  onSwiper={setSwiperRef}
+  slidesPerView={3}
+  spaceBetween={50}
+  pagination={{
+    type: 'fraction',
+  }}
+  navigation={true}
+  virtual
+>
+  {slides.map((slideContent, index) => (
+    <SwiperSlide key={slideContent.id} virtualIndex={index}>
+      <div
+        style={{
+          height: '380px',
+          width: '250px',
+          border: 'solid',
+          display: 'flex',
+          flexDirection: 'column',
         }}
-        navigation={true}
-        virtual
       >
-        {slides.map((slideContent, index) => (
-          <SwiperSlide key={slideContent.id} virtualIndex={index}>
-            <div
-              style={{
-                height: '380px',
-                width: '250px',
-                border: 'solid',
-                display: 'flex',
-                flexDirection: 'column',
-              }}
-            >
-              <div
-                style={{
-                  height: '250px',
-                  backgroundColor: 'grey',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  backgroundImage: `url(${slideContent.photos[0].url})`,
-                  backgroundSize: 'cover',
-                  backgroundRepeat: 'no-repeat',
-                }}
-              >
-                <StarOutlined
-                  style={{
-                    position: 'absolute',
-                    top: '10px',
-                    right: '10px',
-                    cursor: 'pointer',
-                    color: 'white',
-                  }}
-                  onClick={() => handleCompare(slideContent.id)}
-                />
-              </div>
-              <div
-                style={{
-                  flex: 1,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-evenly',
-                  alignItems: 'flex-start',
-                  padding: '0 10px',
-                }}
-              >
-                <span style={{ fontWeight: 400, fontSize: '15px' }}>
-                  Category: {slideContent.category}
-                </span>
-                <span style={{ fontWeight: 800 }}>
-                  {slideContent.name.trim()}
-                </span>
-                <span style={{ fontSize: '12px' }}>
-                  ${slideContent.original_price}
-                </span>
-                <ReviewStars
-                  rating={slideContent.averageRate}
-                  size={20}
-                  ratingId={`review_${slideContent.id}`}
-                />
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        <div
+          style={{
+            height: '250px',
+            backgroundColor: 'grey',
+            position: 'relative',
+            overflow: 'hidden',
+            backgroundImage: `url(${slideContent.photos[0].url})`,
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+          }}
+        >
+          <StarOutlined
+            style={{
+              position: 'absolute',
+              top: '10px',
+              right: '10px',
+              cursor: 'pointer',
+              color: 'white',
+            }}
+            onClick={() => handleCompare(slideContent.id)}
+          />
+        </div>
+        <div
+          style={{
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-evenly',
+            alignItems: 'flex-start',
+            padding: '0 10px',
+          }}
+        >
+          <span style={{ fontWeight: 400, fontSize: '15px' }}>
+          {slideContent.category}
+          </span>
+          <span style={{ fontWeight: 800 }}>
+            {slideContent.name.trim()}
+          </span>
+          <span style={{ fontSize: '12px' }}>
+            ${slideContent.original_price}
+          </span>
+          <ReviewStars
+            rating={slideContent.averageRate}
+            ratingId={`review_${slideContent.id}`}
+          />
+        </div>
+      </div>
+    </SwiperSlide>
+  ))}
+</Swiper>
 
       <Modal
         title="COMPARING"
@@ -179,21 +184,23 @@ const RelatedProducts = ( {productId} ) => {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <div>
-            <h4>{fixedCompareInfo[0]?.name}</h4>
-            <p>Category: {fixedCompareInfo[0]?.category}</p>
-            <p>Price: ${fixedCompareInfo[0]?.default_price}</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '20px' }}>
+              <h4>{fixedCompareInfo[0]?.name}</h4>
+              <h4>{fixedCompareInfo[1]?.name}</h4>
           </div>
-          <div>
-            <h4>{fixedCompareInfo[1]?.name}</h4>
-            <p>Category: {fixedCompareInfo[1]?.category}</p>
-            <p>Price: ${fixedCompareInfo[1]?.default_price}</p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+            <span style={{ width: '33%', textAlign: 'center' }}>{fixedCompareInfo[0]?.category}</span>
+            <h4 style={{ width: '33%', textAlign: 'center' }}>Category</h4>
+            <span style={{ width: '33%', textAlign: 'center' }}>{fixedCompareInfo[1]?.category}</span>
           </div>
-        </div>
-        {Object.entries(features).map(([feature, values]) => (
-          <FeatureComparison key={feature} feature={feature} values={values} />
-        ))}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+            <span style={{ width: '33%', textAlign: 'center' }}>{fixedCompareInfo[0]?.default_price}</span>
+            <h4 style={{ width: '33%', textAlign: 'center' }}>Price</h4>
+            <span style={{ width: '33%', textAlign: 'center' }}>{fixedCompareInfo[1]?.default_price}</span>
+          </div>
+          {Object.entries(features).map(([feature, values]) => (
+            <FeatureComparison key={feature} feature={feature} values={values} />
+          ))}
       </Modal>
     </>
   );

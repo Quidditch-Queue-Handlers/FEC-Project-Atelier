@@ -29,33 +29,38 @@ const Outfits = ({ productId }) => {
 
   const handleAddOutfit = async () => {
     try {
+      // Check is already added or not...
+      const isAlreadyAdded = slides.find(slide => slide.id === productId);
+      if (isAlreadyAdded) {
+        console.log('Outfit already added.');
+        return; 
+      }
+  
       const [detailResponse, reviewsMetaResponse] = await Promise.all([
         getDetailById(productId),
         getReviewsMeta(productId),
       ]);
-  
-      // 从响应中提取数据
       const goodsDetail = detailResponse.data.results[0];
-      const reviewsMeta = reviewsMetaResponse.data;
-  
-      let totalRating = 0;
-      let totalReviews = 0;
-      for (const [key, value] of Object.entries(reviewsMeta.ratings)) {
-        totalRating += parseInt(key) * value;
-        totalReviews += value;
-      }
-      let averageRate = totalReviews > 0 ? totalRating / totalReviews : 0;
-  
+      
+      const ratings = reviewsMetaResponse?.data?.ratings ?? {};
+      let count = 0;
+      let total = 0;
+      Object.entries(ratings).forEach((entry) => {
+        count += +(entry?.[1] ?? 0);
+        total += +(entry?.[0] ?? 0) * +(entry?.[1] ?? 0);
+      });
+      let averageRate = total / count;
+    
       const newSlideContent = {
         id: productId,
         ...goodsDetail,
         averageRate,
       };
-  
+    
       const updatedSlides = [...slides, newSlideContent];
       setSlides(updatedSlides);
       setRatings({...ratings, [productId]: averageRate});
-  
+    
       localStorage.setItem('slide', JSON.stringify(updatedSlides));
     } catch (error) {
       console.error('Error adding outfit: ', error);
@@ -153,8 +158,7 @@ const Outfits = ({ productId }) => {
                 </h3>
                 <ReviewStars
                   rating={ratings[slideContent.id] || 0}
-                  size={20} 
-                  ratingId={`outfit_${slideContent.id}`} 
+                  ratingId={slideContent.id} 
                   onRatingChange={(newRating) => {
                   handleRatingChange(slideContent.id, newRating);
                   }}

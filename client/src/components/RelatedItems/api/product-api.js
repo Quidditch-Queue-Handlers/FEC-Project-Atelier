@@ -24,7 +24,7 @@ export const getDetailById = (id) => {
 export const getReviewsMeta = (id) => {
   return axios.get(`/reviews/meta`, {
     params: {
-      productId: id,
+      product_id: id,
     },
   });
 };
