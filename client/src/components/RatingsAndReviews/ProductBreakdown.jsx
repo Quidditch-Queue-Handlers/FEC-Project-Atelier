@@ -10,7 +10,7 @@ const ProductBreakdown = ({reviewMeta}) => {
   const fives = parseInt(ratings["5"]);
   const totalScore = ones + twos*2 + threes*3 + fours*4 + fives*5;
   const totalRatings = ones + twos + threes + fours + fives;
-  const average = Math.round(totalScore/totalRatings*10)/10;
+  const average = (totalScore/totalRatings).toFixed(1);
   console.log(average)
 
   return (
