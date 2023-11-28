@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-
 const FillStar = ({ size = 24, star = 0, fillPerc = 0, ratingId, checked, handleChange }) => {
 
   const scale = size / 24;

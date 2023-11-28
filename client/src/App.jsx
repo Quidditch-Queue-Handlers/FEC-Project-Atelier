@@ -11,7 +11,7 @@ const App = () => {
     <ProductDetails
       productId={40344} //TODO: create state to control productId
     />
-   <RelatedItems/>
+   <RelatedItems  productId={40344}/>
     <QuestionsAndAnswers />
     <RatingsAndReviews
       productId={40344}/>

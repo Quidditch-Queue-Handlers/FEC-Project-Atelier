@@ -1,11 +1,13 @@
 
 import RelatedProducts from './RelatedProducts'
 import Outfits from './Outfits'
-const RelatedItems = ()=>{
-    return (<>
-    <RelatedProducts/>
-    <Outfits/>
-    </>)
-}
-
-export default RelatedItems
+const RelatedItems = ( {productId} )=>{
+    return (
+        <>
+          <RelatedProducts productId={productId} />
+          <Outfits productId={productId} />
+        </>
+      );
+    };
+    
+    export default RelatedItems;

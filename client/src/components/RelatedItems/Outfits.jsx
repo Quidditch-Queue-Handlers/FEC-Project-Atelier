@@ -1,56 +1,70 @@
 import { useState, useEffect } from 'react';
-import { Rate } from 'antd';
-import { PlusOutlined, CloseCircleOutlined } from '@ant-design/icons';
+import Rating from '@mui/material/Rating';
 import { Virtual, Navigation, Pagination } from 'swiper/modules';
+import ReviewStars from '../common/ReviewStars';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import {
-  getRelatedIds,
   getDetailById,
-  getReviewById,
   getProductInfoById,
-} from '@/api/product-api.js';
+  getReviewsMeta, 
+} from './api/product-api';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-const Outfits = () => {
+
+const Outfits = ({ productId }) => { 
   const [swiperRef, setSwiperRef] = useState(null);
   const [slides, setSlides] = useState([]);
+  const [ratings, setRatings] = useState({});
 
   useEffect(() => {
     if (localStorage.slide) setSlides(JSON.parse(localStorage.slide));
   }, []);
 
   const handleRemoveOutfit = (id) => {
-    setSlides((pre) => {
-      return pre.filter((item) => item.id !== id);
-    });
-    localStorage.removeItem('slide');
+    const newSlides = slides.filter((item) => item.id !== id);
+    setSlides(newSlides);
+    localStorage.setItem('slide', JSON.stringify(newSlides)); 
   };
 
   const handleAddOutfit = async () => {
-    const allRes = await Promise.all([
-      getDetailById(37311),
-      getReviewById(37311),
-    ]);
-    const finalRes = [];
-
-    const goodsDetail = allRes[0].results[0];
-    let sum = 0;
-    allRes[1].results.forEach((item) => {
-      sum += item.rating;
-    });
-
-    let averageRate = sum / 5;
-    finalRes.push({
-      id: allRes[0].product_id,
-      ...goodsDetail,
-      averageRate,
-    });
-    setSlides(finalRes);
-   
-    localStorage.slide = JSON.stringify(finalRes);
+    try {
+      const [detailResponse, reviewsMetaResponse] = await Promise.all([
+        getDetailById(productId),
+        getReviewsMeta(productId),
+      ]);
+  
+      // 从响应中提取数据
+      const goodsDetail = detailResponse.data.results[0];
+      const reviewsMeta = reviewsMetaResponse.data;
+  
+      let totalRating = 0;
+      let totalReviews = 0;
+      for (const [key, value] of Object.entries(reviewsMeta.ratings)) {
+        totalRating += parseInt(key) * value;
+        totalReviews += value;
+      }
+      let averageRate = totalReviews > 0 ? totalRating / totalReviews : 0;
+  
+      const newSlideContent = {
+        id: productId,
+        ...goodsDetail,
+        averageRate,
+      };
+  
+      const updatedSlides = [...slides, newSlideContent];
+      setSlides(updatedSlides);
+      setRatings({...ratings, [productId]: averageRate});
+  
+      localStorage.setItem('slide', JSON.stringify(updatedSlides));
+    } catch (error) {
+      console.error('Error adding outfit: ', error);
+    }
   };
 
+  const handleRatingChange = (id, newRating) => {
+    setRatings({...ratings, [id]: newRating});
+  };
   return (
     <>
       <h4>YOUR OUTFIT</h4>
@@ -79,12 +93,12 @@ const Outfits = () => {
             }}
             onClick={handleAddOutfit}
           >
-            <PlusOutlined style={{ fontSize: '200px', color: 'grey' }} />
+            <span style={{ fontSize: '200px', color: 'grey' }}>&#43;</span>
           </div>
         </SwiperSlide>
 
         {slides.map((slideContent, index) => (
-          <SwiperSlide key={slideContent} virtualIndex={index}>
+          <SwiperSlide key={slideContent.id} virtualIndex={index}>
             <div
               style={{
                 height: '380px',
@@ -105,7 +119,8 @@ const Outfits = () => {
                   backgroundRepeat: 'no-repeat',
                 }}
               >
-                <CloseCircleOutlined
+                <span
+
                   style={{
                     position: 'absolute',
                     top: '10px',
@@ -113,8 +128,9 @@ const Outfits = () => {
                     cursor: 'pointer',
                     color: 'white',
                   }}
-                  onClick={() => handleRemoveOutfit(slideContent.id)}
-                />
+                  onClick={() => handleRemoveOutfit(slideContent.id)}>
+                    &#9746;
+               </span>
               </div>
               <div
                 style={{
@@ -126,16 +142,23 @@ const Outfits = () => {
                   padding: '0 10px',
                 }}
               >
-                <span style={{ fontWeight: 400, fontSize: '15px' }}>
+                <h2 style={{ fontWeight: 400, fontSize: '1rem' }}>
                   categroy
-                </span>
+                </h2>
                 <span style={{ fontWeight: 800 }}>
                   {slideContent.name.trim()}
                 </span>
-                <span style={{ fontSize: '12px' }}>
+                <h3 style={{ fontSize: '1rem' }}>
                   ${slideContent.original_price}
-                </span>
-                <Rate allowHalf defaultValue={3} />
+                </h3>
+                <ReviewStars
+                  rating={ratings[slideContent.id] || 0}
+                  size={20} 
+                  ratingId={`outfit_${slideContent.id}`} 
+                  onRatingChange={(newRating) => {
+                  handleRatingChange(slideContent.id, newRating);
+                  }}
+                />
               </div>
             </div>
           </SwiperSlide>

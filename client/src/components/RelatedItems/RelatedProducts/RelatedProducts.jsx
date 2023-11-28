@@ -1,134 +1,106 @@
-import { useState, useEffect } from 'react';
-import { Rate, Modal } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Modal } from 'antd';
 import { StarOutlined } from '@ant-design/icons';
-import { Virtual, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Virtual, Navigation, Pagination } from 'swiper/modules';
+import FeatureComparison from './FeatureComparison'; 
+import ReviewStars from '../../common/ReviewStars';
 import {
   getRelatedIds,
   getDetailById,
-  getReviewById,
   getProductInfoById,
-} from '@/api/product-api.js';
+} from '../api/product-api';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-const RelatedProducts = () => {
+const RelatedProducts = ( {productId} ) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [swiperRef, setSwiperRef] = useState(null);
   const [slides, setSlides] = useState([]);
   const [fixedCompareInfo, setFixedCompareInfo] = useState([]);
   const [features, setFeatures] = useState({});
+
   useEffect(() => {
     getRelatedIdsApi();
   }, []);
 
   const getRelatedIdsApi = async () => {
     try {
-      const res = await getRelatedIds();
+      const res = await getRelatedIds(productId); 
       const finalRes = [];
 
-      res.forEach(async (item, index) => {
-        const allRes = await Promise.all([
+      for (const item of res.data) {
+        const [detailRes, reviewRes] = await Promise.all([
           getDetailById(item),
           getReviewById(item),
         ]);
-        const goodsDetail = allRes[0].results[0];
+
+        const goodsDetail = detailRes.data.results[0];
         let sum = 0;
-        allRes[1].results.forEach((item) => {
-          sum += item.rating;
+        reviewRes.data.results.forEach((review) => {
+          sum += review.rating;
         });
 
-        let averageRate = sum / 5;
+        let averageRate = reviewRes.data.results.length > 0 ? sum / reviewRes.data.results.length : 0;
         finalRes.push({
-          id: allRes[0].product_id,
+          id: item,
           ...goodsDetail,
           averageRate,
         });
-        if (index === res.length - 1) {
-          setSlides(finalRes);
-        }
-      });
+      }
+      setSlides(finalRes);
     } catch (err) {
       console.log(err);
     }
   };
 
   const handleCompare = async (id) => {
-    console.log(id, 'slideContentslideContent');
+    try {
+      const mainProductId = productId; 
+      const [mainProductInfo, compareProductInfo] = await Promise.all([
+        getProductInfoById({ productId: mainProductId }),
+        getProductInfoById({ productId: id }),
+      ]);
 
-    const res = await Promise.all([
-      getProductInfoById(37311),
-      getProductInfoById(id),
-    ]);
-    console.log(res, 'resss');
+      setFixedCompareInfo([mainProductInfo.data, compareProductInfo.data]);
 
-    setFixedCompareInfo(res);
+      const mainFeatures = mainProductInfo.data.features;
+      const compareFeatures = compareProductInfo.data.features;
 
-    const arr = [];
-    const mainFeat = res[0].features;
-    const currentFeat = res[1].features;
-    mainFeat.forEach((item) => arr.push(item.feature));
-    currentFeat.forEach((item) => arr.push(item.feature));
-    const _arr = [...new Set(arr)];
-    console.log(_arr, 'arrarrarr');
+      const featureSet = new Set([...mainFeatures.map(f => f.feature), ...compareFeatures.map(f => f.feature)]);
+      const featureComparison = {};
 
-    const final = {};
-    _arr.forEach((item) => {
-      mainFeat.forEach((v) => {
-        if (item === v.feature) {
-          final[item] = [v.value];
-        }
+      featureSet.forEach(feature => {
+        const mainFeature = mainFeatures.find(f => f.feature === feature);
+        const compareFeature = compareFeatures.find(f => f.feature === feature);
+
+        featureComparison[feature] = [
+          mainFeature ? mainFeature.value : 'N/A',
+          compareFeature ? compareFeature.value : 'N/A',
+        ];
       });
-      currentFeat.forEach((v) => {
-        if (item === v.feature) {
-          if (final[item]) final[item].push(v.value);
-          else final[item] = ['', v.value];
-        }
-      });
-    });
-    let _final = {};
-    for (let key in final) {
-      let value = final[key];
-      if (final[key].length == 1) value = [...final[key], ''];
-      _final[key] = value;
+
+      setFeatures(featureComparison);
+      setIsModalOpen(true);
+    } catch (err) {
+      console.error('Error in handleCompare:', err);
     }
-    console.log(_final, 'finalfinalfinal');
-    setFeatures(_final);
-
-    setIsModalOpen(true);
   };
 
   const handleOk = () => {
     setIsModalOpen(false);
   };
+
   const handleCancel = () => {
     setIsModalOpen(false);
-  };
-
-  const renderFeature = () => {
-    let str = '';
-    for (let key in features) {
-      str += `<div
-            style="
-              display: flex;
-              align-items: center;
-              justify-content: space-around
-            "
-          >
-            <span style="width:33%;text-align:center">${features[key][0]}</span>
-            <h4 style="width:33%;text-align:center">${key}</h4>
-            <span style="width:33%;text-align:center">${features[key][1]}</span>
-          </div>`;
-    }
-    return { __html: str };
   };
 
   return (
     <>
       <h4>RELATED PRODUCTS</h4>
       <Swiper
-        modules={[Virtual, Navigation]}
+        modules={[Virtual, Navigation, Pagination]}
         onSwiper={setSwiperRef}
         slidesPerView={3}
         spaceBetween={50}
@@ -139,12 +111,11 @@ const RelatedProducts = () => {
         virtual
       >
         {slides.map((slideContent, index) => (
-          <SwiperSlide key={slideContent} virtualIndex={index}>
+          <SwiperSlide key={slideContent.id} virtualIndex={index}>
             <div
               style={{
                 height: '380px',
                 width: '250px',
-
                 border: 'solid',
                 display: 'flex',
                 flexDirection: 'column',
@@ -171,7 +142,6 @@ const RelatedProducts = () => {
                   }}
                   onClick={() => handleCompare(slideContent.id)}
                 />
-                {/* <img src={slideContent.photos[0].url} alt="" /> */}
               </div>
               <div
                 style={{
@@ -184,7 +154,7 @@ const RelatedProducts = () => {
                 }}
               >
                 <span style={{ fontWeight: 400, fontSize: '15px' }}>
-                  categroy
+                  Category: {slideContent.category}
                 </span>
                 <span style={{ fontWeight: 800 }}>
                   {slideContent.name.trim()}
@@ -192,7 +162,11 @@ const RelatedProducts = () => {
                 <span style={{ fontSize: '12px' }}>
                   ${slideContent.original_price}
                 </span>
-                <Rate allowHalf defaultValue={slideContent.averageRate} />
+                <ReviewStars
+                  rating={slideContent.averageRate}
+                  size={20}
+                  ratingId={`review_${slideContent.id}`}
+                />
               </div>
             </div>
           </SwiperSlide>
@@ -206,43 +180,22 @@ const RelatedProducts = () => {
         onCancel={handleCancel}
       >
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <h4>{fixedCompareInfo[0]?.name}</h4>
-          <h4>{fixedCompareInfo[1]?.name}</h4>
+          <div>
+            <h4>{fixedCompareInfo[0]?.name}</h4>
+            <p>Category: {fixedCompareInfo[0]?.category}</p>
+            <p>Price: ${fixedCompareInfo[0]?.default_price}</p>
+          </div>
+          <div>
+            <h4>{fixedCompareInfo[1]?.name}</h4>
+            <p>Category: {fixedCompareInfo[1]?.category}</p>
+            <p>Price: ${fixedCompareInfo[1]?.default_price}</p>
+          </div>
         </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-          }}
-        >
-          <span style={{ width: '33%', textAlign: 'center' }}>
-            {fixedCompareInfo[0]?.category}
-          </span>
-          <h4 style={{ width: '33%', textAlign: 'center' }}>category</h4>
-          <span style={{ width: '33%', textAlign: 'center' }}>
-            {fixedCompareInfo[1]?.category}
-          </span>
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-around',
-          }}
-        >
-          <span style={{ width: '33%', textAlign: 'center' }}>
-            {fixedCompareInfo[0]?.default_price}
-          </span>
-          <h4 style={{ width: '33%', textAlign: 'center' }}>price</h4>
-          <span style={{ width: '33%', textAlign: 'center' }}>
-            {fixedCompareInfo[1]?.default_price}
-          </span>
-        </div>
-        <div dangerouslySetInnerHTML={renderFeature()}></div>
+        {Object.entries(features).map(([feature, values]) => (
+          <FeatureComparison key={feature} feature={feature} values={values} />
+        ))}
       </Modal>
     </>
   );
 };
-
 export default RelatedProducts;
