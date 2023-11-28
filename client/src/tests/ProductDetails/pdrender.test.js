@@ -1,4 +1,5 @@
 import React from 'react';
+import '@testing-library/jest-dom'
 import { render, fireEvent, screen, findByRole } from '@testing-library/react';
 
 import ExampleProducts from '../../../examples/Product-examples/exampleProducts.json';
@@ -66,13 +67,17 @@ describe('render product details', () => {
     const inStockSkus = Object.entries(selectedStyle?.skus ?? {})?.filter(sku => (sku?.[1]?.quantity ?? 0) > 0);
 
     render(<ProductCartActions selectedStyle={selectedStyle} />);
+    const selectSizeLabel = screen.getByLabelText('Please select size');
+    expect(selectSizeLabel).toBeTruthy(); 
+    const comboBoxes = screen.getAllByRole('combobox')
     expect(screen.getAllByRole('button').length).toBe(2);
-    expect(screen.getAllByRole('combobox').length).toBe(2);
+    expect(comboBoxes.length).toBe(2);
     const addToCartButton = screen.getByText('Add to Cart');
     expect(addToCartButton).toBeTruthy(); 
     //click without sku selected
     fireEvent.click(addToCartButton); 
-    
+    expect(selectSizeLabel).toBeVisible(); 
+    expect(comboBoxes[0]).toHaveFocus(); 
     //select a sku
     const skuSelect = screen.getByText('Select Size');
     expect(skuSelect).toBeTruthy(); 
