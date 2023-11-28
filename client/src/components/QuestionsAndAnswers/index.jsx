@@ -16,7 +16,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
   React.useEffect(() => {
     console.log('First QA Render');
     //will change 40359 to product_id later
-    axios.get(`/qa/questions?product_id=${'40359'}&count=1000000`)
+    axios.get(`/qa/questions?product_id=${product_id}&count=1000000`)
       .then(({data}) => {
         setQuestionsList(data?.results);
         setDisplayedQuestionsList(data?.results);
@@ -45,13 +45,14 @@ const QuestionsAndAnswers = ({ product_id }) => {
 
   const addQuestionClickHandler = (text, nickname, email) => {
     console.log('clicked Add a Question');
-    console.log(`/qa/questions`, {
+    axios.post(`/qa/questions`, {
       body: text,
       name: nickname,
       email: email,
       product_id: productId
-    });
-    //using a console log for now but verified with postman that this request will work. will change to an axios post when the modal is fully implemented
+    })
+      .then(() => console.log('successfully posted question!'))
+      .catch((err) => console.error(`error posting question: ${err}`));
   };
 
   return (

@@ -9,6 +9,7 @@ const QAListItem = ({ question }) => {
   const [displayedAnswerList, setDisplayedAnswerList] = React.useState([]);
   const [displayCount, setDisplayCount] = React.useState(2);
   const [helpfulCount, setHelpfulCount] = React.useState(question?.question_helpfulness);
+  const [submitTrigger, setSubmitTrigger] = React.useState(false);
 
   React.useEffect(() => {
     console.log('First A Render'); //yes i realize getting the first million if there were a million would not be best practice... but for this it seems okay to do for now.
@@ -29,7 +30,7 @@ const QAListItem = ({ question }) => {
         setDisplayedAnswerList(sellerSortedList);
       })
       .catch((err) => console.error(`error getting answer list for question: ${question.question_id}, `, err));
-  }, []);
+  }, [submitTrigger]);
 
   const loadMoreAnswersClickHandler = (collapseList) => {
     console.log('clicked Load More Answers Button');
@@ -49,11 +50,14 @@ const QAListItem = ({ question }) => {
 
   const addAnswerClickHandler = (text, nickname, email, question_id) => {
     console.log('clicked add answer button');
-    console.log(`/qa/questions/${question_id}/answers`, {
+    axios.post(`/qa/questions/${question_id}/answers`, {
       body: text,
       name: nickname,
       email: email
-    });
+    })
+      .then(() => console.log('successfully posted answer!'))
+      .then(() => setSubmitTrigger(!submitTrigger))
+      .catch((err) => console.error(`error posting answer: ${err}`));
     //using a console log for now but verified with postman that this request will work. will change to an axios post when the modal is fully implemented
   }
 
