@@ -7,7 +7,7 @@ import ReviewsList from './ReviewsList';
 const RatingsAndReviews = ({productId}) => {
 
   const [reviews, setReviews] = useState([]);
-  const [reviewsMeta, setReviewsMeta] = useState({});
+  const [reviewsMeta, setReviewsMeta] = useState(null);
   const [count, setCount] = useState(0);
   const [sort, setSort] = useState("relevant");
 
@@ -31,15 +31,18 @@ const RatingsAndReviews = ({productId}) => {
   return (
     <div>
       <h2 className="rr-title" id="reviews-header">Ratings & Reviews</h2>
-    <div className="rr-container">
-      <div className="rr-breakdowns-container">
-        <ProductBreakdown />
-        <RatingBreakdown />
-      </div>
-      <div className="rr-reviewsList-container">
-        <ReviewsList reviews={reviews} count={count} recommend={reviewsMeta.recommended} sort={sort} setSort={setSort}/>
-      </div>
-    </div>
+      {reviewsMeta !== null && (
+        <div className="rr-container">
+            <div className="rr-breakdowns-container">
+              <ProductBreakdown reviewMeta={reviewsMeta}/>
+              <RatingBreakdown />
+            </div>
+
+          <div className="rr-reviewsList-container">
+            <ReviewsList reviews={reviews} count={count} recommend={reviewsMeta.recommended} sort={sort} setSort={setSort}/>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

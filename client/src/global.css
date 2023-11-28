@@ -561,3 +561,7 @@ TODO: override default styles
   color: blue;
   text-decoration: underline;
 }
+
+.rr-average-rating {
+  font-size: 3.8rem;
+}
