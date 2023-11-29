@@ -3,26 +3,46 @@ import axios from 'axios';
 import ProductBreakdown from './ProductBreakdown';
 import RatingBreakdown from './RatingBreakdown';
 import ReviewsList from './ReviewsList';
-// import productInfo from '../ProductDetails';
 
 const RatingsAndReviews = ({productId}) => {
 
-  // get info from ../ProductDetails/index.jsx ?
+  const [reviews, setReviews] = useState([]);
+  const [reviewsMeta, setReviewsMeta] = useState(null);
+  const [count, setCount] = useState(0);
+  const [sort, setSort] = useState("relevant");
 
-  // useEffect
+  useEffect(() => {
+    if (productId) {
+      axios.get(`/reviews/?product_id=${productId}&sort=${sort}`)
+        .then((res) => {
+          setReviews(res.data.results)
+          setCount(res.data.count)
+        })
+        .catch((err) => console.error('reviews list err?', err));
+      axios.get(`/reviews/meta?product_id=${productId}`)
+        .then((res) => setReviewsMeta(res.data))
+        .catch((err) => console.error('reviews meta err?', err));
+
+  // POST /reviews
+
+    }
+  }, [productId, sort]);
 
   return (
     <div>
-      <h2 className="rr-title">Ratings & Reviews</h2>
-    <div className="rr-container">
-      <div className="rr-breakdowns-container">
-        <ProductBreakdown />
-        <RatingBreakdown />
-      </div>
-      <div className="rr-reviewsList-container">
-        <ReviewsList />
-      </div>
-    </div>
+      <h2 className="rr-title" id="reviews-header">Ratings & Reviews</h2>
+      {reviewsMeta !== null && (
+        <div className="rr-container">
+            <div className="rr-breakdowns-container">
+              <ProductBreakdown reviewMeta={reviewsMeta}/>
+              <RatingBreakdown />
+            </div>
+
+          <div className="rr-reviewsList-container">
+            <ReviewsList reviews={reviews} count={count} recommend={reviewsMeta.recommended} sort={sort} setSort={setSort}/>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

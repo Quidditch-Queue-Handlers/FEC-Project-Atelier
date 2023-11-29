@@ -1,22 +1,26 @@
 import React, {useState} from 'react';
+import axios from 'axios';
+import ReviewStars from '../common/ReviewStars'
 
-const Review = ({review}) => {
+const Review = ({review, recommended}) => {
 
   const [showFullBody, setShowFullBody] = useState(false);
-  const [bigPhotoSrc, setBigPhotoSrc] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const [bigPhotoSrc, setBigPhotoSrc] = useState("");
 
-  // const openPhoto = (clickedPhoto) => {
-  //   const photo = document.getElementById('rr-photoModal');
-  //   const bigPhoto = document.getElementById('fullResolution');
-  //   bigPhoto.src = clickedPhoto;
-  //   photo.classList.add('rr-modal-visible');
-  // }
+  const {review_id, rating, reviewer_name, date, summary, photos, recommend, response, helpfulness} = review;
 
-  // const closePhoto = () => {
-  //   const photo = document.getElementById('rr-photoModal');
-  //   photo.classList.remove('rr-modal-visible');
-  // }
+  const handleHelpful = () => {
+    axios.put(`/reviews/${review_id}/helpful`)
+      .then(() => console.log('Helpfulness vote success'))
+      .catch((err) => console.error('Helpfulness vote err:', err));
+  }
+
+  const handleReport = () => {
+    axios.put(`/reviews/${review_id}/report`)
+      .then(() => console.log('Report successful'))
+      .catch((err) => console.error('Report err:', err));
+  }
 
   const toggleShowFullBody = () => {
     setShowFullBody(showFullBody => !showFullBody);
@@ -32,9 +36,10 @@ const Review = ({review}) => {
   return (
     <div className="rr-review-container">
       <div className="rr-header">
-        <h2>---Hello from Individual Review---</h2>
-        <div>***** Rating: {review.rating}</div>
-        <div>VERIFIED {review.reviewer_name}, {new Date(Date.parse(review.date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
+        <div>
+          <ReviewStars rating={rating} ratingId={review_id}/>
+        </div>
+        <div>VERIFIED {reviewer_name}, {new Date(Date.parse(date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
       </div>
 
       <div className="rr-summary">
@@ -44,28 +49,32 @@ const Review = ({review}) => {
 
       <div className="rr-images">
         {review.photos.map((url, id) => (
-          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal(url)}/>
+          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal({url})}/>
         ))}
       </div>
 
-      {review.recommend && (
+      {recommend && (
         <div className="rr-recommendation">
           <div>Check! I recommend this product</div>
         </div>
       )}
 
-      {review.response && (
+      {response && (
         <div className="rr-response">
           <h4>Response from seller:</h4>
-          <p>{review.response}</p>
+          <p>{response}</p>
         </div>
       )}
 
-      <div className="rr-feedback">
-        <div /* onClick={() => review.helpfulness + 1} */>Helpful? Yes ({review.helpfulness}) | No (#) | Report</div>
-        { /* fix yes vote and report link
-        yes click will POST */ }
-      </div>
+      {recommended &&
+        <div className="rr-feedback">
+          <div>Helpful? <span> </span>
+            <a className="rr-a" onClick={() => handleHelpful()}>Yes</a> ({helpfulness}) |
+            <span> </span>
+            <a className="rr-a" onClick={() => handleReport()}>Report</a>
+          </div>
+        </div>
+      }
 
       {showModal &&
         <div className={`rr-modal ${showModal ? 'rr-modal-visible' : 'rr-modal-hidden'}`}>
@@ -73,8 +82,6 @@ const Review = ({review}) => {
           <img src={bigPhotoSrc} alt="Full Resolution" className="rr-modal-content" />
         </div>
       }
-
-
     </div>
   );
 }
