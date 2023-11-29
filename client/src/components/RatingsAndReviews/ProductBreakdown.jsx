@@ -15,7 +15,7 @@ const ProductBreakdown = ({reviewMeta}) => {
   const totalRatings = ratingsArray.reduce((accum, rating) => {
     return accum + rating.count
   }, 0);
-  const average = (totalScore / totalRatings).toFixed(1);
+  const average = (totalScore / totalRatings).toFixed(1) || 0.0;
 
   return (
     <div>

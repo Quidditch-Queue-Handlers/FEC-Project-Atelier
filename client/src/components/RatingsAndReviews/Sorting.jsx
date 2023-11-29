@@ -5,7 +5,8 @@ const Sorting = ({sort, setSort}) => {
 
   return (
     <div>
-      <select value={sort} onChange={(event) => setSort(event.target.value)}>
+      <label htmlFor="sortSelect">Sort:</label>
+      <select id="sortSelect" value={sort} onChange={(event) => setSort(event.target.value)}>
         <option value="relevant">relevance</option>
         <option value="helpful">helpfulness</option>
         <option value="newest">newest</option>
