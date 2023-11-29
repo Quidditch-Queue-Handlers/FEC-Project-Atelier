@@ -2,7 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development'; 
-console.log("ISDEV?", isDev);
+
 module.exports = {
   entry: path.join(__dirname, '/client/src/index.jsx'),
   devtool: 'source-map',
