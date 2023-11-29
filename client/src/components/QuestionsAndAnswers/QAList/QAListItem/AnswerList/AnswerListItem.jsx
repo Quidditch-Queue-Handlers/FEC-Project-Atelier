@@ -1,8 +1,9 @@
 import React from 'react';
 import Helpful from '../Helpful';
 import { parseISO } from 'date-fns';
+import axios from 'axios';
 
-const AnswerListItem = ({ answer, helpfulAnswerClickHandler, reportButtonClickHandler }) => {
+const AnswerListItem = ({ answer, reportButtonClickHandler }) => {
   const [alreadyReported, setAlreadyReported] = React.useState(false);
   const [helpfulCount, setHelpfulCount] = React.useState(answer?.helpfulness);
 
@@ -12,26 +13,29 @@ const AnswerListItem = ({ answer, helpfulAnswerClickHandler, reportButtonClickHa
     month: "short",
     year: "numeric"
   }
+  const helpfulAnswerClickHandler = () => {
+    axios.put(`/qa/answers/${answer.answer_id}/helpful`)
+      .then( () => {setHelpfulCount(helpfulCount + 1)})
+      .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}, `, err));
+  }
 
   return (
     <li>
       <div>{`${answer.body}`}</div>
       {answer.answerer_name === 'Seller' ? (
-        <p>by <b>{answer.answerer_name}</b>, {parseISO(answer.date).toLocaleDateString("en-US", options)} |</p>
-      ): (
-        <p>{`by ${answer.answerer_name}, ${parseISO(answer.date).toLocaleDateString("en-US", options)}`} |</p>
+        <span>by <b>{answer.answerer_name}</b>, {parseISO(answer.date).toLocaleDateString("en-US", options)} |</span>
+      ) : (
+        <span>{`by ${answer.answerer_name}, ${parseISO(answer.date).toLocaleDateString("en-US", options)}`} |</span>
         )}
       <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulAnswerClickHandler} />
       <button onClick={() => {
         if (!alreadyReported) {
-          reportButtonClickHandler();
+          reportButtonClickHandler(answer.answer_id);
           setAlreadyReported(true);
-        } else {
-          console.log('Already Reported!!');
         }
       }}
         style={{ padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}
-      >report</button>
+      >{!alreadyReported ? ('report') : ('reported')}</button>
     </li>
   );
 };

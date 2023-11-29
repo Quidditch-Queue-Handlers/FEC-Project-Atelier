@@ -1,11 +1,15 @@
 import React from 'react';
 import AddModal from './AddModal';
 
-const AddQuestion = ({addQuestionClickHandler}) => {
-  const isQuestion = true; //not a state because this never needs to change
+const AddQuestion = ({ addQuestionClickHandler, productName }) => {
+  const isQuestion = true;
 
   return (
-    <AddModal submitClickHandler={addQuestionClickHandler} isQuestion={isQuestion}/>
+    <AddModal
+      submitClickHandler={addQuestionClickHandler}
+      isQuestion={isQuestion}
+      productName={productName}
+    />
   );
 };
 

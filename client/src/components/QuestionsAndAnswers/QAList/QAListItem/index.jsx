@@ -2,43 +2,39 @@ import React from 'react';
 import AnswerList from './AnswerList';
 import AddAnswer from './AddAnswer';
 import Helpful from './Helpful';
-import example329062 from '../../../../../examples/QA-examples/exampleAnswer329062.json';
-import example329065 from '../../../../../examples/QA-examples/exampleAnswer329065.json';
-import example329066 from '../../../../../examples/QA-examples/exampleAnswer329066.json';
-import example329068 from '../../../../../examples/QA-examples/exampleAnswer329068.json';
-import example329069 from '../../../../../examples/QA-examples/exampleAnswer329069.json';
+import axios from 'axios';
 
-const QAListItem = ({ question }) => {
+const QAListItem = ({ question, productName }) => {
   const [answerList, setAnswerList] = React.useState([]);
   const [displayedAnswerList, setDisplayedAnswerList] = React.useState([]);
   const [displayCount, setDisplayCount] = React.useState(2);
   const [helpfulCount, setHelpfulCount] = React.useState(question?.question_helpfulness);
+  const [submitTrigger, setSubmitTrigger] = React.useState(false);
+  const [questionBody, setQuestionBody] = React.useState('');
 
   React.useEffect(() => {
-    console.log('First A Render')
-    //set the answerList and displayedAnswerList on page load after an API call
-      //but before i set the data i need to filter the answer list to raise the seller answers to the top AND to be sorted by helpfulness!
-      //since it is an already sorted list can just iterate and when a Seller user is found it removes it from the data and pushes it to a new list. afterwards the two lists are joined back together.
-    //also need to properly set the display count to be 0,1,or 2 correctly
-
-    //this sorts the list so that the seller answers appear at the top of the list in order of helpfulness, able to be done this way because the list comes sorted by helpfulness from the API call.
-    var data = JSON.parse(JSON.stringify(example329065.results));
-    var sellerAnswers = [];
-    for (var i = 0; i < data.length; i++) {
-      if (data[i].answerer_name === 'Seller') {
-        sellerAnswers.push(data[i]);
-        data.splice(i, 1);
-        i--;
-      }
-    }
-    const sellerSortedList = [...sellerAnswers, ...data];
-    //this is the end of the seller sorter area, i will move this out into its own helper function later.
-    setAnswerList(sellerSortedList);
-    setDisplayedAnswerList(sellerSortedList);
-  }, []);
+    //yes i realize getting the first million if there were a million would not be best practice... but for now this it seems okay to do. also might do a multi stage axios call in order to get initial display data loaded faster (have count for both questions/answers first call be limited to 2 and when those calls are successfull then() do a second call to get the whole lists).
+    axios.get(`/qa/questions/${question?.question_id}/answers?count=1000000`)
+      .then(({ data }) => {
+        var list = data.results;
+        var sellerAnswers = [];
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].answerer_name === 'Seller') {
+            sellerAnswers.push(list[i]);
+            list.splice(i, 1);
+            i--;
+          }
+        }
+        const sellerSortedList = [...sellerAnswers, ...list];
+        //this is the end of the seller sorter area, i might move this out into its own helper function later.
+        setQuestionBody(question?.question_body);
+        setAnswerList(sellerSortedList);
+        setDisplayedAnswerList(sellerSortedList);
+      })
+      .catch((err) => console.error(`error getting answer list for question: ${question.question_id}, `, err));
+  }, [submitTrigger]);
 
   const loadMoreAnswersClickHandler = (collapseList) => {
-    console.log('clicked Load More Answers Button');
     if (!collapseList) {
       setDisplayCount(displayedAnswerList?.length);
     } else {
@@ -47,39 +43,50 @@ const QAListItem = ({ question }) => {
   };
 
   const helpfulQuestionClickHandler = () => {
-    console.log('clicked helpful on a question');
-    //should only be able to click once!
+    axios.put(`/qa/questions/${question.question_id}/helpful`)
+      .then(() => { setHelpfulCount(helpfulCount + 1) })
+      .catch((err) => console.error(`error incrementing helpfulness for question: ${question.question_id}, `, err));
   }
 
-  const helpfulAnswerClickHandler = () => {
-    console.log('clicked helpful on an answer');
-    //should only be able to click once!
+  const addAnswerClickHandler = (text, nickname, email, question_id) => {
+    axios.post(`/qa/questions/${question_id}/answers`, {
+      body: text,
+      name: nickname,
+      email: email
+    })
+      .then(() => setSubmitTrigger(!submitTrigger))
+      .catch((err) => console.error(`error posting answer: ${err}`));
   }
 
-  const addAnswerClickHandler = () => {
-    console.log('clicked add answer button');
-  }
-
-  const reportButtonClickHandler = () => {
-    console.log('clicked report');
-    //should only be able to report once!
+  const reportButtonClickHandler = (answerId) => {
+    axios.put(`qa/answers/${answerId}/report`)
+      // might want to kick off an axios call to rerender the list, but not in the BRD's
+      .catch((err) => console.error(`error reporting andswer: ${answerId}, `, err));
   }
 
 
   return (
     <li>
-      <div>QAListItem</div>
-      <div>
+      <div style={{display:"flexbox", padding: "1% 0"}}>
         <b>{`Q: ${question.question_body}`}</b>
-        <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulQuestionClickHandler} />
-        <AddAnswer addAnswerClickHandler={addAnswerClickHandler} />
+        <span style={{justifySelf:"right"}}>
+          <Helpful
+            helpfulCount={helpfulCount}
+            helpfulClickHandler={helpfulQuestionClickHandler}
+          />
+          <AddAnswer
+            addAnswerClickHandler={addAnswerClickHandler}
+            question_id={question?.question_id}
+            productName={productName}
+            questionBody={questionBody}
+          />
+        </span>
       </div>
       <AnswerList
         question={question}
         displayedAnswerList={displayedAnswerList}
         displayCount={displayCount}
         loadMoreAnswersClickHandler={loadMoreAnswersClickHandler}
-        helpfulAnswerClickHandler={helpfulAnswerClickHandler}
         reportButtonClickHandler={reportButtonClickHandler}
       />
     </li>
