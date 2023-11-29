@@ -15,13 +15,6 @@
       }
     ]
   ],
-  "env": {
-    "development": {
-      "plugins": [
-        "react-refresh/babel"
-      ]
-    }
-  },
   "plugins": [
     "babel-plugin-styled-components"
   ]
