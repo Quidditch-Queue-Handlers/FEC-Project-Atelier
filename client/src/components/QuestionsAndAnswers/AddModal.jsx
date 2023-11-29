@@ -46,13 +46,13 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
           <div style={{
             position: "fixed",
             padding: "5vh",
-            top: "25%",
-            left: "25%",
+            top: "50%",
+            left: "50%",
             height: "auto",
             zIndex: "99",
             background: "white",
             opacity: "1",
-            translate: "-50%, -50%"
+            transform: "translate(-50%, -50%)"
           }}>
             <h3>{isQuestion ? ('Ask your Question') : ('Submit your Answer')}</h3>
             <h3>{isQuestion ? (`About the ${productName}`) : (`${productName}: ${questionBody}`)}</h3>
@@ -60,7 +60,7 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
               {`Your ${isQuestion ? 'Question' : 'Answer'}*`}
               <textarea
                 style={{display:"block"}}
-                maxlength="1000"
+                maxLength="1000"
                 cols="48"
                 rows="6"
                 onChange={(e) => setBody(e.target.value)}
@@ -70,7 +70,7 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
               What is your nickname*
               <input
                 style={{display:"block"}}
-                maxlength="60"
+                maxLength="60"
                 placeholder={'Example: jackson11!'}
                 onChange={(e) => setNickname(e.target.value)}
               ></input>
@@ -80,7 +80,7 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
               Your email*
               <input
                 style={{display:"block"}}
-                maxlength="60"
+                maxLength="60"
                 placeholder={'Example: jack@email.com'}
                 onChange={(e) => setEmail(e.target.value)}
               ></input>
