@@ -15,7 +15,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
-const RelatedProducts = ( {productId} ) => {
+const RelatedProducts = ( { productId, setProductId } ) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [swiperRef, setSwiperRef] = useState(null);
   const [slides, setSlides] = useState([]);
@@ -101,23 +101,27 @@ const RelatedProducts = ( {productId} ) => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  const onProductClick = (relatedProductId) => {
+    setProductId(relatedProductId);
+  };
+
 
   return (
     <>
       <h4>RELATED PRODUCTS</h4>
       <Swiper
-  modules={[Virtual, Navigation, Pagination]}
-  onSwiper={setSwiperRef}
-  slidesPerView={3}
-  spaceBetween={50}
-  pagination={{
-    type: 'fraction',
-  }}
-  navigation={true}
-  virtual
->
+        modules={[Virtual, Navigation, Pagination]}
+        onSwiper={setSwiperRef}
+        slidesPerView={3}
+        spaceBetween={50}
+        pagination={{
+        type: 'fraction',
+        }}
+       navigation={true}
+       virtual
+      >
   {slides.map((slideContent, index) => (
-    <SwiperSlide key={slideContent.id} virtualIndex={index}>
+    <SwiperSlide key={slideContent.id} onClick={() => onProductClick(slideContent.id)} virtualIndex={index}>
       <div
         style={{
           height: '380px',
