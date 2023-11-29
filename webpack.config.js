@@ -42,9 +42,6 @@ module.exports = {
     },
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env':JSON.stringify(dotenv.parsed)
-    }),
     new ReactRefreshPlugin(), // See note below...
     new HtmlWebpackPlugin({
       title: 'Quidditch Shop',
