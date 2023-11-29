@@ -34,6 +34,7 @@ const FillStar = ({ size = 24, star = 0, fillPerc = 0, ratingId, checked, handle
         <polygon points={pathPoints.map(p => p * scale).join(" ")} />
       </svg>
       <span
+        data-testid="star-fill-span"
         style={{
           height: size,
           width: `${fillPerc}%`,
@@ -41,7 +42,7 @@ const FillStar = ({ size = 24, star = 0, fillPerc = 0, ratingId, checked, handle
         }}
       ></span>
       <label htmlFor={`${ratingId}_${star}`} className="pd-visual-hidden">Star {star}</label>
-      <input id={`${ratingId}_${star}`} ref={starRadio} type="radio" checked={checked} onChange={handleChange} value={star}/>
+      <input id={`${ratingId}_${star}`} ref={starRadio} type="radio" checked={checked} onChange={handleChange}  readOnly={handleChange ? false : true} value={star}/>
     </div>
   );
 };
