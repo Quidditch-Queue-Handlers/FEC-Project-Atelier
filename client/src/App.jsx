@@ -27,7 +27,7 @@ const App = () => {
         <>
           <ProductDetails productId={productId} />
           <RelatedItems productId={productId} setProductId={setProductId} />
-          <QuestionsAndAnswers />
+          <QuestionsAndAnswers  product_id={productId}/>
           <RatingsAndReviews productId={productId} />
         </>
       )}
