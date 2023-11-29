@@ -75,7 +75,7 @@ const Thumbnails = ({ photos, photoIndex, setPhotoIndex, styleName }) => {
                   className='pd-visual-hidden'
                   htmlFor={`${styleName}_preview_${i}`}
                 >
-                  {`${styleName} preview ${i + 1} / ${photos?.length}`}
+                  {`${styleName} preview select ${i + 1} / ${photos?.length}`}
                 </label>
                 <input
                   id={`${styleName}_preview_${i}`}

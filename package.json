@@ -5,7 +5,7 @@
   "scripts": {
     "server-dev": "npx nodemon --watch server server/index.js",
     "client-dev": "npx webpack serve --hot --open",
-    "test": "jest --env=jsdom",
+    "test": "jest --coverage --env=jsdom",
     "lint": "./node_modules/.bin/eslint"
   },
   "author": "",
@@ -25,6 +25,7 @@
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
+    "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.0",
     "babel-jest": "^29.7.0",
     "babel-loader": "^9.1.3",
