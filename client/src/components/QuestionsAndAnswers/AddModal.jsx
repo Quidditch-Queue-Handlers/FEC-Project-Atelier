@@ -37,30 +37,27 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
           >
             <h3>{isQuestion ? ('Ask your Question') : ('Submit your Answer')}</h3>
             <h3>{isQuestion ? (`About the ${productName}`) : (`${productName}: ${questionBody}`)}</h3>
-            <label className="qa-block">
+            <label >
               {`Your ${isQuestion ? 'Question' : 'Answer'}*`}
               <textarea
-                className="qa-block"
                 maxLength="1000"
                 cols="48"
                 rows="6"
                 onChange={(e) => setBody(e.target.value)}
               ></textarea>
             </label>
-            <label className="qa-block">
+            <label >
               What is your nickname*
               <input
-                className="qa-block"
                 maxLength="60"
                 placeholder={'Example: jackson11!'}
                 onChange={(e) => setNickname(e.target.value)}
               ></input>
             </label>
             <p>For privacy reasons, do not use your full name or email address</p>
-            <label className="qa-block">
+            <label >
               Your email*
               <input
-                className="qa-block"
                 maxLength="60"
                 placeholder={'Example: jack@email.com'}
                 onChange={(e) => setEmail(e.target.value)}
