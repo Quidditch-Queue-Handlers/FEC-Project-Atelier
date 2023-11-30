@@ -72,9 +72,9 @@ const Review = ({review, recommended}) => {
       {recommended &&
         <div className="rr-feedback">
           <div>Helpful? <span> </span>
-            <a className="rr-a" onClick={() => handleHelpful()}>Yes</a> ({helpfulness}) |
+            <button className="rr-link-button" onClick={() => handleHelpful()}>Yes</button> ({helpfulness}) |
             <span> </span>
-            <a className="rr-a" onClick={() => handleReport()}>Report</a>
+            <button className="rr-link-button" onClick={() => handleReport()}>Report</button>
           </div>
         </div>
       }
