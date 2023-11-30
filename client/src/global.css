@@ -467,8 +467,6 @@ TODO: override default styles
   display: flex;
   flex-direction: row;
   height: 100vh;
-  padding-left: 10%;
-  padding-right: 10%;
 }
 
 .rr-breakdowns-container {
@@ -498,18 +496,22 @@ TODO: override default styles
 
 .rr-sort  {
   position: sticky;
-  background-color: white;
+  background-color: var(--background-color);
   top: 0;
   z-index: 1;
 }
 
 .rr-sort h3 {
-  background-color: white;
+  background-color: var(--background-color);
   padding: .8rem;
   margin: 0;
   overflow-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.rr-summary h3 {
+  margin: .5rem;
 }
 
 .rr-review-container {
@@ -522,7 +524,7 @@ TODO: override default styles
 }
 
 .rr-response {
-  background-color: rgb(229, 229, 229);
+  background-color: calc(var(--background-color) + 2%);
 }
 
 .rr-buttons-container {
@@ -535,19 +537,20 @@ TODO: override default styles
 .rr-more-reviews {
   position: sticky;
   bottom: 0;
-  background-color: white;
+  background-color: var(--background-color);
 }
 
 .rr-write-review {
   position: sticky;
   bottom: 0;
-  background-color: white;
+  background-color: var(--background-color);
 }
 
 .rr-review-body {
   box-sizing: border-box;
   word-wrap: break-word;
   white-space: normal;
+  margin: .5rem;
 }
 
 .rr-thumbnail {
@@ -561,7 +564,7 @@ TODO: override default styles
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background-color: var(--background-color);
   align-items: center;
   justify-content: center;
   transition: opacity 0.3s ease;
@@ -586,12 +589,12 @@ TODO: override default styles
   top: 1.5rem;
   right: 1.5rem;
   font-size: 1.5rem;
-  color: white;
+  color: var(--border-color);
   cursor: pointer;
 }
 .rr-close:hover {
-  color: rgb(249, 249, 249);
-  text-shadow: 0 0 1.1rem rgba(255, 255, 255, 0.7);
+  color: var(--border-color);
+  text-shadow: 0 0 1.1rem var(--border-color);
 }
 
 
@@ -626,7 +629,7 @@ TODO: override default styles
 
 .rr-gray-bar {
   height: .4rem;
-  background-color: gray;
+  background-color: var(--border-color);
   position: absolute;
   top: 0;
   left: 0;
@@ -656,7 +659,7 @@ TODO: override default styles
 .rr-rating-bar-gray {
   flex: 1;
   height: 100%;
-  background-color: #ddd;
+  background-color: var(--border-color);
   margin-right: .4rem;
 }
 
@@ -671,6 +674,10 @@ TODO: override default styles
   display: flex;
   justify-content: space-between;
   margin-top: .4rem;
+}
+
+.rr-full-container {
+  margin: 0 6rem;
 }
 
 .qa-searchbar {
