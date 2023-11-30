@@ -31,7 +31,7 @@ const Review = ({review, recommended}) => {
     setShowModal(showModal => !showModal);
   };
 
-  const body = showFullBody ? review.body + " Show Less" : `${review.body.slice(0, 250)}... Show More`;
+  const body = showFullBody ? review.body + ' Show Less' : `${review.body.slice(0, 250)}`;
 
   return (
     <div className="rr-review-container">
@@ -44,7 +44,10 @@ const Review = ({review, recommended}) => {
 
       <div className="rr-summary">
         <h3>{review.summary.replace(/(.{60}).*/, '$1...')}</h3>
-        <p className="rr-review-body" onClick={toggleShowFullBody}>{body}</p>
+        <p className="rr-review-body" >{body}</p>
+        {!showFullBody && review.body.length > 250 && (
+          <span onClick={toggleShowFullBody}>... Show More</span>
+        )}
       </div>
 
       <div className="rr-images">
