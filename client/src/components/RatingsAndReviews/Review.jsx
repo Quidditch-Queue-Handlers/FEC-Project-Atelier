@@ -26,12 +26,13 @@ const Review = ({review, recommended}) => {
     setShowFullBody(showFullBody => !showFullBody);
   };
 
-  const toggleShowModal = (clickedPhoto) => {
-    setBigPhotoSrc(clickedPhoto.url);
+  const toggleShowModal = (clickedPhotoUrl) => {
+    console.log(clickedPhotoUrl)
+    setBigPhotoSrc(clickedPhotoUrl);
     setShowModal(showModal => !showModal);
   };
 
-  const body = showFullBody ? review.body + " Show Less" : `${review.body.slice(0, 250)}... Show More`;
+  const body = showFullBody ? review.body + ' Show Less' : `${review.body.slice(0, 250)}`;
 
   return (
     <div className="rr-review-container">
@@ -44,12 +45,15 @@ const Review = ({review, recommended}) => {
 
       <div className="rr-summary">
         <h3>{review.summary.replace(/(.{60}).*/, '$1...')}</h3>
-        <p className="rr-review-body" onClick={toggleShowFullBody}>{body}</p>
+        <p className="rr-review-body" >{body}</p>
+        {!showFullBody && review.body.length > 250 && (
+          <span onClick={toggleShowFullBody}>... Show More</span>
+        )}
       </div>
 
       <div className="rr-images">
-        {review.photos.map((url, id) => (
-          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal({url})}/>
+        {review.photos && review.photos.length > 0 && review.photos.map((photo, id) => (
+          <img key={id} src={photo.url} alt={`Undefined Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal(photo.url)}/>
         ))}
       </div>
 

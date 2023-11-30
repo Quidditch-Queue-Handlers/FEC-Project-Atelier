@@ -29,7 +29,7 @@ const RatingsAndReviews = ({productId}) => {
   }, [productId, sort]);
 
   return (
-    <div>
+    <div className="rr-full-container">
       <h2 className="rr-title" id="reviews-header">Ratings & Reviews</h2>
       {reviewsMeta !== null && (
         <div className="rr-container">
