@@ -166,7 +166,7 @@ nav > h2 {
 }
 
 .pd-info-container {
-  margin: 4rem 0;
+  margin: 3rem 0;
 }
 
 .pd-features-list {
@@ -190,15 +190,17 @@ nav > h2 {
 .pd-gallery-container {
   background-color: var(--placeholder-color);
   height: 100%;
-  width: 100%;
+  position: absolute;
   display: flex;
   z-index: 20;
+  transition: width 0.2s ease-out;
 }
 
 .pd-carousel-thumbnails {
   display: flex;
   flex-direction: column;
   column-gap: 0.5rem;
+  transition: transform 0.2s ease-out;
 }
 
 .pd-carousel-thumbnails {
