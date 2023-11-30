@@ -5,7 +5,7 @@ const Sorting = ({sort, setSort}) => {
 
   return (
     <div>
-      <label htmlFor="sortSelect"></label>
+      <label htmlFor="sortSelect" className="pd-visual-hidden">Sort:</label>
       <select id="sortSelect" value={sort} onChange={(event) => setSort(event.target.value)}>
         <option value="relevant">relevance</option>
         <option value="helpful">helpfulness</option>
