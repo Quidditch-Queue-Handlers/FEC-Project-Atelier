@@ -31,7 +31,8 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
     <span position="relative" >
       {modalIsOpen ? (
         <>
-          <div style={{
+          <div
+          style={{
             position: "fixed",
             top: "0",
             left: "0",
@@ -43,14 +44,15 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
             zIndex: "98"
           }}>
           </div>
-          <div style={{
+          <div
+          className="qa-modal"
+          style={{
             position: "fixed",
             padding: "5vh",
             top: "50%",
             left: "50%",
             height: "auto",
             zIndex: "99",
-            background: "white",
             opacity: "1",
             transform: "translate(-50%, -50%)"
           }}>

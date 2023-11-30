@@ -16,7 +16,7 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, reportBu
           />
         ))}
       </ul>
-      {displayedAnswerList?.length === 0 ? null : (<button
+      {displayedAnswerList?.length < 3 ? null : (<button
         onClick={() => {
           loadMoreAnswersClickHandler(displayCollapse);
           setDisplayCollapse(!displayCollapse);

@@ -576,3 +576,7 @@ TODO: override default styles
   font-weight: bolder;
   padding: 1.2rem;
 }
+
+.qa-container {
+  margin: 3rem 6rem;
+}

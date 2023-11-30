@@ -58,7 +58,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
   };
 
   return (
-    <div style={{paddingLeft:"5%"}}>
+    <div className="qa-container" style={{margin: '3rem, 6rem'}}>
       <h2>Questions and Answers</h2>
       <div>
         {questionsList.length !== 0 ? (
