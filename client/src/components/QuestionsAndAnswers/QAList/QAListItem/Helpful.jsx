@@ -7,7 +7,7 @@ const Helpful = ({ helpfulCount, helpfulClickHandler }) => {
     <span>
       {` Helpful? `}
       <button
-        style={{ padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}
+        className="qa-link-button"
         onClick={() => {
           if (!alreadyClicked) {
             helpfulClickHandler();
