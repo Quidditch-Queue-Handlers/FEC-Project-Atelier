@@ -27,7 +27,7 @@ const WriteReview = ({ productId, onReviewSubmit }) => {
           <h3>About the product</h3>
 
           <button onClick={handleReviewSubmit}>Submit Review</button>
-          <button onClick={() => setModalOpen(false)}>Close Modal</button>
+          <button onClick={() => setModalOpen(false)}>Cancel</button>
         </div>
       )}
     </div>
