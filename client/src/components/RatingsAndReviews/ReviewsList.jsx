@@ -17,7 +17,7 @@ const ReviewsList = ({reviews, count, sort, recommend, setSort}) => {
   }, [reviewsList])
 
   return (
-    <div>
+    <div style={{margin: "1rem"}}>
       <div className="rr-sort" style={{ display: "flex", justifyContent: 'left', alignItems: 'center' }}>
         <h3>{count} reviews, sorted by</h3>
         <Sorting sort={sort} setSort={setSort} />
@@ -33,7 +33,7 @@ const ReviewsList = ({reviews, count, sort, recommend, setSort}) => {
         {reviews.length > numShowReviews && (
           <button className="rr-more-reviews" onClick={showTwoMoreReviews}>More Reviews</button>
         )}
-        <WriteReview/>
+        <WriteReview />
       </div>
     </div>
   );

@@ -40,7 +40,7 @@ const Review = ({review, recommended}) => {
         <div>
           <ReviewStars rating={rating} ratingId={review_id}/>
         </div>
-        <div>VERIFIED {reviewer_name}, {new Date(Date.parse(date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
+        <div style={{display: "flex", justifyContent: "end"}}>&#x1F5F9; {reviewer_name}, {new Date(Date.parse(date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
       </div>
 
       <div className="rr-summary">
@@ -59,7 +59,7 @@ const Review = ({review, recommended}) => {
 
       {recommend && (
         <div className="rr-recommendation">
-          <div>Check! I recommend this product</div>
+          <div>✓ I recommend this product</div>
         </div>
       )}
 

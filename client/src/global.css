@@ -97,7 +97,11 @@ nav {
   background-color: var(--placeholder-color)
 }
 
+<<<<<<< HEAD
 nav>button {
+=======
+nav > button {
+>>>>>>> e04fdc5dbb8252616fb4ca9edeeb3c6ec3ce0712
   border: none;
   font-size: 2rem;
   padding: 0;
@@ -221,6 +225,22 @@ nav>h2 {
   flex-grow: 1;
   justify-content: center;
   align-items: center;
+}
+
+.pd-carousel-transform-container {
+  position: absolute; 
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden; 
+  display: flex; 
+}
+
+.pd-carousel-transform-element {
+  position: relative; 
+  height: 100%; 
+  width: 100%; 
+  flex-shrink: 0;
+  transition: transform 0.2s ease-out; 
 }
 
 .pd-gallery-container button {
@@ -514,8 +534,9 @@ TODO: override default styles
 }
 
 .rr-review-container {
-  padding: 1.5rem;
+  border-style: solid;
   box-sizing: border-box;
+  border-color: var(--border-color);
   word-wrap: break-word;
   overflow: hidden;
   white-space: nowrap;
@@ -701,6 +722,7 @@ TODO: override default styles
   text-transform: uppercase;
   font-weight: bolder;
   padding: 1.2rem;
+<<<<<<< HEAD
   width: 100%;
   box-sizing: border-box;
 }
@@ -760,4 +782,10 @@ TODO: override default styles
 
 .qa-a-list-item {
   padding-bottom: 1%;
+=======
+}
+
+.rr-write-review-modal {
+  z-index: 99;
+>>>>>>> e04fdc5dbb8252616fb4ca9edeeb3c6ec3ce0712
 }
