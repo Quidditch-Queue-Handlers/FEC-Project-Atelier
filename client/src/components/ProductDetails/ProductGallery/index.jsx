@@ -20,7 +20,7 @@ const ProductGallery = ({ styleInfo }) => {
     <div
       ref={containerRef}
       className="pd-gallery-container"
-      style={{ position: `${expanded ? 'absolute' : 'relative'}` }}
+      style={{ width: `${expanded ? '100%' : '60%'}` }}
     >
       {!zoomed && (
         <Thumbnails

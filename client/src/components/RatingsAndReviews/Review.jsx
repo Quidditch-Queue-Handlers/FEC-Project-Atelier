@@ -26,8 +26,9 @@ const Review = ({review, recommended}) => {
     setShowFullBody(showFullBody => !showFullBody);
   };
 
-  const toggleShowModal = (clickedPhoto) => {
-    setBigPhotoSrc(clickedPhoto.url);
+  const toggleShowModal = (clickedPhotoUrl) => {
+    console.log(clickedPhotoUrl)
+    setBigPhotoSrc(clickedPhotoUrl);
     setShowModal(showModal => !showModal);
   };
 
@@ -48,8 +49,8 @@ const Review = ({review, recommended}) => {
       </div>
 
       <div className="rr-images">
-        {review.photos.map((url, id) => (
-          <img key={id} src={url} alt={`Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal({url})}/>
+        {review.photos && review.photos.length > 0 && review.photos.map((photo, id) => (
+          <img key={id} src={photo.url} alt={`Undefined Image ${id}`} className="rr-thumbnail" onClick={() => toggleShowModal(photo.url)}/>
         ))}
       </div>
 

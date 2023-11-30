@@ -4,6 +4,8 @@ import ProductDetails from './components/ProductDetails';
 import RelatedItems from './components/RelatedItems';
 import QuestionsAndAnswers from './components/QuestionsAndAnswers';
 import RatingsAndReviews from './components/RatingsAndReviews';
+import NavBar from './components/NavBar';
+
 import './global.css';
 
 const App = () => {
@@ -22,7 +24,7 @@ const App = () => {
 
   return (
     <div>
-      <div>hello from app</div>
+      <NavBar />
       {productId && (
         <>
           <ProductDetails productId={productId} />
