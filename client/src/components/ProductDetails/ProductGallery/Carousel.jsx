@@ -49,7 +49,7 @@ const Carousel = ({
       const xPercent = Math.min(1, Math.max((x - left) / width, 0));
       const yPercent = Math.min(1, Math.max((y - top) / height, 0));
       //set translate from -maxX to +maxX, linearly relative to xPercent
-      setTranslateX(xPercent * maxX * 2 - maxX);
+      setTranslateX(-1 * (xPercent * maxX * 2 - maxX));
       //same idea for y
       setTranslateY(-1 * (yPercent * maxY * 2 - maxY));
     };

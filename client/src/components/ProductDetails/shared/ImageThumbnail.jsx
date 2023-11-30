@@ -7,7 +7,7 @@ const ImageThumbnail = ({ src, alt, size = 5, round = false, children }) => {
       style={{ width: `${size}rem`, height: `${size}rem` }}
     >
       <span style={round ? { borderRadius: '50%' } : {}} >
-        <img src={src} alt={alt} />
+        <img src={src} alt={alt} aria-label={alt} />
       </span>
       {children}
     </div>

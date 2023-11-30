@@ -5,12 +5,17 @@
   "scripts": {
     "server-dev": "npx nodemon --watch server server/index.js",
     "client-dev": "npx webpack serve --hot --open",
-    "test": "jest --env=jsdom",
+    "test": "jest --coverage --env=jsdom",
     "lint": "./node_modules/.bin/eslint"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/material": "^5.14.18",
+    "antd": "^5.11.5",
     "axios": "^1.6.2",
     "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
@@ -18,13 +23,15 @@
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.11",
+    "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.1.0",
     "babel-jest": "^29.7.0",
     "babel-loader": "^9.1.3",
