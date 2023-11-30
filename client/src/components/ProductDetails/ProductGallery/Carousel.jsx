@@ -73,7 +73,6 @@ const Carousel = ({
       window.removeEventListener('mousemove', onMouseMove);
     };
   }, [zoomed, photoIndex, photos]);
-
   return (
     <div
       className='pd-carousel-main'
@@ -106,28 +105,41 @@ const Carousel = ({
           &#x279C;
         </button>
       )}
-      <span>
-        {photos?.[photoIndex]?.url && (
-          <img
-            ref={imgRef}
-            src={photos?.[photoIndex]?.url}
-            alt={`${styleName} photo ${photoIndex + 1} / ${photos?.length}`}
-            style={
-              zoomed
-                ? {
-                    scale: `${ZOOM_SCALE * 100}%`,
-                    transform: `translate(${translateX}px,${translateY}px)`,
-                    transition: `scale .2s ease-out`
+
+      <div className='pd-carousel-transform-container'>
+        {photos?.map((photo, i) => (
+          <div 
+            key={photo.url} 
+            className='pd-carousel-transform-element' 
+            style={{ transform: `translate(${0 - photoIndex * 100}%)`}}
+          >
+            <span>
+              {Math.abs(photoIndex - i) < 3 && (
+                <img
+                  ref={i === photoIndex ? imgRef : null}
+                  src={photo.url}
+                  alt={`${styleName} photo ${i + 1} / ${photos?.length}`}
+                  style={
+                    i !== photoIndex ? {} :
+                    zoomed
+                    ? {
+                        scale: `${ZOOM_SCALE * 100}%`,
+                        transform: `translate(${translateX}px,${translateY}px)`,
+                        transition: `scale .2s ease-out`
+                      }
+                    : { 
+                        scale: '100%', 
+                        transform: 'translate(0px,0px)',
+                        transition: `transform 0.1s linear, scale 0.1s linear`
+                      }
                   }
-                : { 
-                    scale: '100%', 
-                    transform: 'translate(0px,0px)',
-                    transition: `transform 0.1s linear, scale 0.1s linear`
-                  }
-            }
-          />
-        )}
-      </span>
+                />
+              )}
+            </span>
+          </div>
+        ))}
+      </div>
+      
       {photoIndex < photos?.length - 1 && !zoomed && (
         <button
           style={{ right: '1rem' }}

@@ -173,7 +173,7 @@ describe('render product details', () => {
     const photos = ExampleProductStyles.results[0].photos;
     const styleName = ExampleProductStyles.results[0].name;
     render(<Carousel containerRef={null} photoIndex={0} photos={photos} styleName={styleName} expanded={false} setExpanded={setExpanded} setPhotoIndex={setPhotoIndex}  />);
-    const img = screen.getByRole('img')
+    const img = screen.getAllByRole('img')?.[0];
     expect(img).toBeTruthy(); 
     fireEvent.click(img); 
     expect(setExpanded).toHaveBeenCalledTimes(1); 
@@ -188,7 +188,7 @@ describe('render product details', () => {
     const photos = ExampleProductStyles.results[0].photos;
     const styleName = ExampleProductStyles.results[0].name;
     render(<Carousel containerRef={null} photoIndex={1} photos={photos} styleName={styleName} expanded={false} setExpanded={() => {}} setPhotoIndex={setPhotoIndex}  />);
-    expect(screen.getByRole('img')).toBeTruthy(); 
+    expect(screen.getAllByRole('img')).toBeTruthy(); 
     const buttons = screen.getAllByRole('button')
     expect(buttons.length).toBe(2); 
     fireEvent.click(buttons[0]); 
@@ -201,7 +201,7 @@ describe('render product details', () => {
     const photos = ExampleProductStyles.results[0].photos;
     const styleName = ExampleProductStyles.results[0].name;
     render(<Carousel containerRef={null} photoIndex={0} photos={photos} styleName={styleName} expanded={true} zoomed={false} setExpanded={setExpanded} setZoomed={() => {}} />);
-    expect(screen.getByRole('img')).toBeTruthy(); 
+    expect(screen.getAllByRole('img')).toBeTruthy(); 
     const closeBtn = screen.getByText('⛶');
     expect(closeBtn).toBeTruthy(); 
     fireEvent.click(closeBtn);
@@ -212,10 +212,10 @@ describe('render product details', () => {
     const photos = ExampleProductStyles.results[0].photos;
     const styleName = ExampleProductStyles.results[0].name;
     render(<Carousel containerRef={null} photoIndex={0} photos={photos} styleName={styleName} expanded={true} zoomed={true} setExpanded={() => {}}  />);
-    const img = screen.getByRole('img')
-    expect(img).toBeTruthy(); 
+    const images = screen.getAllByRole('img')
+    expect(images).toBeTruthy(); 
     expect(screen.queryAllByRole('button').length).toBe(0); 
-    fireEvent.mouseMove(img)
+    fireEvent.mouseMove(images[0])
   });
 
   it('should render whole image gallery component', () => {
