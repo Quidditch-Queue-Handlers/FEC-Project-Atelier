@@ -427,19 +427,26 @@ TODO: override default styles
 .rr-container {
   display: flex;
   flex-direction: row;
-  height: 50vh;
+  height: 100vh;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .rr-breakdowns-container {
-  width: 25%;
+  width: 35%;
   box-sizing: border-box;
 }
 .rr-product-breakdown {
-  padding:  10px;
+  padding: 10px 0px;
   box-sizing: border-box;
+  display: flex;
+}
+.rr-prod-stars {
+  size: inherit;
+  border: 20px;
 }
 .rr-rating-breakdown {
-  padding: 10px;
+  padding: 10px 0px;
   box-sizing: border-box;
 }
 
@@ -564,6 +571,40 @@ TODO: override default styles
 
 .rr-average-rating {
   font-size: 3.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rr-rating-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.rr-bar {
+  width: 70%;
+  height: 5px;
+  position: relative;
+  margin-right: 10px;
+}
+
+.rr-green-bar {
+  height: 100%;
+  background-color: green;
+}
+
+.rr-gray-bar {
+  height: 100%;
+  background-color: gray;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  transition: width 0.5s ease;
+}
+
+.rr-label {
+  font-size: 14px;
 }
 
 .qa-searchbar {

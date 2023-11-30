@@ -12,7 +12,7 @@ const App = () => {
   useEffect(() => {
     axios.get('/products')
       .then(response => {
-        const firstProductId = response.data[0].id; 
+        const firstProductId = response.data[0].id;
         setProductId(firstProductId);
       })
       .catch(error => {

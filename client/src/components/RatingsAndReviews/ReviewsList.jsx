@@ -18,8 +18,9 @@ const ReviewsList = ({reviews, count, sort, recommend, setSort}) => {
 
   return (
     <div>
-      <div className="rr-sort">
-        <h3>{count} reviews, sorted by {<Sorting sort={sort} setSort={setSort}/>}</h3>
+      <div className="rr-sort" style={{ display: "flex", justifyContent: 'left', alignItems: 'center' }}>
+        <h3>{count} reviews, sorted by</h3>
+        <Sorting sort={sort} setSort={setSort} />
       </div>
       {reviews.slice(0, numShowReviews).map((review, index) => {
         return (
