@@ -8,17 +8,14 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
   //might need to change where this button lives depending on how a modal is created.
   //need two handlers, to open the modal and to close the modal.
   const regex = /^[\w-.]+@[\w-.]+\.[A-Za-z]{2,4}$/;
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-  const closeModal = () => {
-    setModalIsOpen(false);
+  const toggleModal = (input) => {
+    setModalIsOpen(input);
   };
   const submitData = () => {
     if (body !== '' && nickname !== '' && email !== '') {
       if (regex.test(email)) {
         submitClickHandler(body, nickname, email, question_id);
-        closeModal();
+        toggleModal(false);
       } else {
         prompt("Invalid email", "please close this prompt and fix or click close button");
       }
@@ -31,55 +28,36 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
     <span position="relative" >
       {modalIsOpen ? (
         <>
-          <div style={{
-            position: "fixed",
-            top: "0",
-            left: "0",
-            width: "100%",
-
-            height: "100%",
-            background: "rgba(140, 140, 140, .8)",
-            opacity: ".8",
-            zIndex: "98"
-          }}>
+          <div
+          className="qa-modal-container"
+          >
           </div>
-          <div style={{
-            position: "fixed",
-            padding: "5vh",
-            top: "50%",
-            left: "50%",
-            height: "auto",
-            zIndex: "99",
-            background: "white",
-            opacity: "1",
-            transform: "translate(-50%, -50%)"
-          }}>
+          <div
+          className="qa-modal"
+          >
             <h3>{isQuestion ? ('Ask your Question') : ('Submit your Answer')}</h3>
             <h3>{isQuestion ? (`About the ${productName}`) : (`${productName}: ${questionBody}`)}</h3>
-            <label style={{display:"block"}}>
+            <label >
               {`Your ${isQuestion ? 'Question' : 'Answer'}*`}
               <textarea
-                style={{display:"block"}}
                 maxLength="1000"
                 cols="48"
                 rows="6"
                 onChange={(e) => setBody(e.target.value)}
               ></textarea>
             </label>
-            <label style={{display:"block"}}>
+            <label >
               What is your nickname*
               <input
-                style={{display:"block"}}
                 maxLength="60"
                 placeholder={'Example: jackson11!'}
                 onChange={(e) => setNickname(e.target.value)}
               ></input>
             </label>
             <p>For privacy reasons, do not use your full name or email address</p>
-            <label style={{display:"block"}}>
+            <label >
               Your email*
               <input
-                style={{display:"block"}}
                 maxLength="60"
                 placeholder={'Example: jack@email.com'}
                 onChange={(e) => setEmail(e.target.value)}
@@ -88,7 +66,7 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
             <p>For authentication reasons, you will not be emailed</p>
             <h4>{`Submit ${isQuestion ? 'Question' : 'Answer'}`}</h4>
             <button onClick={() => submitData()}>Submit</button>
-            <button onClick={() => closeModal()}>Close</button>
+            <button onClick={() => toggleModal(false)}>Close</button>
           </div>
         </>
       ) : (
@@ -96,19 +74,12 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
       )}
       {isQuestion ? (
         <button
-          onClick={() => openModal(isQuestion)}
+          onClick={() => toggleModal(true)}
         >Add a Question +</button>
       ) : (
         <button
-          onClick={() => openModal(isQuestion)}
-          style={{
-            padding: 0,
-            background: "none",
-            border: "none",
-            color: "blue",
-            textDecoration: "underline",
-            textTransform: "none"
-          }}
+          onClick={() => toggleModal(true)}
+          className="qa-link-button"
         >
           Add Answer
         </button>)}

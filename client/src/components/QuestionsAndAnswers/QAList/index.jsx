@@ -5,7 +5,9 @@ const QAList = ({ questionsList, displayedQuestionsList, displayCount, productNa
 
   return (
     <div>
-      <ul style={{ overflowY: "auto", maxHeight: "70vh", width:"80%" }}>
+      <ul
+        className="qa-q-list"
+      >
         {displayedQuestionsList?.filter((question, index) => index < displayCount)?.map((question) => (
           <QAListItem
             question={question}

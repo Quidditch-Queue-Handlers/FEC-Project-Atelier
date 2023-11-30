@@ -15,11 +15,10 @@ const Search = ({ searchTextChangeHandler }) => {
     setSearchInputText(e.target.value);
   }
   return (
-    <label style={{fontSize: "0"}}>
+    <label style={{ fontSize: "0" }}>
       have a question? Search for answers
       <input
         className="qa-searchbar"
-        style={{ width: "80%"}}
         placeholder="Have a question? Search for answers..."
         onChange={(e) => searchInputChangeHandler(e)}
       ></input>
