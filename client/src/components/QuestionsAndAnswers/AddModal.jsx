@@ -8,17 +8,14 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
   //might need to change where this button lives depending on how a modal is created.
   //need two handlers, to open the modal and to close the modal.
   const regex = /^[\w-.]+@[\w-.]+\.[A-Za-z]{2,4}$/;
-  const openModal = () => {
-    setModalIsOpen(true);
-  };
-  const closeModal = () => {
-    setModalIsOpen(false);
+  const toggleModal = (input) => {
+    setModalIsOpen(input);
   };
   const submitData = () => {
     if (body !== '' && nickname !== '' && email !== '') {
       if (regex.test(email)) {
         submitClickHandler(body, nickname, email, question_id);
-        closeModal();
+        toggleModal(false);
       } else {
         prompt("Invalid email", "please close this prompt and fix or click close button");
       }
@@ -72,7 +69,7 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
             <p>For authentication reasons, you will not be emailed</p>
             <h4>{`Submit ${isQuestion ? 'Question' : 'Answer'}`}</h4>
             <button onClick={() => submitData()}>Submit</button>
-            <button onClick={() => closeModal()}>Close</button>
+            <button onClick={() => toggleModal(false)}>Close</button>
           </div>
         </>
       ) : (
@@ -80,11 +77,11 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
       )}
       {isQuestion ? (
         <button
-          onClick={() => openModal(isQuestion)}
+          onClick={() => toggleModal(true)}
         >Add a Question +</button>
       ) : (
         <button
-          onClick={() => openModal(isQuestion)}
+          onClick={() => toggleModal(true)}
           className="qa-link-button"
         >
           Add Answer
