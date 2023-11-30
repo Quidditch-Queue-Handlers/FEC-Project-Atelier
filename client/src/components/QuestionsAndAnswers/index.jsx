@@ -2,8 +2,6 @@ import React from 'react';
 import AddQuestion from './AddQuestion';
 import Search from './Search';
 import QAList from './QAList';
-//going to leave this here until final cleanup
-// import exampleData from '../../../examples/QA-examples/exampleQuestionCall.json';
 import axios from 'axios';
 
 const QuestionsAndAnswers = ({ product_id }) => {
@@ -15,7 +13,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
   const [productName, setProductName] = React.useState('');
 
   React.useEffect(() => {
-    axios.get(`/qa/questions?product_id=${product_id}&count=1000000`)
+    axios.get(`/qa/questions?product_id=${product_id}&count=80`)
       .then(({ data }) => {
         setQuestionsList(data?.results);
         setDisplayedQuestionsList(data?.results);
