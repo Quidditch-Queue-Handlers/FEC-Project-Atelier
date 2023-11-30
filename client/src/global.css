@@ -97,7 +97,7 @@ nav {
 }
 
 nav > button {
-  border: none; 
+  border: none;
   font-size: 2rem;
   padding: 0;
   width: 3rem;
@@ -531,8 +531,9 @@ TODO: override default styles
 }
 
 .rr-review-container {
-  padding: 1.5rem;
+  border-style: solid;
   box-sizing: border-box;
+  border-color: var(--border-color);
   word-wrap: break-word;
   overflow: hidden;
   white-space: nowrap;
@@ -705,4 +706,8 @@ TODO: override default styles
   text-transform: uppercase;
   font-weight: bolder;
   padding: 1.2rem;
+}
+
+.rr-write-review-modal {
+  z-index: 99;
 }
