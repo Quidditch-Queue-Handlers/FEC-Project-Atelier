@@ -4,6 +4,8 @@ import ProductDetails from './components/ProductDetails';
 import RelatedItems from './components/RelatedItems';
 import QuestionsAndAnswers from './components/QuestionsAndAnswers';
 import RatingsAndReviews from './components/RatingsAndReviews';
+import NavBar from './components/NavBar';
+
 import './global.css';
 
 const App = () => {
@@ -12,7 +14,7 @@ const App = () => {
   useEffect(() => {
     axios.get('/products')
       .then(response => {
-        const firstProductId = response.data[0].id; 
+        const firstProductId = response.data[0].id;
         setProductId(firstProductId);
       })
       .catch(error => {
@@ -22,7 +24,7 @@ const App = () => {
 
   return (
     <div>
-      <div>hello from app</div>
+      <NavBar />
       {productId && (
         <>
           <ProductDetails productId={productId} />

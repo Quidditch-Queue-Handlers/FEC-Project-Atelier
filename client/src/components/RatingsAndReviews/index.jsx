@@ -35,7 +35,7 @@ const RatingsAndReviews = ({productId}) => {
         <div className="rr-container">
             <div className="rr-breakdowns-container">
               <ProductBreakdown reviewMeta={reviewsMeta}/>
-              <RatingBreakdown />
+              <RatingBreakdown productData={reviewsMeta}/>
             </div>
 
           <div className="rr-reviewsList-container">

@@ -27,20 +27,30 @@ Look at .env.example and create a .env file with required variables.
 The API_HOST_URI should not have a trailing slash.
 PORT is optional, server defaults to port 3000. 
 
-Look in the package.json scripts to find the following commands:
+### Development
 
-server-dev
-client-dev
+run the following command in the repositories root directory to start the server:
+
+```bash
+npm run server-dev
+```
 
 Run the following command in the repositories root directory to start the client:
 
 ```bash
 npm run client-dev
 ```
-run the following command in the repositories root directory to start the server:
+
+In development a fast refresh client will open at localhost:8080. Requests to port 8080
+will be proxied to port 3000. 
+
+### Production
+
+Run build script then start production server:
 
 ```bash
-npm run server-dev
+npm run build
+npm run start
 ```
 
 

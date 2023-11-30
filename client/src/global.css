@@ -5,10 +5,23 @@
   --border-color: #525252;
   --placeholder-color: #EBEBEB;
   --sale-color: #FF0000;
-  /* Base sizing */
-  font-size: 13px;
-  font-family: 'Arial', sans-serif;
-  color: var(--font-color);
+  --background-color: #FFFFFF;
+}
+
+[data-theme="dark"] {
+  --font-color: #EBEBEB;
+  --border-color: #858585;
+  --placeholder-color: #2F2F2F;
+  --sale-color: #FF3434;
+  --background-color: #363636;
+}
+
+:root {
+    /* Base sizing */
+    font-size: 13px;
+    font-family: 'Arial', sans-serif;
+    color: var(--font-color);
+    background-color: var(--background-color);
 }
 /* Base Element Styles */
 body {
@@ -69,6 +82,29 @@ button {
 button:disabled {
   opacity: 70%;
   cursor: not-allowed;
+}
+
+nav {
+  height: 3rem;
+  display: flex;
+  width: 100%;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--placeholder-color)
+}
+
+nav > button {
+  border: none; 
+  font-size: 2rem;
+  padding: 0;
+  width: 3rem;
+  height: 3rem;
+}
+
+nav > h2 {
+  font-size: 2rem;
 }
 
 .fill-star {
@@ -421,32 +457,39 @@ TODO: override default styles
 }
 
 .rr-title {
-  padding: 20px 0 0 0;
+  padding: 1.5rem 0 0 0;
 }
 
 .rr-container {
   display: flex;
   flex-direction: row;
-  height: 50vh;
+  height: 100vh;
+  padding-left: 10%;
+  padding-right: 10%;
 }
 
 .rr-breakdowns-container {
-  width: 25%;
+  width: 35%;
   box-sizing: border-box;
 }
 .rr-product-breakdown {
-  padding:  10px;
+  padding: .8rem 0;
   box-sizing: border-box;
+  display: flex;
+}
+.rr-prod-stars {
+  size: inherit;
+  border: 1.5rem;
 }
 .rr-rating-breakdown {
-  padding: 10px;
+  padding: .8rem 0;
   box-sizing: border-box;
 }
 
 .rr-reviewsList-container {
   flex: 1;
   overflow-y: auto;
-  padding: 0px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -459,7 +502,7 @@ TODO: override default styles
 
 .rr-sort h3 {
   background-color: white;
-  padding: 10px;
+  padding: .8rem;
   margin: 0;
   overflow-wrap: break-word;
   overflow: hidden;
@@ -467,7 +510,7 @@ TODO: override default styles
 }
 
 .rr-review-container {
-  padding: 20px;
+  padding: 1.5rem;
   box-sizing: border-box;
   word-wrap: break-word;
   overflow: hidden;
@@ -505,7 +548,7 @@ TODO: override default styles
 }
 
 .rr-thumbnail {
-  width: 15px;
+  width: 1.1rem;
   cursor: pointer;
 }
 
@@ -545,15 +588,15 @@ TODO: override default styles
 
 .rr-close {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 20px;
+  top: 1.5rem;
+  right: 1.5rem;
+  font-size: 1.5rem;
   color: white;
   cursor: pointer;
 }
 .rr-close:hover {
   color: rgb(249, 249, 249);
-  text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+  text-shadow: 0 0 1.1rem rgba(255, 255, 255, 0.7);
 }
 
 
@@ -564,6 +607,75 @@ TODO: override default styles
 
 .rr-average-rating {
   font-size: 3.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rr-rating-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .8rem;
+}
+
+.rr-bar {
+  width: 70%;
+  height: .4rem;
+  position: relative;
+  margin-right: .8rem;
+}
+
+.rr-green-bar {
+  height: 100%;
+  background-color: green;
+}
+
+.rr-gray-bar {
+  height: .4rem;
+  background-color: gray;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: width 0.5s ease;
+}
+
+.rr-label {
+  font-size: 1.1rem;
+}
+
+.rr-characteristic-container {
+  margin-bottom: 1.5rem;
+}
+
+.rr-characteristic-header {
+  font-size: 1rem;
+  margin-bottom: .8rem;
+}
+
+.rr-rating-bar {
+  display: flex;
+  align-items: center;
+  height: .4rem;
+}
+
+.rr-rating-bar-gray {
+  flex: 1;
+  height: 100%;
+  background-color: #ddd;
+  margin-right: .4rem;
+}
+
+.rr-rating-blue {
+  display: block;
+  width: 100%;
+  height: .4rem;
+  background-color: blue;
+}
+
+.rr-characteristic-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: .4rem;
 }
 
 .qa-searchbar {
