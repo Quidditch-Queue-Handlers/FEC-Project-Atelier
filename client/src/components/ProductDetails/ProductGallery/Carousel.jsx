@@ -107,9 +107,13 @@ const Carousel = ({
       )}
 
       <div className='pd-carousel-transform-container'>
-          {photos?.map((photo, i) => (
-            <div key={photo.url} className='pd-carousel-transform-element' style={{ transform: `translate(${0 - photoIndex * 100}%)`}}>
-             <span>
+        {photos?.map((photo, i) => (
+          <div 
+            key={photo.url} 
+            className='pd-carousel-transform-element' 
+            style={{ transform: `translate(${0 - photoIndex * 100}%)`}}
+          >
+            <span>
               {Math.abs(photoIndex - i) < 3 && (
                 <img
                   ref={i === photoIndex ? imgRef : null}
@@ -131,10 +135,9 @@ const Carousel = ({
                   }
                 />
               )}
-              
-           </span>
-           </div>
-          ))}
+            </span>
+          </div>
+        ))}
       </div>
       
       {photoIndex < photos?.length - 1 && !zoomed && (
