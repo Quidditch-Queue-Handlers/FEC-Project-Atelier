@@ -519,7 +519,7 @@ TODO: override default styles
 }
 
 .rr-response {
-  background-color: rgb(229, 229, 229);
+  background-color: var(--placeholder-color);
 }
 
 .rr-buttons-container {

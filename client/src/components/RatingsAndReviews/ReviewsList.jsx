@@ -33,7 +33,7 @@ const ReviewsList = ({reviews, count, sort, recommend, setSort}) => {
         {reviews.length > numShowReviews && (
           <button className="rr-more-reviews" onClick={showTwoMoreReviews}>More Reviews</button>
         )}
-        <WriteReview productId={productId}/>
+        <WriteReview />
       </div>
     </div>
   );

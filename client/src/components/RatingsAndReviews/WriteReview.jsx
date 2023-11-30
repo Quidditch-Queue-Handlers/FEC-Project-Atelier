@@ -24,7 +24,7 @@ const WriteReview = ({ productId, onReviewSubmit }) => {
       {modalOpen && (
         <div className="rr-write-review-modal">
           <h2>Write Your Review</h2>
-          <h3>About the {productId}</h3>
+          <h3>About the product</h3>
 
           <button onClick={handleReviewSubmit}>Submit Review</button>
           <button onClick={() => setModalOpen(false)}>Close Modal</button>
