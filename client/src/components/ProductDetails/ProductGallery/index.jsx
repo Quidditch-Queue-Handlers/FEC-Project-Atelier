@@ -40,6 +40,7 @@ const ProductGallery = ({ styleInfo }) => {
         zoomed={zoomed}
         setZoomed={setZoomed}
         containerRef={containerRef}
+        styleName={styleInfo?.name}
       />
     </div>
   )
