@@ -5,10 +5,23 @@
   --border-color: #525252;
   --placeholder-color: #EBEBEB;
   --sale-color: #FF0000;
-  /* Base sizing */
-  font-size: 13px;
-  font-family: 'Arial', sans-serif;
-  color: var(--font-color);
+  --background-color: #FFFFFF;
+}
+
+[data-theme="dark"] {
+  --font-color: #EBEBEB;
+  --border-color: #858585;
+  --placeholder-color: #2F2F2F;
+  --sale-color: #FF3434;
+  --background-color: #363636;
+}
+
+:root {
+    /* Base sizing */
+    font-size: 13px;
+    font-family: 'Arial', sans-serif;
+    color: var(--font-color);
+    background-color: var(--background-color);
 }
 /* Base Element Styles */
 body {
@@ -69,6 +82,29 @@ button {
 button:disabled {
   opacity: 70%;
   cursor: not-allowed;
+}
+
+nav {
+  height: 3rem;
+  display: flex;
+  width: 100%;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--placeholder-color)
+}
+
+nav > button {
+  border: none; 
+  font-size: 2rem;
+  padding: 0;
+  width: 3rem;
+  height: 3rem;
+}
+
+nav > h2 {
+  font-size: 2rem;
 }
 
 .fill-star {
