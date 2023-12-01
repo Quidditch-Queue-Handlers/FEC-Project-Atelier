@@ -3,22 +3,30 @@ import axios from 'axios';
 import ReviewStars from '../common/ReviewStars'
 
 const Review = ({review, recommended}) => {
+  const {review_id, rating, reviewer_name, date, summary, photos, recommend, response, helpfulness} = review;
 
   const [showFullBody, setShowFullBody] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [bigPhotoSrc, setBigPhotoSrc] = useState("");
+  const [reported, setReported] = useState("Report");
+  const [helpful, setHelpful] = useState(helpfulness);
 
-  const {review_id, rating, reviewer_name, date, summary, photos, recommend, response, helpfulness} = review;
 
   const handleHelpful = () => {
     axios.put(`/reviews/${review_id}/helpful`)
-      .then(() => console.log('Helpfulness vote success'))
+      .then(() => {
+        console.log('Helpfulness vote success')
+        setHelpful((helpful) => helpful + 1)
+      })
       .catch((err) => console.error('Helpfulness vote err:', err));
   }
 
   const handleReport = () => {
     axios.put(`/reviews/${review_id}/report`)
-      .then(() => console.log('Report successful'))
+      .then(() => {
+        console.log('Report successful')
+        setReported("Reported")
+      })
       .catch((err) => console.error('Report err:', err));
   }
 
@@ -27,7 +35,7 @@ const Review = ({review, recommended}) => {
   };
 
   const toggleShowModal = (clickedPhotoUrl) => {
-    console.log(clickedPhotoUrl)
+    // console.log(clickedPhotoUrl)
     setBigPhotoSrc(clickedPhotoUrl);
     setShowModal(showModal => !showModal);
   };
@@ -37,10 +45,10 @@ const Review = ({review, recommended}) => {
   return (
     <div className="rr-review-container">
       <div className="rr-header">
-        <div>
-          <ReviewStars rating={rating} ratingId={review_id}/>
+        <div style={{marginLeft: "1rem"}}>
+          <ReviewStars rating={rating} ratingId={review_id} />
         </div>
-        <div style={{display: "flex", justifyContent: "end"}}>&#x1F5F9; {reviewer_name}, {new Date(Date.parse(date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
+        <div style={{display: "flex", justifyContent: "end", marginRight: "1rem"}}>&#x1F5F9; {reviewer_name}, {new Date(Date.parse(date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
       </div>
 
       <div className="rr-summary">
@@ -73,9 +81,9 @@ const Review = ({review, recommended}) => {
       {recommended &&
         <div className="rr-feedback">
           <div>Helpful? <span> </span>
-            <a className="rr-a" onClick={() => handleHelpful()}>Yes</a> ({helpfulness}) |
+            <button className="rr-link-button" onClick={() => handleHelpful()}>Yes</button> ({helpful}) |
             <span> </span>
-            <a className="rr-a" onClick={() => handleReport()}>Report</a>
+            <button className="rr-link-button" onClick={() => handleReport()}>{reported}</button>
           </div>
         </div>
       }

@@ -5,6 +5,7 @@ import RatingBars from './RatingBars'
 const ProductBreakdown = ({reviewMeta}) => {
 
   const ratings = reviewMeta.ratings;
+  console.log(reviewMeta)
   const ratingsArray = Object.entries(ratings).map(([stars, count]) => ({
     stars: parseInt(stars, 10),
     count: parseInt(count, 10),
@@ -16,6 +17,7 @@ const ProductBreakdown = ({reviewMeta}) => {
     return accum + rating.count
   }, 0);
   const average = (totalScore / totalRatings).toFixed(1) || 0.0;
+  const percentage = (parseInt(reviewMeta.recommended.true) / (parseInt(reviewMeta.recommended.false) + parseInt(reviewMeta.recommended.true)) * 100).toFixed(0);
 
   return (
     <div>
@@ -26,7 +28,7 @@ const ProductBreakdown = ({reviewMeta}) => {
       </div>
 
       <div>
-        <h2 style={{padding: '10px 0px'}}>% of reviews recommend this product</h2>
+        <h2 style={{padding: '10px 0px'}}>{percentage}% of reviews recommend this product</h2>
         <RatingBars ratingsData={ratingsArray} />
       </div>
     </div>
