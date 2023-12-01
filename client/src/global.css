@@ -485,6 +485,14 @@ TODO: override default styles
   text-overflow: ellipsis;
 }
 
+#sortSelect {
+  padding: 0;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  text-transform: none;
+}
+
 .rr-summary h3 {
   margin: 1rem;
 }
