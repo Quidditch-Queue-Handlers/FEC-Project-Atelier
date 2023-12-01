@@ -61,7 +61,7 @@ const WriteReview = ({ productId, productName }) => {
   return (
     <div>
       {!modalOpen && (
-        <button onClick={() => setModalOpen(true)}>Add A Review +</button>
+        <button className="rr-button-write" onClick={() => setModalOpen(true)}>Add A Review +</button>
       )}
 
     <span style={{ position: "relative" }}>
