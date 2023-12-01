@@ -189,6 +189,7 @@ const RelatedProducts = ({ productId, setProductId }) => {
     overflow: 'hidden',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    objectFit: 'cover'
   };
   const starStyles = {
     position: 'absolute',
