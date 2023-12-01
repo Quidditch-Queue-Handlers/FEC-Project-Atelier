@@ -199,8 +199,7 @@ const RelatedProducts = ({ productId, setProductId }) => {
     zIndex: 10,
   }
   const relatedProductsContainerStyle = {
-    maxWidth: '80%', 
-    margin: '0 auto', 
+    margin: '0 6rem'
   };
 
 

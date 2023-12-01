@@ -62,7 +62,6 @@ const Outfits = ({ productId }) => {
     setCurrentSlide((prevSlide) => prevSlide === 0 ? slides.length - 1 : prevSlide - 1);
   };
 
-  // 样式定义，保持与 RelatedProducts 组件一致
   const carouselContainerStyle = {
     position: 'relative',
     width: '100%',
@@ -89,6 +88,7 @@ const Outfits = ({ productId }) => {
     overflow: 'hidden',
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
+    objectFit: 'cover'
   };
   const slideImageStyle = {
     height: '380px',
@@ -129,8 +129,7 @@ const Outfits = ({ productId }) => {
     right: '10px',
   };
   const OutfitStyles = {
-    maxWidth: '80%', 
-    margin: '0 auto', 
+    margin: '0 6rem'
   };
 
   return (
