@@ -50,6 +50,10 @@ const ReviewStars = ({ rating, size = 13, ratingId, onRatingChange}) => {
   const [internalRating, setInternalRating] = useState(rating);
 
   useEffect(() => {
+    setInternalRating(rating);
+  }, [rating])
+
+  useEffect(() => {
     onRatingChange && onRatingChange(internalRating)
   }, [internalRating])
 

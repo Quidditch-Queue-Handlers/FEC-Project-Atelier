@@ -17,13 +17,14 @@ const ProductBreakdown = ({reviewMeta}) => {
     return accum + rating.count
   }, 0);
   const average = (totalScore / totalRatings).toFixed(1) || 0.0;
+  console.log(average)
   const percentage = (parseInt(reviewMeta.recommended.true) / (parseInt(reviewMeta.recommended.false) + parseInt(reviewMeta.recommended.true)) * 100).toFixed(0);
 
   return (
     <div>
       <div className="rr-product-breakdown">
         <span className="rr-average-rating">{average}</span>
-        <ReviewStars rating={average} ratingId={average}
+        <ReviewStars rating={average} ratingId={average} size={24}
         className="rr-prod-stars" style={{height: '5rem'}}/>
       </div>
 
