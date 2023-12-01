@@ -60,7 +60,8 @@ const RelatedProducts = ({ productId, setProductId }) => {
       console.log(err);
     }
   };
-  const handleCompare = async (compareProductId) => {
+  const handleCompare = async (event, compareProductId) => {
+    event.stopPropagation();
     try {
       const [mainProductInfo, compareProductInfo] = await Promise.all([
         getProductInfoById(productId), 
@@ -217,7 +218,7 @@ const RelatedProducts = ({ productId, setProductId }) => {
             >
               <div style={slideImageStyle}>
                 <img src={slideContent.photos[0].url} style={imageStyle} alt="Product Image" />
-                <StarOutlined style={starStyles} onClick={() => handleCompare(slideContent.id)} data-testid={`compare-button-${slideContent.id}`} />
+                <StarOutlined style={starStyles} onClick={(e) => handleCompare(e, slideContent.id)}  data-testid={`compare-button-${slideContent.id}`} />
                 <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'flex-start', padding: '0 10px' }}>
                   <span style={{ fontWeight: 400, fontSize: '15px' }}>{slideContent.category}</span>
                   <span style={{ fontWeight: 800 }}>{slideContent.name.trim()}</span>
