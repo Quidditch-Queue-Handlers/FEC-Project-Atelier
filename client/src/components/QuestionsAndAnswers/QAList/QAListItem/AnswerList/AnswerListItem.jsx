@@ -15,27 +15,35 @@ const AnswerListItem = ({ answer, reportButtonClickHandler }) => {
   }
   const helpfulAnswerClickHandler = () => {
     axios.put(`/qa/answers/${answer.answer_id}/helpful`)
-      .then( () => {setHelpfulCount(helpfulCount + 1)})
-      .catch( (err) => console.error(`error incrementing helpfulness for question: ${question.question_id}, `, err));
+      .then(() => { setHelpfulCount(helpfulCount + 1) })
+      .catch((err) => console.error(`error incrementing helpfulness for question: ${question.question_id}, `, err));
   }
 
   return (
-    <li>
+    <li
+      className="qa-a-list-item"
+    >
       <div>{`${answer.body}`}</div>
       {answer.answerer_name === 'Seller' ? (
         <span>by <b>{answer.answerer_name}</b>, {parseISO(answer.date).toLocaleDateString("en-US", options)} |</span>
       ) : (
         <span>{`by ${answer.answerer_name}, ${parseISO(answer.date).toLocaleDateString("en-US", options)}`} |</span>
-        )}
-      <Helpful helpfulCount={helpfulCount} helpfulClickHandler={helpfulAnswerClickHandler} />
-      <button onClick={() => {
-        if (!alreadyReported) {
-          reportButtonClickHandler(answer.answer_id);
-          setAlreadyReported(true);
-        }
-      }}
-        style={{ padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}
-      >{!alreadyReported ? ('report') : ('reported')}</button>
+      )}
+      <Helpful
+        helpfulCount={helpfulCount}
+        helpfulClickHandler={helpfulAnswerClickHandler}
+      />
+      <button
+        className="qa-link-button"
+        onClick={() => {
+          if (!alreadyReported) {
+            reportButtonClickHandler(answer.answer_id);
+            setAlreadyReported(true);
+          }
+        }}
+      >
+        {!alreadyReported ? ('report') : ('reported')}
+      </button>
     </li>
   );
 };

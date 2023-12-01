@@ -5,7 +5,7 @@ const ProductInfo = ({ info }) => {
     <div className="pd-flex pd-info-container">
       <div 
         className="pd-wide-container"
-        style={{ paddingLeft: '9rem'}}
+        style={{ paddingLeft: '6rem'}}
       >
         <h3>
           {info?.slogan}

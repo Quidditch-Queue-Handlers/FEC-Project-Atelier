@@ -67,9 +67,9 @@ const QAListItem = ({ question, productName }) => {
 
   return (
     <li>
-      <div style={{display:"flexbox", padding: "1% 0"}}>
+      <div style={{display:"flex", padding: "1% 0"}}>
         <b>{`Q: ${question.question_body}`}</b>
-        <span style={{justifySelf:"right"}}>
+        <span style={{ marginLeft:"auto"}}>
           <Helpful
             helpfulCount={helpfulCount}
             helpfulClickHandler={helpfulQuestionClickHandler}

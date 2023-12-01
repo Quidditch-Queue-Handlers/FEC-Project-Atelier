@@ -8,19 +8,29 @@ const RatingsAndReviews = ({productId}) => {
 
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState(null);
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(5);
   const [sort, setSort] = useState("relevant");
 
   useEffect(() => {
     if (productId) {
-      axios.get(`/reviews/?product_id=${productId}&sort=${sort}`)
+      axios.get(`/reviews/?product_id=${productId}&sort=${sort}&count=${count}`)
         .then((res) => {
           setReviews(res.data.results)
           setCount(res.data.count)
         })
         .catch((err) => console.error('reviews list err?', err));
       axios.get(`/reviews/meta?product_id=${productId}`)
-        .then((res) => setReviewsMeta(res.data))
+        .then((res) => {
+          setReviewsMeta(res.data)
+          const ratingsArray = Object.entries(res.data.ratings).map(([stars, count]) => ({
+            stars: parseInt(stars, 10),
+            count: parseInt(count, 10),
+          }))
+          const totalReviews = ratingsArray.reduce((accum, rating) => {
+            return accum + rating.count
+          }, 0)
+          setCount(totalReviews)
+        })
         .catch((err) => console.error('reviews meta err?', err));
 
   // POST /reviews

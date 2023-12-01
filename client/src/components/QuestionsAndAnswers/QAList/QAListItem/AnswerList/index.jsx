@@ -7,7 +7,7 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, reportBu
   return (
     <div>
       {displayedAnswerList?.length === 0 ? null : (<b>A:</b>)}
-      <ul style={{overflowY: "auto", maxHeight: "50vh"}}>
+      <ul className="qa-a-list">
         {displayedAnswerList?.filter((answer, index) => index < displayCount)?.map((answer) => (
           <AnswerListItem
             answer={answer}
@@ -16,12 +16,12 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, reportBu
           />
         ))}
       </ul>
-      {displayedAnswerList?.length === 0 ? null : (<button
+      {displayedAnswerList?.length < 3 ? null : (<button
         onClick={() => {
           loadMoreAnswersClickHandler(displayCollapse);
           setDisplayCollapse(!displayCollapse);
         }}
-        style={{ padding: 0, background: "none", border: "none", color: "blue", textDecoration: "underline", textTransform: "none" }}
+        className="qa-link-button"
       >{displayCollapse ? 'Collapse Answers' : 'Load More Answers' }</button>)}
     </div>
   );
