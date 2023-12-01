@@ -23,8 +23,7 @@ const ProductBreakdown = ({reviewMeta}) => {
     <div>
       <div className="rr-product-breakdown">
         <span className="rr-average-rating">{average}</span>
-        <ReviewStars rating={average} ratingId={average}
-        className="rr-prod-stars" style={{height: '5rem'}}/>
+        <ReviewStars rating={average} ratingId={average} size={24}/>
       </div>
 
       <div>
