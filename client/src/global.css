@@ -566,6 +566,7 @@ TODO: override default styles
   bottom: 0;
   display: flex;
   justify-content: flex-start;
+  z-index: 99;
 }
 
 .rr-more-reviews {
@@ -653,6 +654,10 @@ TODO: override default styles
   border: none;
   text-decoration: underline;
   text-transform: none;
+}
+
+.rr-button-write {
+  background-color: var(--background-color);
 }
 
 .rr-average-rating {

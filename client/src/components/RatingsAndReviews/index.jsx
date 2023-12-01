@@ -8,17 +8,23 @@ const RatingsAndReviews = ({productId}) => {
 
   const [reviews, setReviews] = useState([]);
   const [reviewsMeta, setReviewsMeta] = useState(null);
-  const [count, setCount] = useState(5);
+  const [count, setCount] = useState(100);
   const [sort, setSort] = useState("relevant");
+  const [productData, setProductData] = useState({})
 
   useEffect(() => {
     if (productId) {
       axios.get(`/reviews/?product_id=${productId}&sort=${sort}&count=${count}`)
-        .then((res) => {
-          setReviews(res.data.results)
-          setCount(res.data.count)
+        .then(({data}) => {
+          setReviews(data.results)
+          setCount(data.count)
         })
         .catch((err) => console.error('reviews list err?', err));
+      axios.get(`/products/${productId}`)
+        .then(({data}) => {
+          setProductData(data)
+        })
+        .catch((err) => console.error('product data err?', err));
       axios.get(`/reviews/meta?product_id=${productId}`)
         .then((res) => {
           setReviewsMeta(res.data)
@@ -32,11 +38,8 @@ const RatingsAndReviews = ({productId}) => {
           setCount(totalReviews)
         })
         .catch((err) => console.error('reviews meta err?', err));
-
-  // POST /reviews
-
-    }
-  }, [productId, sort]);
+      }
+    }, [productId, sort]);
 
   return (
     <div className="rr-full-container">
@@ -49,7 +52,7 @@ const RatingsAndReviews = ({productId}) => {
             </div>
 
           <div className="rr-reviewsList-container">
-            <ReviewsList reviews={reviews} count={count} recommend={reviewsMeta.recommended} sort={sort} setSort={setSort}/>
+            <ReviewsList reviews={reviews} count={count} recommend={reviewsMeta.recommended} sort={sort} setSort={setSort} productId={productId} productName={productData.name}/>
           </div>
         </div>
       )}

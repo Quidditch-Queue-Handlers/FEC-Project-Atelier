@@ -4,7 +4,7 @@ import Sorting from './Sorting';
 import Review from './Review';
 import WriteReview from './WriteReview';
 
-const ReviewsList = ({reviews, count, sort, recommend, setSort}) => {
+const ReviewsList = ({ reviews, count, sort, recommend, setSort, onReviewSubmit, productId, productName }) => {
 
   const [reviewsList, setReviewsList] = useState(reviews);
   const [numShowReviews, setNumShowReviews] = useState(2);
@@ -33,7 +33,7 @@ const ReviewsList = ({reviews, count, sort, recommend, setSort}) => {
         {reviews.length > numShowReviews && (
           <button className="rr-more-reviews" onClick={showTwoMoreReviews}>More Reviews</button>
         )}
-        <WriteReview />
+        <WriteReview productId={productId} productName={productName}/>
       </div>
     </div>
   );

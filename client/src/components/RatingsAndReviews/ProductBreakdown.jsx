@@ -5,7 +5,7 @@ import RatingBars from './RatingBars'
 const ProductBreakdown = ({reviewMeta}) => {
 
   const ratings = reviewMeta.ratings;
-  console.log(reviewMeta)
+  // console.log(reviewMeta)
   const ratingsArray = Object.entries(ratings).map(([stars, count]) => ({
     stars: parseInt(stars, 10),
     count: parseInt(count, 10),
