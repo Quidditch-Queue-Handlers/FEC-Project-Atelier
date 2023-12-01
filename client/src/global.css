@@ -566,7 +566,7 @@ TODO: override default styles
   bottom: 0;
   display: flex;
   justify-content: flex-start;
-  z-index: 99;
+  z-index: 90;
 }
 
 .rr-more-reviews {
