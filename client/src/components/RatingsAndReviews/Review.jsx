@@ -45,10 +45,10 @@ const Review = ({review, recommended}) => {
   return (
     <div className="rr-review-container">
       <div className="rr-header">
-        <div>
-          <ReviewStars rating={rating} ratingId={review_id}/>
+        <div style={{marginLeft: "1rem"}}>
+          <ReviewStars rating={rating} ratingId={review_id} />
         </div>
-        <div style={{display: "flex", justifyContent: "end"}}>&#x1F5F9; {reviewer_name}, {new Date(Date.parse(date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
+        <div style={{display: "flex", justifyContent: "end", marginRight: "1rem"}}>&#x1F5F9; {reviewer_name}, {new Date(Date.parse(date)).toLocaleDateString("en-US", {month: "long", day: "numeric", year: "numeric"})}</div>
       </div>
 
       <div className="rr-summary">
