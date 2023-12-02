@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import axios from 'axios';
 import ProductGallery from './ProductGallery';
 import ProductStyleSelector from './ProductStyleSelector';
@@ -8,56 +10,33 @@ import ReviewStars from '../common/ReviewStars';
 import SocialShare from './SocialShare';
 import ProductPrice from './ProductPrice';
 
-const ProductDetails = ({ productId }) => {
-  const [productInfo, setProductInfo] = useState();
-  const [productStyles, setProductStyles] = useState();
-  const [selectedStyle, setSelectedStyle] = useState();
-  const [numReviews, setNumReviews] = useState();
-  const [reviewRating, setReviewRating] = useState();
-  useEffect(() => {
-    if (productId) {
-      axios
-        .get(`/products/${productId}`)
-        .then((res) => setProductInfo(res.data))
-        .catch((err) => console.error('product info err?', err));
-      axios
-        .get(`/products/${productId}/styles`)
-        .then((res) => {
-          setProductStyles(res.data);
-          setSelectedStyle(
-            res.data?.results?.find((style) => style?.['default?'] === true)
-          );
-        })
-        .catch((err) => console.error('product styles err?', err));
-      axios
-        .get(`/reviews/meta?product_id=${productId}`)
-        .then((res) => {
-          const ratings = res?.data?.ratings ?? {};
-          let count = 0;
-          let total = 0;
-          Object.entries(ratings).forEach((entry) => {
-            count += +(entry?.[1] ?? 0);
-            total += +(entry?.[0] ?? 0) * +(entry?.[1] ?? 0);
-          });
-          if (count > 0) {
-            setReviewRating(total / count);
-            setNumReviews(count);
-          }
-        })
-        .catch((err) => {
-          console.error('product detail reviews err?', err);
-        });
-    }
 
-    //reset state on product change
+const ProductDetails = ({ productId }) => {
+
+  const [selectedStyle, setSelectedStyle] = useState();
+
+  const productInfo = useSelector(
+    (state) => state.productInfo.data?.[productId]
+  );
+  const productStyles = useSelector(
+    (state) => state.productStyles.data?.[productId]
+  );
+  const reviewMeta = useSelector((state) => state.reviewMeta.data?.[productId]); 
+  const numReviews = reviewMeta?.ratingsSummary?.count; 
+  const reviewRating = reviewMeta?.ratingsSummary?.average;
+ 
+  useEffect(() => {
+    if (productStyles?.results) {
+      setSelectedStyle(() => {
+        let defaultStyle = productStyles.results?.find((style) => style?.['default?'] === true);
+        return defaultStyle || productStyles.results[0];
+      });
+    }
     return () => {
-      setProductInfo(undefined);
-      setProductStyles(undefined);
-      setSelectedStyle(undefined);
-      setReviewRating(undefined);
-      setNumReviews(undefined);
-    };
-  }, [productId]);
+      setSelectedStyle(undefined); 
+    }
+   
+  }, [productId, productStyles]);
 
   return (
     <div>
@@ -94,14 +73,12 @@ const ProductDetails = ({ productId }) => {
           <ProductCartActions selectedStyle={selectedStyle} />
         </div>
       </div>
-      {(productInfo?.info || productInfo?.description) ? (
+      {productInfo?.info || productInfo?.description ? (
         <ProductInfo info={productInfo} />
       ) : (
-        <div style={{margin: '3rem'}}></div>
+        <div style={{ margin: '3rem' }}></div>
       )}
-      <div
-        className='pd-share-container'
-      >
+      <div className='pd-share-container'>
         <SocialShare />
       </div>
     </div>
