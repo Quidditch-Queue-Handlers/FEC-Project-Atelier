@@ -5,9 +5,9 @@ const AddModal = ({ submitClickHandler, isQuestion, question_id, productName, qu
   const [nickname, setNickname] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
-  //might need to change where this button lives depending on how a modal is created.
-  //need two handlers, to open the modal and to close the modal.
+
   const regex = /^[\w-.]+@[\w-.]+\.[A-Za-z]{2,4}$/;
+
   const toggleModal = (input) => {
     setModalIsOpen(input);
   };

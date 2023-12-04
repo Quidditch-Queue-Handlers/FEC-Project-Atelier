@@ -28,7 +28,6 @@ const QuestionsAndAnswers = ({ product_id }) => {
   }, []);
 
   React.useEffect(() => {
-    //need to invoke the search change handler with the proper query so that i can maintain the search filter, maybe raise the state.
     searchTextChangeHandler(searchInputText);
   }, [questionsList]);
 
@@ -41,8 +40,6 @@ const QuestionsAndAnswers = ({ product_id }) => {
   };
 
   const searchTextChangeHandler = (query) => {
-    //keeping this console log until search filter permanence is implemented
-    //console.log(`Searching with query: ${query}!`);
     var copyList = JSON.parse(JSON.stringify(questionsList));
     var newDisplayList = [];
     for (var i = 0; i < copyList.length; i++) {
