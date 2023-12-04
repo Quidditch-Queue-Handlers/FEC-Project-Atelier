@@ -5,7 +5,7 @@ import RatingBars from './RatingBars'
 const ProductBreakdown = ({reviewMeta}) => {
 
   const ratings = reviewMeta.ratings;
-  console.log(reviewMeta)
+  // console.log(reviewMeta)
   const ratingsArray = Object.entries(ratings).map(([stars, count]) => ({
     stars: parseInt(stars, 10),
     count: parseInt(count, 10),
@@ -23,8 +23,7 @@ const ProductBreakdown = ({reviewMeta}) => {
     <div>
       <div className="rr-product-breakdown">
         <span className="rr-average-rating">{average}</span>
-        <ReviewStars rating={average} ratingId={average}
-        className="rr-prod-stars" style={{height: '5rem'}}/>
+        <ReviewStars rating={average} ratingId={average} size={24}/>
       </div>
 
       <div>
