@@ -11,7 +11,7 @@ const AnswerList = ({ loadMoreAnswersClickHandler, displayedAnswerList, reportBu
         {displayedAnswerList?.filter((answer, index) => index < displayCount)?.map((answer) => (
           <AnswerListItem
             answer={answer}
-            key={answer?.answer_id}
+            key={answer?.id}
             reportButtonClickHandler={reportButtonClickHandler}
           />
         ))}
