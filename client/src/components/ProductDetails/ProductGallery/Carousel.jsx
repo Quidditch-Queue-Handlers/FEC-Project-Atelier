@@ -109,7 +109,7 @@ const Carousel = ({
       <div className='pd-carousel-transform-container'>
         {photos?.map((photo, i) => (
           <div 
-            key={photo.url} 
+            key={photo.url + i} 
             className='pd-carousel-transform-element' 
             style={{ transform: `translate(${0 - photoIndex * 100}%)`}}
           >
