@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Search = ({ searchTextChangeHandler }) => {
-  const [searchInputText, setSearchInputText] = React.useState('')
+const Search = ({ searchTextChangeHandler, searchInputText, searchInputChangeHandler}) => {
+  // const [searchInputText, setSearchInputText] = React.useState('');
 
   React.useEffect(() => {
     if (searchInputText.length > 2) {
@@ -11,9 +11,9 @@ const Search = ({ searchTextChangeHandler }) => {
     }
   }, [searchInputText]);
 
-  const searchInputChangeHandler = (e) => {
-    setSearchInputText(e.target.value);
-  }
+  // const searchInputChangeHandler = (e) => {
+  //   setSearchInputText(e.target.value);
+  // }
   return (
     <label style={{ fontSize: "0" }}>
       have a question? Search for answers

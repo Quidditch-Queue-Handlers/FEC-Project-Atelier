@@ -11,6 +11,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
   const [displayCollapse, setDisplayCollapse] = React.useState(false);
   const [productId, setproductId] = React.useState(product_id);
   const [productName, setProductName] = React.useState('');
+  const [searchInputText, setSearchInputText] = React.useState('');
 
   React.useEffect(() => {
     axios.get(`/qa/questions?product_id=${product_id}&count=1000000000`)
@@ -25,6 +26,11 @@ const QuestionsAndAnswers = ({ product_id }) => {
       })
       .catch((err) => console.error(`questions get error for product: ${product_id}, `, err));
   }, []);
+
+  React.useEffect(() => {
+    //need to invoke the search change handler with the proper query so that i can maintain the search filter, maybe raise the state.
+    searchTextChangeHandler(searchInputText);
+  }, [questionsList]);
 
   const loadMoreQuestionsClickHandler = (collapseList) => {
     if (collapseList) {
@@ -45,6 +51,10 @@ const QuestionsAndAnswers = ({ product_id }) => {
     setDisplayedQuestionsList(newDisplayList);
   };
 
+  const searchInputChangeHandler = (e) => {
+    setSearchInputText(e.target.value);
+  }
+
   const addQuestionClickHandler = (text, nickname, email) => {
     axios.post(`/qa/questions`, {
       body: text,
@@ -52,6 +62,18 @@ const QuestionsAndAnswers = ({ product_id }) => {
       email: email,
       product_id: productId
     })
+      .then(() => {
+        axios.get(`/qa/questions?product_id=${product_id}&count=1000000000`)
+          .then(({ data }) => {
+            setQuestionsList(data?.results);
+          })
+          .then(() => {
+            axios.get(`/products/${productId}`)
+              .then(({ data }) => setProductName(data?.name))
+              .catch((err) => console.error(`products get error for product ${product_id}, `, err));
+          })
+          .catch((err) => console.error(`questions get error for product: ${product_id}, `, err));
+      })
       .catch((err) => console.error(`error posting question: ${err}`));
   };
 
@@ -62,6 +84,8 @@ const QuestionsAndAnswers = ({ product_id }) => {
         {questionsList.length !== 0 ? (
           <Search
             searchTextChangeHandler={searchTextChangeHandler}
+            searchInputChangeHandler={searchInputChangeHandler}
+            searchInputText={searchInputText}
           />
         ) : (
           null
