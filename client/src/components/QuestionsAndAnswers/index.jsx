@@ -13,7 +13,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
   const [productName, setProductName] = React.useState('');
 
   React.useEffect(() => {
-    axios.get(`/qa/questions?product_id=${product_id}&count=80`)
+    axios.get(`/qa/questions?product_id=${product_id}&count=1000000000`)
       .then(({ data }) => {
         setQuestionsList(data?.results);
         setDisplayedQuestionsList(data?.results);
@@ -36,7 +36,7 @@ const QuestionsAndAnswers = ({ product_id }) => {
 
   const searchTextChangeHandler = (query) => {
     //keeping this console log until search filter permanence is implemented
-    console.log(`Searching with query: ${query}!`);
+    //console.log(`Searching with query: ${query}!`);
     var copyList = JSON.parse(JSON.stringify(questionsList));
     var newDisplayList = [];
     for (var i = 0; i < copyList.length; i++) {
